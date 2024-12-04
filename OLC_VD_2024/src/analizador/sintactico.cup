@@ -1,0 +1,113 @@
+package analizador;
+
+// importaciones si fuese necesario
+import OperacionConj.Complement;
+import OperacionConj.Difference;
+import OperacionConj.Interseccion;
+import OperacionConj.Range;
+import OperacionConj.SetDefine;
+import OperacionConj.SetEval;
+import OperacionConj.SetOperation;
+import OperacionConj.SetReference;
+import OperacionConj.Union;
+import contracts.IOperation;
+import contracts.IStatment;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+import java_cup.runtime.Symbol;
+// area de codigo -> parser code
+parser code
+{:
+    public LinkedList<IStatment> AST;
+    public scanner s;
+    public List<String> errores = new ArrayList<>();
+
+    parser(scanner s) {
+        this.s = s;
+    }
+
+    public void syntax_error(Symbol s) {
+        String error = "Error Sintactico en la linea " + s.left + " y columna " + s.right + ". No se esperaba el componente: " + s.value + ".";
+        errores.add(error);
+        System.out.println(error);
+    }
+
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception {
+        String error = "Error Sintactico no recuperable en la linea " + s.left + " y columna " + s.right + ". No se esperaba el componente: " + s.value + ".";
+        errores.add(error);
+        System.out.println(error);
+    }
+
+:}
+
+// area de codigo -> accion
+
+action code
+{:
+:}
+
+terminal CONJUNTO, OPERACION, EVALUACION;
+terminal String UNION, INTERSEC, DIFF, COMPLEMENT;
+terminal String ID, ELEMENT;
+terminal TO, COLOM, RANGE, COMA, LBRACE, RBRACE, LPAR, RPAR, FINCADENA;
+terminal COMMENT, MCOMMENT;
+
+non terminal SP;
+non terminal LinkedList<IStatment> instrucciones;
+non terminal IStatment instruccion;
+non terminal SetDefine conj_def;
+non terminal SetOperation opera_def;
+non terminal SetEval eval_def;
+non terminal Set<String> eval_conj, eval_element, conj_element;
+non terminal IOperation expr, opera_conj;
+
+// Comienzo de la gramática
+start with SP;
+
+SP ::= LBRACE instrucciones:i RBRACE {: parser.AST = i; :}    
+;
+
+instrucciones ::= instrucciones:i instruccion:j {: RESULT = i; RESULT.add(j); :}
+                | instruccion:i {: RESULT = new LinkedList<IStatment>(); RESULT.add(i); :}
+                | COMMENT
+                | MCOMMENT
+;
+
+instruccion ::= conj_def:s {: RESULT = s; :}
+                | opera_def:s {: RESULT = s; :}
+                | eval_def:s {: RESULT = s; :}
+;
+
+conj_def ::= CONJUNTO COLOM ID:n TO conj_element:c FINCADENA {: RESULT = new SetDefine(n, c); :}
+;
+
+conj_element ::= conj_element:c COMA ELEMENT:n {: RESULT = c; c.add(String.valueOf(n)); :}
+                | ELEMENT:n1 RANGE ELEMENT:n2 {: RESULT = new Range(n1, n2).generate(); :}
+                | ELEMENT:n {: RESULT = new HashSet<>(); RESULT.add(String.valueOf(n)); :}
+;
+
+opera_conj ::= LBRACE ID:c RBRACE {: RESULT = new SetReference(c); :}
+;
+
+opera_def ::= OPERACION COLOM ID:n TO expr:e FINCADENA {: RESULT = new SetOperation(n, e); :}
+;
+
+expr ::= opera_conj:c {: RESULT = c; :}
+        | UNION expr:e1 expr:e2 {: RESULT = new Union(e1, e2); :}
+        | INTERSEC expr:e1 expr:e2 {: RESULT = new Interseccion(e1, e2); :}
+        | DIFF expr:e1 expr:e2 {: RESULT = new Difference(e1, e2); :}
+        | COMPLEMENT expr:e {: RESULT = new Complement(e); :}
+;
+
+eval_def ::= EVALUACION LPAR eval_conj:o COMA ID:c RPAR FINCADENA {: RESULT = new SetEval(o, c); :}
+;
+
+eval_conj ::= LBRACE eval_element:e RBRACE {: RESULT = e; :}
+;
+
+eval_element ::= eval_element:e COMA ELEMENT:n {: RESULT = e; e.add(n); :}
+               | ELEMENT:n {: RESULT = new HashSet<>(); RESULT.add(n); :}
+;
