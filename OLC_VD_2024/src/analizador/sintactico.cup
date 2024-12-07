@@ -28,8 +28,8 @@ action code
 {:
 :}
 
-terminal String CADENA, ENETERO, DECIMAL;
-terminal FINCADENA, PRINT;
+terminal String CADENA, ENTERO, DECIMAL;
+terminal FINCADENA, IMPRIMIR;
 terminal PAR1, PAR2;
 
 nonterminal LinkedList<Instrucciones> inicio, instrucciones;
@@ -38,22 +38,23 @@ nonterminal Instrucciones expresion;
 
 // Comienzo de la gramática
 start with inicio;
-inicio ::= instrucciones {: RESULT = a; :}
+
+inicio ::= instrucciones:a {: RESULT = a; :}
 ;
 
 instrucciones ::= instrucciones:a instruccion:b {:RESULT = a; RESULT.add(b); :}
-                | instruccion:a {: RESULT = new LinkedList<instruccion>(); RESULT.add(a); :}
+                | instruccion:a {: RESULT = new LinkedList<Instrucciones>(); RESULT.add(a); :}
 ;
 
-instruccion ::= impresion:a FINCADENA; {: RESULT = a; :}
+instruccion ::= impresion:a {: RESULT = a; :}
 ;
 
-impresion ::= PRINT PAR1 expresion:a PAR2 {: RESULT = new Print(a, aleft, aright); :}
+impresion ::= IMPRIMIR PAR1 expresion:a PAR2 FINCADENA{: RESULT = new Print(a, aleft, aright); :}
 ;
 
 expresion ::= PAR1 expresion:a PAR2 {: RESULT = a; :}
-            | ENETERO:a {: RESULT = new Nativo(Integer.parseInt(a), new Tipo(TipoDato.ENETERO), aleft, aright); :}
+            | ENTERO:a {: RESULT = new Nativo(Integer.parseInt(a), new Tipo(TipoDato.CADENA), aleft, aright); :}
             | DECIMAL:a {: RESULT = new Nativo(new Double(a), new Tipo(TipoDato.DECIMAL), aleft, aright); :}
-            | CADENA:a  {: RESULT = new Nativo(a,new Tipo(TipoDato.ENETERO), aleft, aright); :}
+            | CADENA:a  {: RESULT = new Nativo(a,new Tipo(TipoDato.ENTERO), aleft, aright); :}
 ;
 
