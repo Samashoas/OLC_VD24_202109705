@@ -1,0 +1,30 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package simbolo;
+
+import abstracto.Instrucciones;
+import excepciones.Errores;
+import java.util.LinkedList;
+
+/**
+ *
+ * @author jpsam
+ */
+public class Arbol {
+    private LinkedList<Instrucciones> instructions;
+    private String console;
+    private LinkedList<Errores> errors;
+    // tabla de simbolos (global)
+
+    public Arbol(LinkedList<Instrucciones> instructions) {
+        this.instructions = instructions;
+        console = "";
+        this.errors = new LinkedList<>();
+    }
+    
+    public void Print(String value){
+        this.console += value + "\n";
+    }
+}
