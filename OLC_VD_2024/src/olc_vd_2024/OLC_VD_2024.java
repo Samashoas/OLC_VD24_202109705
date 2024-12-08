@@ -25,7 +25,7 @@ public class OLC_VD_2024 {
     public static void main(String[] args) {
         // TODO code application logic here
         try{
-            String texto = "console.log(\"Mi cadena\");console.log(2);console.log(3.33);";
+            String texto = "console.log(\"Mi cadena\");console.log(2+3+4);console.log(3.33);";
             scanner s = new scanner(new BufferedReader(new StringReader(texto)));
             parser p = new parser(s);
             var resultado = p.parse();

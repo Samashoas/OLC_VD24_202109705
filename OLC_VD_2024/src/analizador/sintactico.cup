@@ -11,6 +11,8 @@ import instrucciones.Print;
 
 //expresiones
 import expresiones.Nativo;
+import expresiones.Aritmeticas;
+import expresiones.OperadoresAritmeticos;
 
 // area de codigo -> parser code
 parser code
@@ -32,11 +34,13 @@ action code
 
 terminal String CADENA, ENTERO, DECIMAL;
 terminal FINCADENA, IMPRIMIR;
-terminal PAR1, PAR2;
+terminal PAR1, PAR2, MAS;
 
 nonterminal LinkedList<Instrucciones> inicio, instrucciones;
 nonterminal Instrucciones instruccion, impresion;
 nonterminal Instrucciones expresion;
+
+precedence left MAS;
 
 // Comienzo de la gramática
 start with inicio;
@@ -54,9 +58,9 @@ instruccion ::= impresion:a {: RESULT = a; :}
 impresion ::= IMPRIMIR PAR1 expresion:a PAR2 FINCADENA{: RESULT = new Print(a, aleft, aright); :}
 ;
 
-expresion ::= PAR1 expresion:a PAR2 {: RESULT = a; :}
-            | ENTERO:a {: RESULT = new Nativo(Integer.parseInt(a), new Tipo(TipoDato.CADENA), aleft, aright); :}
+expresion ::= expresion:a MAS expresion:b {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.SUMA, aleft, aright);   :}
+            | ENTERO:a {: RESULT = new Nativo(Integer.parseInt(a), new Tipo(TipoDato.ENTERO), aleft, aright); :}
             | DECIMAL:a {: RESULT = new Nativo(new Double(a), new Tipo(TipoDato.DECIMAL), aleft, aright); :}
-            | CADENA:a  {: RESULT = new Nativo(a,new Tipo(TipoDato.ENTERO), aleft, aright); :}
+            | CADENA:a  {: RESULT = new Nativo(a ,new Tipo(TipoDato.CADENA), aleft, aright); :}
+            | PAR1 expresion:a PAR2 {: RESULT = a; :}
 ;
-

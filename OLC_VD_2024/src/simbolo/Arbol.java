@@ -31,10 +31,6 @@ public class Arbol {
     public String getConsole() {
         return console;
     }
-    
-    
-    
-    
     public void Print(String value){
         this.console += value + "\n";
     }

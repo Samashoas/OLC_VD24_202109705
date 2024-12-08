@@ -37,6 +37,7 @@ IMPRIMIR = "console.log"
 
 // ------>OPERACIONES<------
 //Operadores aritmeticos
+MAS = "+"
 
 // ------>SIMBOLOS<------
 PAR1 = "("
@@ -52,7 +53,8 @@ WHITESPACE = [ \t\r\f]+
 
 // retorno de expresiones regulares
 %%
-<YYINITIAL> {IMPRIMIR}          {return new Symbol(sym.IMPRIMIR, yyline, yycolumn, yytext());}
+<YYINITIAL> {IMPRIMIR}       {return new Symbol(sym.IMPRIMIR, yyline, yycolumn, yytext());}
+
 <YYINITIAL> {DECIMAL}        {return new Symbol(sym.DECIMAL, yyline, yycolumn, yytext());}
 <YYINITIAL> {ENTERO}         {return new Symbol(sym.ENTERO, yyline, yycolumn, yytext());}
 
@@ -66,4 +68,5 @@ WHITESPACE = [ \t\r\f]+
 <YYINITIAL> {FINCADENA}      {return new Symbol(sym.FINCADENA, yyline, yycolumn, yytext());}
 
 <YYINITIAL> {WHITESPACE}     {}
+<YYINITIAL> {MAS}            {return new Symbol(sym.MAS, yyline, yycolumn, yytext());}
 . {System.out.println("Error Lexico en la linea " + yyline + " y columna " + yycolumn + ". No se esperaba el componente: " + yytext());}

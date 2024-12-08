@@ -12,6 +12,7 @@ public class sym {
   public static final int DECIMAL = 4;
   public static final int ENTERO = 3;
   public static final int EOF = 0;
+  public static final int MAS = 9;
   public static final int PAR2 = 8;
   public static final int PAR1 = 7;
   public static final int FINCADENA = 5;
@@ -26,7 +27,8 @@ public class sym {
   "FINCADENA",
   "IMPRIMIR",
   "PAR1",
-  "PAR2"
+  "PAR2",
+  "MAS"
   };
 }
 

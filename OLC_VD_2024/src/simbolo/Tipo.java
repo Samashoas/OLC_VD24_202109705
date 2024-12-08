@@ -20,6 +20,6 @@ public class Tipo {
     }
 
     public void setTipo(TipoDato tipo) {
-        this.type = type;
+        this.type = tipo;
     }
 }
