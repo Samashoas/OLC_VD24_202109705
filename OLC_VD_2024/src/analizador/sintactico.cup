@@ -8,8 +8,10 @@ import simbolo.*;
 
 //instrucciones
 import instrucciones.Print;
+
 //expresiones
 import expresiones.Nativo;
+
 // area de codigo -> parser code
 parser code
 {:

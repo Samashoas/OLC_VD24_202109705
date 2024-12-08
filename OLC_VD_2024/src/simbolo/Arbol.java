@@ -23,6 +23,17 @@ public class Arbol {
         console = "";
         this.errors = new LinkedList<>();
     }
+
+    public LinkedList<Instrucciones> getInstructions() {
+        return instructions;
+    }
+
+    public String getConsole() {
+        return console;
+    }
+    
+    
+    
     
     public void Print(String value){
         this.console += value + "\n";
