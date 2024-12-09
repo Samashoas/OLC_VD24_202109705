@@ -34,13 +34,14 @@ action code
 
 terminal String CARACTER, CADENA, ENTERO, DECIMAL;
 terminal FINCADENA, IMPRIMIR;
-terminal PAR1, PAR2, MAS, MENOS, UMENOS;
+terminal PAR1, PAR2, MAS, MENOS, UMENOS, POR;
 
 nonterminal LinkedList<Instrucciones> inicio, instrucciones;
 nonterminal Instrucciones instruccion, impresion;
 nonterminal Instrucciones expresion;
 
 precedence left MAS, MENOS;
+precedence left POR;
 precedence right UMENOS;
 
 // Comienzo de la gramática
@@ -62,6 +63,7 @@ impresion ::= IMPRIMIR PAR1 expresion:a PAR2 FINCADENA{: RESULT = new Print(a, a
 expresion ::= MENOS expresion:a {:   RESULT = new Aritmeticas(a, OperadoresAritmeticos.NEGATIVO, aleft, aright);:} %prec UMENOS 
             |expresion:a MAS expresion:b {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.SUMA, aleft, aright);   :}
             |expresion:a MENOS expresion:b {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.RESTA, aleft, aright);   :}
+            |expresion:a POR expresion:b {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.MULTIPLICACION, aleft, aright);   :}
 
             | ENTERO:a {: RESULT = new Nativo(Integer.parseInt(a), new Tipo(TipoDato.ENTERO), aleft, aright); :}
             | DECIMAL:a {: RESULT = new Nativo(Double.parseDouble(a), new Tipo(TipoDato.DECIMAL), aleft, aright); :}

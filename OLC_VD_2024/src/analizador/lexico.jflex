@@ -39,6 +39,7 @@ IMPRIMIR = "console.log"
 //Operadores aritmeticos
 MAS = "+"
 MENOS = "-"
+POR = "*"
 
 // ------>SIMBOLOS<------
 PAR1 = "("
@@ -76,4 +77,5 @@ WHITESPACE = [ \t\r\f\n]+
 
 <YYINITIAL> {MAS}            {return new Symbol(sym.MAS, yyline, yycolumn, yytext());}
 <YYINITIAL> {MENOS}          {return new Symbol(sym.MENOS, yyline, yycolumn, yytext());}
+<YYINITIAL> {POR}            {return new Symbol(sym.POR, yyline, yycolumn, yytext());}
 . {System.out.println("Error Lexico en la linea " + yyline + " y columna " + yycolumn + ". No se esperaba el componente: " + yytext());}

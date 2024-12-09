@@ -12,6 +12,7 @@ public class sym {
   public static final int DECIMAL = 5;
   public static final int MENOS = 11;
   public static final int UMENOS = 12;
+  public static final int POR = 13;
   public static final int ENTERO = 4;
   public static final int EOF = 0;
   public static final int MAS = 10;
@@ -34,7 +35,8 @@ public class sym {
   "PAR2",
   "MAS",
   "MENOS",
-  "UMENOS"
+  "UMENOS",
+  "POR"
   };
 }
 
