@@ -76,15 +76,15 @@ public class Aritmeticas extends Instrucciones {
                 switch (tipo2) {
                     case ENTERO -> {
                         this.type.setTipo(TipoDato.ENTERO);
-                        return (int) op1 + (int) op2;
+                        return Integer.valueOf((int) op1 + (int) op2);
                     }
                     case DECIMAL -> {
                         this.type.setTipo(TipoDato.DECIMAL);
-                        return (int) op1 + (double) op2;
+                        return Double.valueOf((int) op1 + (double) op2);
                     }
                     case CARACTER -> {
                         this.type.setTipo(TipoDato.ENTERO);
-                        return (int) op1 + op2.toString().charAt(0);
+                        return Integer.valueOf((int) op1 + op2.toString().charAt(0));
                     }
                     case CADENA->{
                         this.type.setTipo(TipoDato.CADENA);
@@ -103,11 +103,11 @@ public class Aritmeticas extends Instrucciones {
                     }
                     case DECIMAL -> {
                         this.type.setTipo(TipoDato.DECIMAL);
-                        return (double) op1 + (double) op2;
+                        return Double.valueOf((double) op1 + (double) op2);
                     }
                     case CARACTER -> {
                         this.type.setTipo(TipoDato.DECIMAL);
-                        return (double) op1 + op2.toString().charAt(0);
+                        return Double.valueOf((double) op1 + op2.toString().charAt(0));
                     }
                     case CADENA ->{
                         this.type.setTipo(TipoDato.CADENA);
@@ -122,11 +122,11 @@ public class Aritmeticas extends Instrucciones {
                 switch (tipo2){
                     case ENTERO -> {
                         this.type.setTipo(TipoDato.ENTERO);
-                        return op1.toString().charAt(0) + (int) op2;
+                        return Integer.valueOf(op1.toString().charAt(0) + (int) op2);
                     }
                     case DECIMAL -> {
                         this.type.setTipo(TipoDato.DECIMAL);
-                        return op1.toString().charAt(0) + (double) op2;
+                        return Double.valueOf(op1.toString().charAt(0) + (double) op2);
                     }
                     case CARACTER -> {
                         this.type.setTipo(TipoDato.CADENA);
@@ -145,11 +145,11 @@ public class Aritmeticas extends Instrucciones {
                 switch (tipo2){
                     case ENTERO -> {
                         this.type.setTipo(TipoDato.CADENA);
-                        return op1.toString() + op2.toString();
+                        return Integer.valueOf(op1.toString() + op2.toString());
                     }
                     case DECIMAL -> {
                         this.type.setTipo(TipoDato.CADENA);
-                        return op1.toString() + op2.toString();
+                        return Double.valueOf(op1.toString() + op2.toString());
                     }
                     case CARACTER ->{
                         this.type.setTipo(TipoDato.CADENA);
@@ -180,15 +180,15 @@ public class Aritmeticas extends Instrucciones {
                 switch (tipo2) {
                     case ENTERO -> {
                         this.type.setTipo(TipoDato.ENTERO);
-                        return (int) op1 - (int) op2;
+                        return Integer.valueOf((int) op1 - (int) op2);
                     }
                     case DECIMAL -> {
                         this.type.setTipo(TipoDato.DECIMAL);
-                        return (int) op1 - (double) op2;
+                        return Double.valueOf((int) op1 - (double) op2);
                     }
                     case CARACTER -> {
                         this.type.setTipo(TipoDato.ENTERO);
-                        return (int) op1 - op2.toString().charAt(0);
+                        return Integer.valueOf((int) op1 - op2.toString().charAt(0));
                     }
                     default -> {
                         return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
@@ -204,11 +204,11 @@ public class Aritmeticas extends Instrucciones {
                     }
                     case DECIMAL -> {
                         this.type.setTipo(TipoDato.DECIMAL);
-                        return (double) op1 - (double) op2;
+                        return Double.valueOf((double) op1 - (double) op2);
                     }
                     case CARACTER -> {
                         this.type.setTipo(TipoDato.DECIMAL);
-                        return (double) op1 - op2.toString().charAt(0);
+                        return Double.valueOf((double) op1 - op2.toString().charAt(0));
                     }
                     default -> {
                         return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
@@ -219,11 +219,11 @@ public class Aritmeticas extends Instrucciones {
                 switch (tipo2){
                     case ENTERO -> {
                         this.type.setTipo(TipoDato.ENTERO);
-                        return op1.toString().charAt(0) - (int) op2;
+                        return Integer.valueOf(op1.toString().charAt(0) - (int) op2);
                     }
                     case DECIMAL -> {
                         this.type.setTipo(TipoDato.DECIMAL);
-                        return op1.toString().charAt(0) - (double) op2;
+                        return Double.valueOf(op1.toString().charAt(0) - (double) op2);
                     }
                     default -> {
                         return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
@@ -246,15 +246,15 @@ public class Aritmeticas extends Instrucciones {
                 switch (tipo2) {
                     case ENTERO -> {
                         this.type.setTipo(TipoDato.ENTERO);
-                        return (int) op1 * (int) op2;
+                        return Integer.valueOf((int) op1 * (int) op2);
                     }
                     case DECIMAL -> {
                         this.type.setTipo(TipoDato.DECIMAL);
-                        return (int) op1 * (double) op2;
+                        return Double.valueOf((int) op1 * (double) op2);
                     }
                     case CARACTER -> {
                         this.type.setTipo(TipoDato.ENTERO);
-                        return (int) op1 * op2.toString().charAt(0);
+                        return Integer.valueOf((int) op1 * op2.toString().charAt(0));
                     }
                     default -> {
                         return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
@@ -270,7 +270,7 @@ public class Aritmeticas extends Instrucciones {
                     }
                     case DECIMAL -> {
                         this.type.setTipo(TipoDato.DECIMAL);
-                        return (double) op1 * (double) op2;
+                        return Double.valueOf((double) op1 * (double) op2);
                     }
                     case CARACTER -> {
                         this.type.setTipo(TipoDato.DECIMAL);
@@ -285,11 +285,11 @@ public class Aritmeticas extends Instrucciones {
                 switch (tipo2){
                     case ENTERO -> {
                         this.type.setTipo(TipoDato.ENTERO);
-                        return op1.toString().charAt(0) * (int) op2;
+                        return Integer.valueOf(op1.toString().charAt(0) * (int) op2);
                     }
                     case DECIMAL -> {
                         this.type.setTipo(TipoDato.DECIMAL);
-                        return op1.toString().charAt(0) * (double) op2;
+                        return Double.valueOf(op1.toString().charAt(0) * (double) op2);
                     }
                     default -> {
                         return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
@@ -302,17 +302,17 @@ public class Aritmeticas extends Instrucciones {
             }
         }
     }
-    
+        
     public Object negacion(Object op1) {
         var opU = this.operandoUnico.type.getTipo();
         switch (opU) {
             case ENTERO -> {
                 this.type.setTipo(TipoDato.ENTERO);
-                return (int) op1 * -1;
+                return Integer.valueOf((int) op1 * -1);
             }
             case DECIMAL -> {
                 this.type.setTipo(TipoDato.DECIMAL);
-                return (double) op1 * -1;
+                return Double.valueOf((double) op1 * -1);
             }
             default -> {
                 return new Errores("SEMANTICO", "Negacion erronea", this.line, this.column);
