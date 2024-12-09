@@ -10,6 +10,8 @@ public class sym {
   /* terminals */
   public static final int CADENA = 3;
   public static final int DECIMAL = 5;
+  public static final int MENOS = 11;
+  public static final int UMENOS = 12;
   public static final int ENTERO = 4;
   public static final int EOF = 0;
   public static final int MAS = 10;
@@ -30,7 +32,9 @@ public class sym {
   "IMPRIMIR",
   "PAR1",
   "PAR2",
-  "MAS"
+  "MAS",
+  "MENOS",
+  "UMENOS"
   };
 }
 

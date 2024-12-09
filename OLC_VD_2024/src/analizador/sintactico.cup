@@ -34,13 +34,14 @@ action code
 
 terminal String CARACTER, CADENA, ENTERO, DECIMAL;
 terminal FINCADENA, IMPRIMIR;
-terminal PAR1, PAR2, MAS;
+terminal PAR1, PAR2, MAS, MENOS, UMENOS;
 
 nonterminal LinkedList<Instrucciones> inicio, instrucciones;
 nonterminal Instrucciones instruccion, impresion;
 nonterminal Instrucciones expresion;
 
 precedence left MAS;
+precedence right UMENOS;
 
 // Comienzo de la gramática
 start with inicio;
@@ -58,10 +59,11 @@ instruccion ::= impresion:a {: RESULT = a; :}
 impresion ::= IMPRIMIR PAR1 expresion:a PAR2 FINCADENA{: RESULT = new Print(a, aleft, aright); :}
 ;
 
-expresion ::= expresion:a MAS expresion:b {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.SUMA, aleft, aright);   :}
+expresion ::= MENOS expresion:a {:   RESULT = new Aritmeticas(a, OperadoresAritmeticos.NEGATIVO, aleft, aright);:} %prec UMENOS 
+            |expresion:a MAS expresion:b {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.SUMA, aleft, aright);   :}
 
             | ENTERO:a {: RESULT = new Nativo(Integer.parseInt(a), new Tipo(TipoDato.ENTERO), aleft, aright); :}
-            | DECIMAL:a {: RESULT = new Nativo(new Double(a), new Tipo(TipoDato.DECIMAL), aleft, aright); :}
+            | DECIMAL:a {: RESULT = new Nativo(Double.parseDouble(a), new Tipo(TipoDato.DECIMAL), aleft, aright); :}
             | CARACTER:a {: RESULT = new Nativo(a, new Tipo(TipoDato.CARACTER), aleft, aright); :}
             | CADENA:a  {: RESULT = new Nativo(a ,new Tipo(TipoDato.CADENA), aleft, aright); :}
             
