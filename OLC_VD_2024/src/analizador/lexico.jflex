@@ -47,17 +47,23 @@ FINCADENA = ";"
 // ------>Expresiones regulares<------
 ENTERO = [0-9]+
 DECIMAL = [0-9]+"."[0-9]+
+CARACTER = \'([^\']|[\t]|[\n]|[\r]|[ ])\' 
 CADENA = \"([^\"]|[\t]|[\n]|[\r]|[ ])*\" 
 
-WHITESPACE = [ \t\r\f]+
+WHITESPACE = [ \t\r\f\n]+
 
 // retorno de expresiones regulares
 %%
+<YYINITIAL> {WHITESPACE}     {}
 <YYINITIAL> {IMPRIMIR}       {return new Symbol(sym.IMPRIMIR, yyline, yycolumn, yytext());}
 
 <YYINITIAL> {DECIMAL}        {return new Symbol(sym.DECIMAL, yyline, yycolumn, yytext());}
 <YYINITIAL> {ENTERO}         {return new Symbol(sym.ENTERO, yyline, yycolumn, yytext());}
 
+<YYINITIAL> {CARACTER}       {String caracter = yytext(); 
+                              caracter=caracter.substring(1, caracter.length() - 1);
+                              return new Symbol(sym.CARACTER, yyline, yycolumn, caracter);
+                             }   
 <YYINITIAL> {CADENA} {String cadena = yytext(); 
                         cadena=cadena.substring(1, cadena.length() - 1);
                         return new Symbol(sym.CADENA, yyline, yycolumn, cadena);
@@ -67,6 +73,5 @@ WHITESPACE = [ \t\r\f]+
 <YYINITIAL> {PAR2}           {return new Symbol(sym.PAR2, yyline, yycolumn, yytext());}
 <YYINITIAL> {FINCADENA}      {return new Symbol(sym.FINCADENA, yyline, yycolumn, yytext());}
 
-<YYINITIAL> {WHITESPACE}     {}
 <YYINITIAL> {MAS}            {return new Symbol(sym.MAS, yyline, yycolumn, yytext());}
 . {System.out.println("Error Lexico en la linea " + yyline + " y columna " + yycolumn + ". No se esperaba el componente: " + yytext());}

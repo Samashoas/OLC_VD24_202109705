@@ -78,7 +78,11 @@ public class Aritmeticas extends Instrucciones {
                         this.type.setTipo(TipoDato.DECIMAL);
                         return (int) op1 + (double) op2;
                     }
-                    case CADENA -> {
+                    case CARACTER -> {
+                        this.type.setTipo(TipoDato.ENTERO);
+                        return (int) op1 + op2.toString().charAt(0);
+                    }
+                    case CADENA->{
                         this.type.setTipo(TipoDato.CADENA);
                         return op1.toString() + op2.toString();
                     }
@@ -97,6 +101,33 @@ public class Aritmeticas extends Instrucciones {
                         this.type.setTipo(TipoDato.DECIMAL);
                         return (double) op1 + (double) op2;
                     }
+                    case CARACTER -> {
+                        this.type.setTipo(TipoDato.DECIMAL);
+                        return (double) op1 + op2.toString().charAt(0);
+                    }
+                    case CADENA ->{
+                        this.type.setTipo(TipoDato.CADENA);
+                        return op1.toString() + op2.toString();
+                    }
+                    default -> {
+                        return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
+                    }
+                }
+            }
+            case CARACTER ->{
+                switch (tipo2){
+                    case ENTERO -> {
+                        this.type.setTipo(TipoDato.ENTERO);
+                        return op1.toString().charAt(0) + (int) op2;
+                    }
+                    case DECIMAL -> {
+                        this.type.setTipo(TipoDato.DECIMAL);
+                        return op1.toString().charAt(0) + (double) op2;
+                    }
+                    case CARACTER -> {
+                        this.type.setTipo(TipoDato.CADENA);
+                        return op1.toString() + op2.toString();
+                    }
                     case CADENA -> {
                         this.type.setTipo(TipoDato.CADENA);
                         return op1.toString() + op2.toString();
@@ -113,6 +144,10 @@ public class Aritmeticas extends Instrucciones {
                         return op1.toString() + op2.toString();
                     }
                     case DECIMAL -> {
+                        this.type.setTipo(TipoDato.CADENA);
+                        return op1.toString() + op2.toString();
+                    }
+                    case CARACTER ->{
                         this.type.setTipo(TipoDato.CADENA);
                         return op1.toString() + op2.toString();
                     }

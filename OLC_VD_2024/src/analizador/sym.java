@@ -8,19 +8,21 @@ package analizador;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int CADENA = 2;
-  public static final int DECIMAL = 4;
-  public static final int ENTERO = 3;
+  public static final int CADENA = 3;
+  public static final int DECIMAL = 5;
+  public static final int ENTERO = 4;
   public static final int EOF = 0;
-  public static final int MAS = 9;
-  public static final int PAR2 = 8;
-  public static final int PAR1 = 7;
-  public static final int FINCADENA = 5;
+  public static final int MAS = 10;
+  public static final int PAR2 = 9;
+  public static final int PAR1 = 8;
+  public static final int FINCADENA = 6;
   public static final int error = 1;
-  public static final int IMPRIMIR = 6;
+  public static final int IMPRIMIR = 7;
+  public static final int CARACTER = 2;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
+  "CARACTER",
   "CADENA",
   "ENTERO",
   "DECIMAL",
