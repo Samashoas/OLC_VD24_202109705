@@ -78,6 +78,10 @@ public class Aritmeticas extends Instrucciones {
                         this.type.setTipo(TipoDato.DECIMAL);
                         return (int) op1 + (double) op2;
                     }
+                    case CADENA -> {
+                        this.type.setTipo(TipoDato.CADENA);
+                        return op1.toString() + op2.toString();
+                    }
                     default -> {
                         return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
                     }
@@ -92,6 +96,29 @@ public class Aritmeticas extends Instrucciones {
                     case DECIMAL -> {
                         this.type.setTipo(TipoDato.DECIMAL);
                         return (double) op1 + (double) op2;
+                    }
+                    case CADENA -> {
+                        this.type.setTipo(TipoDato.CADENA);
+                        return op1.toString() + op2.toString();
+                    }
+                    default -> {
+                        return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
+                    }
+                }
+            }
+            case CADENA -> {
+                switch (tipo2){
+                    case ENTERO -> {
+                        this.type.setTipo(TipoDato.CADENA);
+                        return op1.toString() + op2.toString();
+                    }
+                    case DECIMAL -> {
+                        this.type.setTipo(TipoDato.CADENA);
+                        return op1.toString() + op2.toString();
+                    }
+                    case CADENA -> {
+                        this.type.setTipo(TipoDato.CADENA);
+                        return op1.toString() + op2.toString();
                     }
                     default -> {
                         return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
