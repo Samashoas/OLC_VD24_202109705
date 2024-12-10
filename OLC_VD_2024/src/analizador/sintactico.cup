@@ -41,8 +41,8 @@ nonterminal Instrucciones instruccion, impresion;
 nonterminal Instrucciones expresion;
 
 precedence left MAS, MENOS;
-precedence left POR, DIVISION;
-precedence nonassoc POTENCIA, RAIZ, MODULO;
+precedence left POR, DIVISION, MODULO;
+precedence nonassoc POTENCIA, RAIZ;
 precedence right UMENOS;
 
 // Comienzo de la gramática
