@@ -16,6 +16,7 @@ public class sym {
   public static final int DIVISION = 15;
   public static final int POTENCIA = 16;
   public static final int IMPRIMIR = 8;
+  public static final int MODULO = 18;
   public static final int UMENOS = 13;
   public static final int POR = 14;
   public static final int BOOLEANO = 6;
@@ -44,7 +45,8 @@ public class sym {
   "POR",
   "DIVISION",
   "POTENCIA",
-  "RAIZ"
+  "RAIZ",
+  "MODULO"
   };
 }
 

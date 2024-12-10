@@ -43,6 +43,7 @@ POR = "*"
 DIVISION = "/"
 POTENCIA = "^"
 RAIZ = "$"
+MODULO = "%"
 
 // ------>SIMBOLOS<------
 PAR1 = "("
@@ -71,10 +72,10 @@ WHITESPACE = [ \t\r\f\n]+
                               caracter=caracter.substring(1, caracter.length() - 1);
                               return new Symbol(sym.CARACTER, yyline, yycolumn, caracter);
                              }   
-<YYINITIAL> {CADENA} {String cadena = yytext(); 
-                        cadena=cadena.substring(1, cadena.length() - 1);
-                        return new Symbol(sym.CADENA, yyline, yycolumn, cadena);
-                    }
+<YYINITIAL> {CADENA}        {String cadena = yytext(); 
+                            cadena=cadena.substring(1, cadena.length() - 1);
+                            return new Symbol(sym.CADENA, yyline, yycolumn, cadena);
+                            }
 
 <YYINITIAL> {PAR1}           {return new Symbol(sym.PAR1, yyline, yycolumn, yytext());}
 <YYINITIAL> {PAR2}           {return new Symbol(sym.PAR2, yyline, yycolumn, yytext());}
@@ -86,5 +87,6 @@ WHITESPACE = [ \t\r\f\n]+
 <YYINITIAL> {DIVISION}       {return new Symbol(sym.DIVISION, yyline, yycolumn, yytext());}
 <YYINITIAL> {POTENCIA}       {return new Symbol(sym.POTENCIA, yyline, yycolumn, yytext());}
 <YYINITIAL> {RAIZ}           {return new Symbol(sym.RAIZ, yyline, yycolumn, yytext());}
+<YYINITIAL> {MODULO}         {return new Symbol(sym.MODULO, yyline, yycolumn, yytext());}
 
 . {System.out.println("Error Lexico en la linea " + yyline + " y columna " + yycolumn + ". No se esperaba el componente: " + yytext());}
