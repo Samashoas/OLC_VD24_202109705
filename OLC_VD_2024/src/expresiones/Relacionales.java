@@ -86,6 +86,25 @@ public class Relacionales extends Instrucciones{
                     }
                 }
             }
+            case CARACTER -> {
+                switch(tipo2){
+                    case ENTERO ->{
+                        this.type.setTipo(TipoDato.BOOLEANO);
+                        return (int)op1.toString().charAt(0) == (int)op2;
+                    }
+                    case DECIMAL ->{
+                        this.type.setTipo(TipoDato.BOOLEANO);
+                        return (double)op1.toString().charAt(0) == (double)op2;
+                    }
+                    case CARACTER ->{
+                        this.type.setTipo(TipoDato.BOOLEANO);
+                        return op1.toString().charAt(0) == op2.toString().charAt(0);
+                    }
+                    default ->{
+                        return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
+                    }
+                }
+            }
             default -> {
                 return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
             }
