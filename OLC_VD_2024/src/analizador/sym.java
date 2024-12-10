@@ -20,6 +20,7 @@ public class sym {
   public static final int PAR1 = 8;
   public static final int FINCADENA = 6;
   public static final int error = 1;
+  public static final int DIVISION = 14;
   public static final int IMPRIMIR = 7;
   public static final int CARACTER = 2;
   public static final String[] terminalNames = new String[] {
@@ -36,7 +37,8 @@ public class sym {
   "MAS",
   "MENOS",
   "UMENOS",
-  "POR"
+  "POR",
+  "DIVISION"
   };
 }
 

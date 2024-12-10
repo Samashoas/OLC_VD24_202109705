@@ -34,14 +34,14 @@ action code
 
 terminal String CARACTER, CADENA, ENTERO, DECIMAL;
 terminal FINCADENA, IMPRIMIR;
-terminal PAR1, PAR2, MAS, MENOS, UMENOS, POR;
+terminal PAR1, PAR2, MAS, MENOS, UMENOS, POR, DIVISION;
 
 nonterminal LinkedList<Instrucciones> inicio, instrucciones;
 nonterminal Instrucciones instruccion, impresion;
 nonterminal Instrucciones expresion;
 
 precedence left MAS, MENOS;
-precedence left POR;
+precedence left POR, DIVISION;
 precedence right UMENOS;
 
 // Comienzo de la gramática
@@ -64,9 +64,10 @@ expresion ::= MENOS expresion:a {:   RESULT = new Aritmeticas(a, OperadoresAritm
             |expresion:a MAS expresion:b {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.SUMA, aleft, aright);   :}
             |expresion:a MENOS expresion:b {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.RESTA, aleft, aright);   :}
             |expresion:a POR expresion:b {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.MULTIPLICACION, aleft, aright);   :}
+            |expresion:a DIVISION expresion:b {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.DIVISION, aleft, aright);   :}
 
             | ENTERO:a {: RESULT = new Nativo(Integer.parseInt(a), new Tipo(TipoDato.ENTERO), aleft, aright); :}
-            | DECIMAL:a {: RESULT = new Nativo(Double.parseDouble(a), new Tipo(TipoDato.DECIMAL), aleft, aright); :}
+            | DECIMAL:a {: RESULT = new Nativo(new Double(a), new Tipo(TipoDato.DECIMAL), aleft, aright); :}
             | CARACTER:a {: RESULT = new Nativo(a, new Tipo(TipoDato.CARACTER), aleft, aright); :}
             | CADENA:a  {: RESULT = new Nativo(a ,new Tipo(TipoDato.CADENA), aleft, aright); :}
             
