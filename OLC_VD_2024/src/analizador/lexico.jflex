@@ -44,6 +44,9 @@ DIVISION = "/"
 POTENCIA = "^"
 RAIZ = "$"
 MODULO = "%"
+//Operadores Relacionales
+IGUALACION = "=="
+DIFERENCIA = "!="
 
 // ------>SIMBOLOS<------
 PAR1 = "("
@@ -68,10 +71,10 @@ WHITESPACE = [ \t\r\f\n]+
 <YYINITIAL> {DECIMAL}        {return new Symbol(sym.DECIMAL, yyline, yycolumn, yytext());}
 <YYINITIAL> {ENTERO}         {return new Symbol(sym.ENTERO, yyline, yycolumn, yytext());}
 
-<YYINITIAL> {CARACTER}       {String caracter = yytext(); 
-                              caracter=caracter.substring(1, caracter.length() - 1);
-                              return new Symbol(sym.CARACTER, yyline, yycolumn, caracter);
-                             }   
+<YYINITIAL> {CARACTER}      {String caracter = yytext(); 
+                            caracter=caracter.substring(1, caracter.length() - 1);
+                            return new Symbol(sym.CARACTER, yyline, yycolumn, caracter);
+                            }   
 <YYINITIAL> {CADENA}        {String cadena = yytext(); 
                             cadena=cadena.substring(1, cadena.length() - 1);
                             return new Symbol(sym.CADENA, yyline, yycolumn, cadena);
@@ -88,5 +91,7 @@ WHITESPACE = [ \t\r\f\n]+
 <YYINITIAL> {POTENCIA}       {return new Symbol(sym.POTENCIA, yyline, yycolumn, yytext());}
 <YYINITIAL> {RAIZ}           {return new Symbol(sym.RAIZ, yyline, yycolumn, yytext());}
 <YYINITIAL> {MODULO}         {return new Symbol(sym.MODULO, yyline, yycolumn, yytext());}
+
+<YYINITIAL> {IGUALACION}     {return new Symbol(sym.IGUALACION, yyline, yycolumn, yytext());}
 
 . {System.out.println("Error Lexico en la linea " + yyline + " y columna " + yycolumn + ". No se esperaba el componente: " + yytext());}

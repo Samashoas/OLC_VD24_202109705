@@ -22,6 +22,7 @@ public class sym {
   public static final int BOOLEANO = 6;
   public static final int CARACTER = 2;
   public static final int EOF = 0;
+  public static final int IGUALACION = 19;
   public static final int error = 1;
   public static final int PAR2 = 10;
   public static final int PAR1 = 9;
@@ -46,7 +47,8 @@ public class sym {
   "DIVISION",
   "POTENCIA",
   "RAIZ",
-  "MODULO"
+  "MODULO",
+  "IGUALACION"
   };
 }
 
