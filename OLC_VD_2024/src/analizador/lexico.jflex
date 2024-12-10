@@ -42,6 +42,7 @@ MENOS = "-"
 POR = "*"
 DIVISION = "/"
 POTENCIA = "^"
+RAIZ = "$"
 
 // ------>SIMBOLOS<------
 PAR1 = "("
@@ -84,5 +85,6 @@ WHITESPACE = [ \t\r\f\n]+
 <YYINITIAL> {POR}            {return new Symbol(sym.POR, yyline, yycolumn, yytext());}
 <YYINITIAL> {DIVISION}       {return new Symbol(sym.DIVISION, yyline, yycolumn, yytext());}
 <YYINITIAL> {POTENCIA}       {return new Symbol(sym.POTENCIA, yyline, yycolumn, yytext());}
+<YYINITIAL> {RAIZ}           {return new Symbol(sym.RAIZ, yyline, yycolumn, yytext());}
 
 . {System.out.println("Error Lexico en la linea " + yyline + " y columna " + yycolumn + ". No se esperaba el componente: " + yytext());}

@@ -64,6 +64,8 @@ public class Aritmeticas extends Instrucciones {
                 this.division(opIzq, opDer);
             case POTENCIA ->
                 this.potencia(opIzq, opDer);
+            case RAIZ ->
+                this.raiz(opIzq, opDer);
             case NEGATIVO ->
                 this.negacion(Unico);
             default ->
@@ -441,6 +443,48 @@ public class Aritmeticas extends Instrucciones {
                     case DECIMAL -> {
                         this.type.setTipo(TipoDato.DECIMAL);
                         return Math.pow((double) op1, (double) op2);
+                    }
+                    default -> {
+                        return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
+                    }
+                }
+            }
+            default -> {
+                return new Errores("SEMANTICO", "Suma erronea", this.line, this.column); 
+            }
+        }
+    }
+    
+    public Object raiz(Object op1, Object op2){
+        var tipo1 = this.operando1.type.getTipo();
+        var tipo2 = this.operando2.type.getTipo();
+
+        switch (tipo1) {
+            case ENTERO -> {
+                switch (tipo2) {
+                    case ENTERO -> {
+                        this.type.setTipo(TipoDato.DECIMAL);
+                        return Double.valueOf(Math.pow((int) op1, ((double)1/(int)op2)));
+                    }
+                    case DECIMAL -> {
+                        this.type.setTipo(TipoDato.DECIMAL);
+                        return Math.pow((int) op1, (1/(double) op2));
+                    }
+                    default -> {
+                        return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
+                    }
+                }
+            }
+            case DECIMAL -> {
+                switch (tipo2) {
+                    case ENTERO -> {
+                        this.type.setTipo(TipoDato.DECIMAL);
+                        //return (double) op1 - (int) op1;
+                        return Math.pow((double) op1, ((double)1/(int)op2));
+                    }
+                    case DECIMAL -> {
+                        this.type.setTipo(TipoDato.DECIMAL);
+                        return Math.pow((double) op1, (1/(double) op2));
                     }
                     default -> {
                         return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
