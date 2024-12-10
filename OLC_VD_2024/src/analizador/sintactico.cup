@@ -34,7 +34,7 @@ action code
 
 terminal String CARACTER, CADENA, ENTERO, DECIMAL, BOOLEANO;
 terminal FINCADENA, IMPRIMIR;
-terminal PAR1, PAR2, MAS, MENOS, UMENOS, POR, DIVISION;
+terminal PAR1, PAR2, MAS, MENOS, UMENOS, POR, DIVISION, POTENCIA;
 
 nonterminal LinkedList<Instrucciones> inicio, instrucciones;
 nonterminal Instrucciones instruccion, impresion;
@@ -42,6 +42,7 @@ nonterminal Instrucciones expresion;
 
 precedence left MAS, MENOS;
 precedence left POR, DIVISION;
+precedence nonassoc POTENCIA;
 precedence right UMENOS;
 
 // Comienzo de la gramática
@@ -65,6 +66,7 @@ expresion ::= MENOS expresion:a {:   RESULT = new Aritmeticas(a, OperadoresAritm
             |expresion:a MENOS expresion:b {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.RESTA, aleft, aright);   :}
             |expresion:a POR expresion:b {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.MULTIPLICACION, aleft, aright);   :}
             |expresion:a DIVISION expresion:b {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.DIVISION, aleft, aright);   :}
+            |expresion:a POTENCIA expresion:b {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.POTENCIA, aleft, aright);   :}
 
             | ENTERO:a {: RESULT = new Nativo(Integer.parseInt(a), new Tipo(TipoDato.ENTERO), aleft, aright); :}
             | DECIMAL:a {: RESULT = new Nativo(new Double(a), new Tipo(TipoDato.DECIMAL), aleft, aright); :}

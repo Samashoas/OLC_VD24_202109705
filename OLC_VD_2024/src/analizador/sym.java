@@ -10,6 +10,7 @@ public class sym {
   /* terminals */
   public static final int CADENA = 3;
   public static final int DECIMAL = 5;
+  public static final int POTENCIA = 16;
   public static final int MENOS = 12;
   public static final int BOOLEANO = 6;
   public static final int UMENOS = 13;
@@ -40,7 +41,8 @@ public class sym {
   "MENOS",
   "UMENOS",
   "POR",
-  "DIVISION"
+  "DIVISION",
+  "POTENCIA"
   };
 }
 
