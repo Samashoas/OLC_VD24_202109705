@@ -48,6 +48,7 @@ PAR2 = ")"
 FINCADENA = ";"
 
 // ------>Expresiones regulares<------
+BOOLEANO = "true"|"false"
 ENTERO = [0-9]+
 DECIMAL = [0-9]+"."[0-9]+
 CARACTER = \'([^\']|[\t]|[\n]|[\r]|[ ])\' 
@@ -60,6 +61,7 @@ WHITESPACE = [ \t\r\f\n]+
 <YYINITIAL> {WHITESPACE}     {}
 <YYINITIAL> {IMPRIMIR}       {return new Symbol(sym.IMPRIMIR, yyline, yycolumn, yytext());}
 
+<YYINITIAL> {BOOLEANO}       {return new Symbol(sym.BOOLEANO, yyline, yycolumn, yytext());}
 <YYINITIAL> {DECIMAL}        {return new Symbol(sym.DECIMAL, yyline, yycolumn, yytext());}
 <YYINITIAL> {ENTERO}         {return new Symbol(sym.ENTERO, yyline, yycolumn, yytext());}
 
