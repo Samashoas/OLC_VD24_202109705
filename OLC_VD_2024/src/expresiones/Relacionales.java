@@ -105,6 +105,17 @@ public class Relacionales extends Instrucciones{
                     }
                 }
             }
+            case BOOLEANO ->{
+                switch(tipo2){
+                    case BOOLEANO ->{
+                        this.type.setTipo(TipoDato.BOOLEANO);
+                        return op1.toString() == op2.toString();
+                    }
+                    default ->{
+                        return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
+                    }
+                }
+            }
             default -> {
                 return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
             }
