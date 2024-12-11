@@ -25,6 +25,7 @@ public class sym {
   public static final int MAYOR = 21;
   public static final int EOF = 0;
   public static final int IGUALACION = 19;
+  public static final int MAYORIGUAL = 22;
   public static final int error = 1;
   public static final int PAR2 = 10;
   public static final int PAR1 = 9;
@@ -52,7 +53,8 @@ public class sym {
   "MODULO",
   "IGUALACION",
   "DIFERENCIA",
-  "MAYOR"
+  "MAYOR",
+  "MAYORIGUAL"
   };
 }
 
