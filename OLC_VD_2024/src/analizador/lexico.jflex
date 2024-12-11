@@ -51,6 +51,8 @@ MAYOR = ">"
 MAYORIGUAL = ">="
 MENOR = "<"
 MENORIGUAL = "<="
+//Operadores Logicos
+AND = "&&"
 
 // ------>SIMBOLOS<------
 PAR1 = "("
@@ -102,5 +104,7 @@ WHITESPACE = [ \t\r\f\n]+
 <YYINITIAL> {MENORIGUAL}     {return new Symbol(sym.MENORIGUAL, yyline, yycolumn, yytext());}
 <YYINITIAL> {MAYOR}          {return new Symbol(sym.MAYOR, yyline, yycolumn, yytext());}
 <YYINITIAL> {MENOR}          {return new Symbol(sym.MENOR, yyline, yycolumn, yytext());}
+
+<YYINITIAL> {AND}            {return new Symbol(sym.AND, yyline, yycolumn, yytext());}
 
 . {System.out.println("Error Lexico en la linea " + yyline + " y columna " + yycolumn + ". No se esperaba el componente: " + yytext());}

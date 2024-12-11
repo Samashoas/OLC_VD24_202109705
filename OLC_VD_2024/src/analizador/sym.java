@@ -8,6 +8,7 @@ package analizador;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
+  public static final int AND = 25;
   public static final int MENOS = 12;
   public static final int MENOR = 23;
   public static final int DIFERENCIA = 20;
@@ -58,7 +59,8 @@ public class sym {
   "MAYOR",
   "MAYORIGUAL",
   "MENOR",
-  "MENORIGUAL"
+  "MENORIGUAL",
+  "AND"
   };
 }
 
