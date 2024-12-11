@@ -53,6 +53,8 @@ MENOR = "<"
 MENORIGUAL = "<="
 //Operadores Logicos
 AND = "&&"
+OR = "||"
+NOT = "!"
 
 // ------>SIMBOLOS<------
 PAR1 = "("
@@ -77,14 +79,14 @@ WHITESPACE = [ \t\r\f\n]+
 <YYINITIAL> {DECIMAL}        {return new Symbol(sym.DECIMAL, yyline, yycolumn, yytext());}
 <YYINITIAL> {ENTERO}         {return new Symbol(sym.ENTERO, yyline, yycolumn, yytext());}
 
-<YYINITIAL> {CARACTER}      {String caracter = yytext(); 
-                            caracter=caracter.substring(1, caracter.length() - 1);
-                            return new Symbol(sym.CARACTER, yyline, yycolumn, caracter);
-                            }   
-<YYINITIAL> {CADENA}        {String cadena = yytext(); 
-                            cadena=cadena.substring(1, cadena.length() - 1);
-                            return new Symbol(sym.CADENA, yyline, yycolumn, cadena);
-                            }
+<YYINITIAL> {CARACTER}       {String caracter = yytext(); 
+                             caracter=caracter.substring(1, caracter.length() - 1);
+                             return new Symbol(sym.CARACTER, yyline, yycolumn, caracter);
+                             }   
+<YYINITIAL> {CADENA}         {String cadena = yytext(); 
+                             cadena=cadena.substring(1, cadena.length() - 1);
+                             return new Symbol(sym.CADENA, yyline, yycolumn, cadena);
+                             }
 
 <YYINITIAL> {PAR1}           {return new Symbol(sym.PAR1, yyline, yycolumn, yytext());}
 <YYINITIAL> {PAR2}           {return new Symbol(sym.PAR2, yyline, yycolumn, yytext());}
@@ -106,5 +108,7 @@ WHITESPACE = [ \t\r\f\n]+
 <YYINITIAL> {MENOR}          {return new Symbol(sym.MENOR, yyline, yycolumn, yytext());}
 
 <YYINITIAL> {AND}            {return new Symbol(sym.AND, yyline, yycolumn, yytext());}
+<YYINITIAL> {OR}             {return new Symbol(sym.OR, yyline, yycolumn, yytext());}
+<YYINITIAL> {NOT}            {return new Symbol(sym.NOT, yyline, yycolumn, yytext());}
 
 . {System.out.println("Error Lexico en la linea " + yyline + " y columna " + yycolumn + ". No se esperaba el componente: " + yytext());}

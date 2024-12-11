@@ -40,13 +40,15 @@ terminal String CARACTER, CADENA, ENTERO, DECIMAL, BOOLEANO;
 terminal FINCADENA, IMPRIMIR;
 terminal PAR1, PAR2, MAS, MENOS, UMENOS, POR, DIVISION, POTENCIA, RAIZ, MODULO;
 terminal IGUALACION, DIFERENCIA, MAYOR, MAYORIGUAL, MENOR, MENORIGUAL;
-terminal AND;
+terminal AND, OR, NOT;
 
 nonterminal LinkedList<Instrucciones> inicio, instrucciones;
 nonterminal Instrucciones instruccion, impresion;
 nonterminal Instrucciones expresion;
 
+precedence left OR;
 precedence left AND;
+precedence right NOT;
 precedence left IGUALACION, DIFERENCIA, MAYOR, MAYORIGUAL, MENOR, MENORIGUAL;
 precedence left MAS, MENOS;
 precedence left POR, DIVISION, MODULO;
@@ -86,6 +88,8 @@ expresion ::= MENOS expresion:a {:   RESULT = new Aritmeticas(a, OperadoresAritm
             |expresion:a MENORIGUAL expresion:b {:   RESULT = new Relacionales(a, b, OperadoresRelacionales.MENORIGUAL, aleft, aright);   :}
 
             |expresion:a AND expresion:b {:   RESULT = new Logicos(a, b, OperadoresLogicos.AND, aleft, aright);   :}
+            |expresion:a OR expresion:b {:   RESULT = new Logicos(a, b, OperadoresLogicos.OR, aleft, aright);   :}
+            |NOT expresion:a {:   RESULT = new Logicos(a, OperadoresLogicos.NOT, aleft, aright);   :} %prec NOT
 
             | ENTERO:a {: RESULT = new Nativo(Integer.parseInt(a), new Tipo(TipoDato.ENTERO), aleft, aright); :}
             | DECIMAL:a {: RESULT = new Nativo(new Double(a), new Tipo(TipoDato.DECIMAL), aleft, aright); :}

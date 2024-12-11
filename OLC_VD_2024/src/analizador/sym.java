@@ -14,10 +14,12 @@ public class sym {
   public static final int DIFERENCIA = 20;
   public static final int RAIZ = 17;
   public static final int CADENA = 3;
+  public static final int OR = 26;
   public static final int MENORIGUAL = 24;
   public static final int FINCADENA = 7;
   public static final int DECIMAL = 5;
   public static final int DIVISION = 15;
+  public static final int NOT = 27;
   public static final int POTENCIA = 16;
   public static final int IMPRIMIR = 8;
   public static final int MODULO = 18;
@@ -60,7 +62,9 @@ public class sym {
   "MAYORIGUAL",
   "MENOR",
   "MENORIGUAL",
-  "AND"
+  "AND",
+  "OR",
+  "NOT"
   };
 }
 

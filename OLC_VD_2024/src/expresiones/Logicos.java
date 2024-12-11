@@ -55,6 +55,10 @@ public class Logicos extends Instrucciones{
         return switch (operacion) {
             case AND ->
                 this.and(opIzq, opDer);
+            case OR ->
+                this.or(opIzq, opDer);
+            case NOT ->
+                this.not(Unico);
             default ->
                 new Errores("SEMANTICO", "Operador invalido", this.line, this.column);
         };
@@ -78,6 +82,41 @@ public class Logicos extends Instrucciones{
             }
             default ->{
                 return new Errores("SEMANTICO", "Operador logico invalido", this.line, this.column);
+            }
+        }
+    }
+    
+    public Object or(Object op1, Object op2){
+        var tipo1 = this.operando1.type.getTipo();
+        var tipo2 = this.operando2.type.getTipo();
+        
+        switch(tipo1){
+            case BOOLEANO ->{
+                switch (tipo2){
+                    case BOOLEANO ->{
+                        this.type.setTipo(TipoDato.BOOLEANO);
+                        return Boolean.parseBoolean(op1.toString()) || Boolean.parseBoolean(op2.toString());
+                    }
+                    default ->{
+                        return new Errores("SEMANTICO", "Operador logico invalido", this.line, this.column);
+                    }
+                }
+            }
+            default ->{
+                return new Errores("SEMANTICO", "Operador logico invalido", this.line, this.column);
+            }
+        }
+    }
+    
+    public Object not(Object op1) {
+        var opU = this.operandoUnico.type.getTipo();
+        switch (opU) {
+            case BOOLEANO -> {
+                this.type.setTipo(TipoDato.BOOLEANO);
+                return !Boolean.parseBoolean(op1.toString());
+            }
+            default -> {
+                return new Errores("SEMANTICO", "Negacion erronea", this.line, this.column);
             }
         }
     }

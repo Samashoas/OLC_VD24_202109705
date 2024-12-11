@@ -777,8 +777,8 @@ public class scanner implements java_cup.runtime.Scanner {
           case 44: break;
           case 18:
             { String cadena = yytext(); 
-                            cadena=cadena.substring(1, cadena.length() - 1);
-                            return new Symbol(sym.CADENA, yyline, yycolumn, cadena);
+                             cadena=cadena.substring(1, cadena.length() - 1);
+                             return new Symbol(sym.CADENA, yyline, yycolumn, cadena);
             }
           // fall through
           case 45: break;
@@ -809,8 +809,8 @@ public class scanner implements java_cup.runtime.Scanner {
           case 50: break;
           case 24:
             { String caracter = yytext(); 
-                            caracter=caracter.substring(1, caracter.length() - 1);
-                            return new Symbol(sym.CARACTER, yyline, yycolumn, caracter);
+                             caracter=caracter.substring(1, caracter.length() - 1);
+                             return new Symbol(sym.CARACTER, yyline, yycolumn, caracter);
             }
           // fall through
           case 51: break;
