@@ -13,6 +13,7 @@ public class sym {
   public static final int DIFERENCIA = 20;
   public static final int RAIZ = 17;
   public static final int CADENA = 3;
+  public static final int MENORIGUAL = 24;
   public static final int FINCADENA = 7;
   public static final int DECIMAL = 5;
   public static final int DIVISION = 15;
@@ -56,7 +57,8 @@ public class sym {
   "DIFERENCIA",
   "MAYOR",
   "MAYORIGUAL",
-  "MENOR"
+  "MENOR",
+  "MENORIGUAL"
   };
 }
 

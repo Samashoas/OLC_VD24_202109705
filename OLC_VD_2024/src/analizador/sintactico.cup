@@ -37,13 +37,13 @@ action code
 terminal String CARACTER, CADENA, ENTERO, DECIMAL, BOOLEANO;
 terminal FINCADENA, IMPRIMIR;
 terminal PAR1, PAR2, MAS, MENOS, UMENOS, POR, DIVISION, POTENCIA, RAIZ, MODULO;
-terminal IGUALACION, DIFERENCIA, MAYOR, MAYORIGUAL, MENOR;
+terminal IGUALACION, DIFERENCIA, MAYOR, MAYORIGUAL, MENOR, MENORIGUAL;
 
 nonterminal LinkedList<Instrucciones> inicio, instrucciones;
 nonterminal Instrucciones instruccion, impresion;
 nonterminal Instrucciones expresion;
 
-precedence left IGUALACION, DIFERENCIA, MAYOR, MAYORIGUAL, MENOR;
+precedence left IGUALACION, DIFERENCIA, MAYOR, MAYORIGUAL, MENOR, MENORIGUAL;
 precedence left MAS, MENOS;
 precedence left POR, DIVISION, MODULO;
 precedence nonassoc POTENCIA, RAIZ;
@@ -79,6 +79,7 @@ expresion ::= MENOS expresion:a {:   RESULT = new Aritmeticas(a, OperadoresAritm
             |expresion:a MAYOR expresion:b {:   RESULT = new Relacionales(a, b, OperadoresRelacionales.MAYORQUE, aleft, aright);   :}
             |expresion:a MAYORIGUAL expresion:b {:   RESULT = new Relacionales(a, b, OperadoresRelacionales.MAYORIGUAL, aleft, aright);   :}
             |expresion:a MENOR expresion:b {:   RESULT = new Relacionales(a, b, OperadoresRelacionales.MENORQUE, aleft, aright);   :}
+            |expresion:a MENORIGUAL expresion:b {:   RESULT = new Relacionales(a, b, OperadoresRelacionales.MENORIGUAL, aleft, aright);   :}
 
             | ENTERO:a {: RESULT = new Nativo(Integer.parseInt(a), new Tipo(TipoDato.ENTERO), aleft, aright); :}
             | DECIMAL:a {: RESULT = new Nativo(new Double(a), new Tipo(TipoDato.DECIMAL), aleft, aright); :}

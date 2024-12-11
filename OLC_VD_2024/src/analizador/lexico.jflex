@@ -50,6 +50,7 @@ DIFERENCIA = "!="
 MAYOR = ">"
 MAYORIGUAL = ">="
 MENOR = "<"
+MENORIGUAL = "<="
 
 // ------>SIMBOLOS<------
 PAR1 = "("
@@ -98,6 +99,7 @@ WHITESPACE = [ \t\r\f\n]+
 <YYINITIAL> {IGUALACION}     {return new Symbol(sym.IGUALACION, yyline, yycolumn, yytext());}
 <YYINITIAL> {DIFERENCIA}     {return new Symbol(sym.DIFERENCIA, yyline, yycolumn, yytext());}
 <YYINITIAL> {MAYORIGUAL}     {return new Symbol(sym.MAYORIGUAL, yyline, yycolumn, yytext());}
+<YYINITIAL> {MENORIGUAL}     {return new Symbol(sym.MENORIGUAL, yyline, yycolumn, yytext());}
 <YYINITIAL> {MAYOR}          {return new Symbol(sym.MAYOR, yyline, yycolumn, yytext());}
 <YYINITIAL> {MENOR}          {return new Symbol(sym.MENOR, yyline, yycolumn, yytext());}
 
