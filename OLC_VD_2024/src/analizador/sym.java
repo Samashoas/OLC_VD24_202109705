@@ -22,6 +22,7 @@ public class sym {
   public static final int POR = 14;
   public static final int BOOLEANO = 6;
   public static final int CARACTER = 2;
+  public static final int MAYOR = 21;
   public static final int EOF = 0;
   public static final int IGUALACION = 19;
   public static final int error = 1;
@@ -50,7 +51,8 @@ public class sym {
   "RAIZ",
   "MODULO",
   "IGUALACION",
-  "DIFERENCIA"
+  "DIFERENCIA",
+  "MAYOR"
   };
 }
 

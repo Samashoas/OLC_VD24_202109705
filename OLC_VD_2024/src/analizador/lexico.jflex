@@ -47,6 +47,7 @@ MODULO = "%"
 //Operadores Relacionales
 IGUALACION = "=="
 DIFERENCIA = "!="
+MAYOR = ">"
 
 // ------>SIMBOLOS<------
 PAR1 = "("
@@ -94,5 +95,6 @@ WHITESPACE = [ \t\r\f\n]+
 
 <YYINITIAL> {IGUALACION}     {return new Symbol(sym.IGUALACION, yyline, yycolumn, yytext());}
 <YYINITIAL> {DIFERENCIA}     {return new Symbol(sym.DIFERENCIA, yyline, yycolumn, yytext());}
+<YYINITIAL> {MAYOR}          {return new Symbol(sym.MAYOR, yyline, yycolumn, yytext());}
 
 . {System.out.println("Error Lexico en la linea " + yyline + " y columna " + yycolumn + ". No se esperaba el componente: " + yytext());}
