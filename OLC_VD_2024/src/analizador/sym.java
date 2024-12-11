@@ -9,6 +9,7 @@ package analizador;
 public class sym {
   /* terminals */
   public static final int MENOS = 12;
+  public static final int DIFERENCIA = 20;
   public static final int RAIZ = 17;
   public static final int CADENA = 3;
   public static final int FINCADENA = 7;
@@ -48,7 +49,8 @@ public class sym {
   "POTENCIA",
   "RAIZ",
   "MODULO",
-  "IGUALACION"
+  "IGUALACION",
+  "DIFERENCIA"
   };
 }
 
