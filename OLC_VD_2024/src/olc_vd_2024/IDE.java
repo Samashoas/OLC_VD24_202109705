@@ -7,6 +7,7 @@ package olc_vd_2024;
 import abstracto.Instrucciones;
 import analizador.parser;
 import analizador.scanner;
+import excepciones.Errores;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -143,15 +144,26 @@ public class IDE extends javax.swing.JFrame {
             parser p = new parser(s);
             var resultado = p.parse();
             
+            
             for (var l: s.erroresLexicos){
                 System.out.println(l.toString());
             }
+            for (var e: p.erroresSintacticos){
+                System.out.println(e.toString());
+            }
+            
             
             var ast = new Arbol((LinkedList<Instrucciones>) resultado.value);
             var tabla = new TablaSimbolos();
             
             for(var a:ast.getInstructions()){
+                if (a == null){
+                    continue;
+                }
                 var res = a.interpretar(ast, tabla);
+                if(res instanceof Errores){
+                    System.out.println(res.toString());
+                }
             }
             jTextArea2.setText(ast.getConsole());
             
