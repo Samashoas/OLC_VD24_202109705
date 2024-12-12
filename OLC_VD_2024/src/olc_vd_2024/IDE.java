@@ -143,6 +143,10 @@ public class IDE extends javax.swing.JFrame {
             parser p = new parser(s);
             var resultado = p.parse();
             
+            for (var l: s.erroresLexicos){
+                System.out.println(l.toString());
+            }
+            
             var ast = new Arbol((LinkedList<Instrucciones>) resultado.value);
             var tabla = new TablaSimbolos();
             

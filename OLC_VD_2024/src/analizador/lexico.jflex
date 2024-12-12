@@ -2,18 +2,21 @@ package analizador;
 
 // importaciones
 import java_cup.runtime.Symbol;
+import java.util.LinkedList;
+import excepciones.Errores;
 
 %%
 
 // codigo de usuario
 %{
-    //String cadena = "";
+    public LinkedList<Errores> erroresLexicos = new LinkedList<>();
 %}
 
 // inicializacion
 %init{
     yyline = 1;
     yycolumn = 1;
+    erroresLexicos = new LinkedList<>();
 %init}
 
 // declaracion de caracteristicas de jflex
@@ -111,4 +114,4 @@ WHITESPACE = [ \t\r\f\n]+
 <YYINITIAL> {OR}             {return new Symbol(sym.OR, yyline, yycolumn, yytext());}
 <YYINITIAL> {NOT}            {return new Symbol(sym.NOT, yyline, yycolumn, yytext());}
 
-. {System.out.println("Error Lexico en la linea " + yyline + " y columna " + yycolumn + ". No se esperaba el componente: " + yytext());}
+<YYINITIAL>. {erroresLexicos.add(new Errores("LEXICO", "El caracter "+ yytext() + " no pertenece al lenguaje", yyline, yycolumn));}

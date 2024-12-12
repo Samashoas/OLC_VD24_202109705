@@ -20,4 +20,11 @@ public class Errores {
         this.line = line;
         this.column = column;
     }
+
+    @Override
+    public String toString() {
+        return "Errores{" + "type=" + type + ", desc=" + desc + ", line=" + line + ", column=" + column + '}';
+    }
+    
+    
 }
