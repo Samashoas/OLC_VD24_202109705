@@ -77,7 +77,7 @@ instrucciones ::= instrucciones:a instruccion:b {:RESULT = a; RESULT.add(b); :}
 ;
 
 instruccion ::= impresion:a {: RESULT = a; :}
-              |error FINCADENA {:RESULT = null; :}
+               |error FINCADENA {:RESULT = null; :}
 ;
 
 impresion ::= IMPRIMIR PAR1 expresion:a PAR2 FINCADENA{: RESULT = new Print(a, aleft, aright); :}
