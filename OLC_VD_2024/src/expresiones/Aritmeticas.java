@@ -181,6 +181,10 @@ public class Aritmeticas extends Instrucciones {
                         this.type.setTipo(TipoDato.CADENA);
                         return op1.toString() + op2.toString();
                     }
+                    case BOOLEANO ->{
+                        this.type.setTipo(TipoDato.CADENA);
+                        return op1.toString()+op2.toString();
+                    }
                     default -> {
                         return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
                     }

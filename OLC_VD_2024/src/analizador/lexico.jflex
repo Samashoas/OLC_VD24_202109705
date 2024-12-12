@@ -163,6 +163,6 @@ WHITESPACE = [ \t\r\f\n]+
                              }
 <YYINITIAL> {NOT}            {MisTokens.add(new Tokens("NOT",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.NOT, yyline, yycolumn, yytext());
-                                }
+                             }
 
 <YYINITIAL>. {erroresLexicos.add(new Errores("LEXICO", "El caracter "+ yytext() + " no pertenece al lenguaje", yyline, yycolumn));}
