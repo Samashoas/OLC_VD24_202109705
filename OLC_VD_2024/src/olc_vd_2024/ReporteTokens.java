@@ -4,6 +4,10 @@
  */
 package olc_vd_2024;
 
+import java.util.LinkedList;
+import javax.swing.table.DefaultTableModel;
+import tokens.Tokens;
+
 /**
  *
  * @author jpsam
@@ -13,8 +17,24 @@ public class ReporteTokens extends javax.swing.JFrame {
     /**
      * Creates new form ReporteTokens
      */
-    public ReporteTokens() {
+    public LinkedList<Tokens> listaTokens;
+    public ReporteTokens(LinkedList<Tokens> tokens) {
         initComponents();
+        this.listaTokens = tokens;
+        DefaultTableModel modelo = (DefaultTableModel)jTable1.getModel();
+        //vaciar la tabla
+        while(modelo.getRowCount()>0){
+            modelo.removeRow(0);
+        }
+        
+        //Insertar los valores
+        int i = 1;
+        for(var t:tokens){
+            var token = t.getToken();
+            token[0]= i;
+            modelo.addRow(token);
+            i++;
+        }
     }
 
     /**
@@ -59,6 +79,11 @@ public class ReporteTokens extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(255, 0, 0));
         jButton1.setText("Cerrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -106,40 +131,14 @@ public class ReporteTokens extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ReporteTokens.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ReporteTokens.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ReporteTokens.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ReporteTokens.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ReporteTokens().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

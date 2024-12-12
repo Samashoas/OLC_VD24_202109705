@@ -17,6 +17,7 @@ import java.util.LinkedList;
 import javax.swing.JFileChooser;
 import simbolo.Arbol;
 import simbolo.TablaSimbolos;
+import tokens.Tokens;
 
 /**
  *
@@ -29,6 +30,7 @@ public class IDE extends javax.swing.JFrame {
      */
     
     private LinkedList<Errores> listaErrores;
+    private LinkedList<Tokens> listTokens;
     public IDE() {
         initComponents();
         this.listaErrores = new LinkedList<>();
@@ -161,6 +163,7 @@ public class IDE extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         jTextArea2.setText("");
         this.listaErrores = new LinkedList<>();
+        this.listTokens = new LinkedList<>();
         String texto = jTextArea1.getText();
         try{
             //String texto = "console.log(\"Mi cadena\");console.log(2+3+4);console.log(3.33);";
@@ -168,8 +171,13 @@ public class IDE extends javax.swing.JFrame {
             parser p = new parser(s);
             var resultado = p.parse();
             
+            this.listTokens.addAll(s.MisTokens);
             this.listaErrores.addAll(s.erroresLexicos);
             this.listaErrores.addAll(p.erroresSintacticos);
+            
+             for (var t: s.MisTokens){
+                System.out.println(t.toString());
+            }
             
             for (var l: s.erroresLexicos){
                 System.out.println(l.toString());
@@ -225,7 +233,8 @@ public class IDE extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        
+        ReporteTokens tk = new ReporteTokens(listTokens);
+        tk.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
