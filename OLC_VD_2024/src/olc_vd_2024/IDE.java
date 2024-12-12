@@ -27,8 +27,11 @@ public class IDE extends javax.swing.JFrame {
     /**
      * Creates new form IDE
      */
+    
+    private LinkedList<Errores> listaErrores;
     public IDE() {
         initComponents();
+        this.listaErrores = new LinkedList<>();
     }
 
     /**
@@ -49,6 +52,8 @@ public class IDE extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,6 +85,15 @@ public class IDE extends javax.swing.JFrame {
 
         jButton4.setText("GUARDAR COMO");
 
+        jButton5.setText("ERRORES");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        jButton6.setText("TOKENS");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -92,17 +106,19 @@ public class IDE extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(279, 279, 279)
-                                .addComponent(jButton1))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton4)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(279, 279, 279)
+                        .addComponent(jButton1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton6)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -111,7 +127,9 @@ public class IDE extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(jButton4)
+                    .addComponent(jButton5)
+                    .addComponent(jButton6))
                 .addGap(5, 5, 5)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -137,6 +155,7 @@ public class IDE extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         jTextArea2.setText("");
+        this.listaErrores = new LinkedList<>();
         String texto = jTextArea1.getText();
         try{
             //String texto = "console.log(\"Mi cadena\");console.log(2+3+4);console.log(3.33);";
@@ -144,6 +163,8 @@ public class IDE extends javax.swing.JFrame {
             parser p = new parser(s);
             var resultado = p.parse();
             
+            this.listaErrores.addAll(s.erroresLexicos);
+            this.listaErrores.addAll(p.erroresSintacticos);
             
             for (var l: s.erroresLexicos){
                 System.out.println(l.toString());
@@ -162,7 +183,7 @@ public class IDE extends javax.swing.JFrame {
                 }
                 var res = a.interpretar(ast, tabla);
                 if(res instanceof Errores){
-                    System.out.println(res.toString());
+                    this.listaErrores.add((Errores)res);
                 }
             }
             jTextArea2.setText(ast.getConsole());
@@ -192,6 +213,11 @@ public class IDE extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        ReporteErrores re = new ReporteErrores(listaErrores);
+        re.setVisible(true);
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -233,6 +259,8 @@ public class IDE extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

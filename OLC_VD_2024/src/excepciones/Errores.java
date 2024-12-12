@@ -26,5 +26,7 @@ public class Errores {
         return "Errores{" + "type=" + type + ", desc=" + desc + ", line=" + line + ", column=" + column + '}';
     }
     
-    
+    public Object[] getError(){
+        return new Object[]{0,this.type, this.desc, this.line, this.column};
+    }
 }
