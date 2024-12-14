@@ -54,7 +54,7 @@ public class Casteos extends Instrucciones{
             }
             case CARACTER -> {
                 this.type.setTipo(TipoDato.ENTERO);
-                System.out.println("el valor ingresado es: " + valor);
+                //System.out.println("el valor ingresado es: " + valor);
                 return (int) valor.toString().charAt(0);
             }
             default -> {
@@ -64,12 +64,21 @@ public class Casteos extends Instrucciones{
     }
     
     public Object castofdouble(Object valor){
-        if (valor instanceof Integer){
-            return (double) (int) valor;
-        } else if (valor instanceof String){
-            return (double) valor.toString().charAt(0);
-        } else {
-            return new Errores("Semantico", "No se puede castear a decimal", this.line, this.column);
+        var tipo1 = this.expresion.type.getTipo();
+
+        switch (tipo1) {
+            case ENTERO -> {
+                this.type.setTipo(TipoDato.DECIMAL);
+                Double valorDouble = ((Integer) valor).doubleValue(); // Conversión explícita
+                return valorDouble;
+            }
+            case CARACTER -> {
+                this.type.setTipo(TipoDato.DECIMAL);
+                return (double) valor.toString().charAt(0);
+            }
+            default -> {
+                return new Errores("SEMANTICO", "Casteo a double erroneo", this.line, this.column);
+            }
         }
     }
     
