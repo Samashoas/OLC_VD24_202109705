@@ -52,7 +52,7 @@ action code
 :}
 
 terminal String CARACTER, CADENA, ENTERO, DECIMAL, BOOLEANO, ID;
-terminal COLOM, FINCADENA, IMPRIMIR, CAST, AS, LET;
+terminal COLOM, FINCADENA, IMPRIMIR, CAST, AS, LET, CONST;
 terminal PAR1, PAR2, MAS, MENOS, UMENOS, POR, DIVISION, POTENCIA, RAIZ, MODULO, IGUAL;
 terminal IGUALACION, DIFERENCIA, MAYOR, MAYORIGUAL, MENOR, MENORIGUAL;
 terminal AND, OR, NOT;
@@ -91,7 +91,8 @@ instruccion ::= impresion:a {: RESULT = a; :}
 impresion ::= IMPRIMIR PAR1 expresion:a PAR2 FINCADENA{: RESULT = new Print(a, aleft, aright); :}
 ;
                                                                 //Declaracion(String Identificador, Instrucciones valor, Tipo type, int line, int column)
-declaracion ::= LET ID:a COLOM tipos:b IGUAL expresion:c FINCADENA {: RESULT = new Declaracion(a, c, b, aleft, aright); :}
+declaracion ::= LET ID:a COLOM tipos:b IGUAL expresion:c FINCADENA {: RESULT = new Declaracion(a, c, b, true, aleft, aright); :}
+              | CONST ID:a COLOM tipos:b IGUAL expresion:c FINCADENA {: RESULT = new Declaracion(a, c, b, false, aleft, aright); :}
 ;
 
 asignacion ::= ID:a IGUAL expresion:c FINCADENA {: RESULT = new AsignacionVar(a, c, aleft, aright); :}

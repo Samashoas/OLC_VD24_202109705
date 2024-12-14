@@ -30,6 +30,9 @@ public class AsignacionVar extends Instrucciones{
         }
         
         //Es mutable o no, si la variable ya fue declarada como const
+        if(!variable.isMutable()){
+            return new Errores("SEMANTICO", "La variable no es mutable", this.line, this.column);
+        }
         
         var newValor = this.exp.interpretar(tree, table);
         if(newValor instanceof Errores){
@@ -44,6 +47,4 @@ public class AsignacionVar extends Instrucciones{
         variable.setValue(newValor);
         return null;
     }
-    
-    
 }

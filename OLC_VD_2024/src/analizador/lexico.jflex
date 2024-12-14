@@ -42,6 +42,7 @@ import tokens.Tokens;
 CAST = "cast"
 AS = "as"
 LET = "let"
+CONST = "const"
 //Imprensión en consola
 IMPRIMIR = "console.log"
 //Tipos de datos
@@ -102,6 +103,9 @@ WHITESPACE = [ \t\r\f\n]+
                              }
 <YYINITIAL> {LET}            {MisTokens.add(new Tokens("LET",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.LET, yyline, yycolumn, yytext());
+                             }
+<YYINITIAL> {CONST}          {MisTokens.add(new Tokens("CONST",yytext(), yyline, yycolumn));
+                                return new Symbol(sym.CONST, yyline, yycolumn, yytext());
                              }
 
 <YYINITIAL> {INT}            {MisTokens.add(new Tokens("INT",yytext(), yyline, yycolumn));

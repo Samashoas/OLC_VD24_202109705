@@ -18,11 +18,13 @@ import simbolo.Tipo;
 public class Declaracion extends Instrucciones{
     private String Identificador;
     private Instrucciones valor;
+    private boolean IsMutable;
 
-    public Declaracion(String Identificador, Instrucciones valor, Tipo type, int line, int column) {
+    public Declaracion(String Identificador, Instrucciones valor,  Tipo type, boolean IsMutable, int line, int column) {
         super(type, line, column);
         this.Identificador = Identificador;
         this.valor = valor;
+        this.IsMutable = IsMutable;
     }
 
     @Override
@@ -36,7 +38,7 @@ public class Declaracion extends Instrucciones{
             return new Errores("SEMANTICO", "Los tipos no coinciden", this.line, this.column);
         }
         
-        if(table.setVariable(new Simbolo(this.type, this.Identificador, ValInterpretado))){
+        if(table.setVariable(new Simbolo(this.type, this.Identificador, ValInterpretado, this.IsMutable))){
             return null;
         }
         return new Errores("SEMANTICO", "La variable ya existe", this.line, this.column);
