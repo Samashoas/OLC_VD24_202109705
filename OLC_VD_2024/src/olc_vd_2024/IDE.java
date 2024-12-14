@@ -265,7 +265,19 @@ public class IDE extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+         JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Archivos .cs", "cs"));
+        
+        int returnValue = fileChooser.showSaveDialog(this);
+        if(returnValue == JFileChooser.APPROVE_OPTION){
+            File selectedFile = fileChooser.getSelectedFile();
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(selectedFile))){
+                writer.write(jTextArea1.getText());
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
