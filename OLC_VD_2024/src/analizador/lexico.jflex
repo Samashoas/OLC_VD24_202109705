@@ -85,7 +85,7 @@ ID = [a-z][a-z0-9_]*
 ENTERO = [0-9]+
 DECIMAL = [0-9]+"."[0-9]+
 CARACTER = \'([^\']|[\t]|[\n]|[\r]|[ ])\' 
-CADENA = \"([^\"]|[\t]|[\n]|[\r]|[ ])*\" 
+CADENA = \"([^\"\\]|\\.)*\" //cambiar ER si muere todo \"([^\"]|[\t]|[\n]|[\r]|[ ])*\"
 
 WHITESPACE = [ \t\r\f\n]+
 
