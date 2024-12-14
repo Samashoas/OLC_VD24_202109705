@@ -137,7 +137,7 @@ WHITESPACE = [ \t\r\f\n]+
                              cadena = cadena.replace("\\n", "\n")
                                              .replace("\\t", "\t")
                                              .replace("\\\\", "\\\\")
-                                             .replace("\\\"", "\"")/*No funciona*/
+                                             .replace("\\\"", "\"")
                                              .replace("\\'", "'");
                              MisTokens.add(new Tokens("CADENA",cadena, yyline, yycolumn));
                              return new Symbol(sym.CADENA, yyline, yycolumn, cadena);

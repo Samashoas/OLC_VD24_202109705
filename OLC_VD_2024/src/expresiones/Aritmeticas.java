@@ -167,11 +167,11 @@ public class Aritmeticas extends Instrucciones {
                 switch (tipo2){
                     case ENTERO -> {
                         this.type.setTipo(TipoDato.CADENA);
-                        return Integer.valueOf(op1.toString() + op2.toString());
+                        return op1.toString() + op2.toString();
                     }
                     case DECIMAL -> {
                         this.type.setTipo(TipoDato.CADENA);
-                        return Double.valueOf(op1.toString() + op2.toString());
+                        return op1.toString() + op2.toString();
                     }
                     case CARACTER ->{
                         this.type.setTipo(TipoDato.CADENA);
