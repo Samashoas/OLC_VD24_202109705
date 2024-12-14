@@ -84,14 +84,13 @@ public class Casteos extends Instrucciones{
     
     public Object castofchar (Object valor){
         var tipo1 = this.expresion.type.getTipo();
-        /*
-        if (op1 instanceof Integer) {
-            if((int) op1 < 0 && (int) op1 > 255) {
-                Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Esta fuera del rango del codigo ASCII", this.linea, this.col));
-                return new Errores("SEMANTICO", "Esta fuera del rango del codigo ASCII", this.linea, this.col);
+        
+        if (valor instanceof Integer) {
+            if((int) valor < 0 && (int) valor > 255) {
+                return new Errores("SEMANTICO", "Esta fuera del rango del codigo ASCII", this.line, this.column);
             }
         }
-        */
+        
         
         switch (tipo1) {
             case ENTERO -> {
