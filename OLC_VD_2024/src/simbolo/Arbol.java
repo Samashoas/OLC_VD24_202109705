@@ -31,7 +31,16 @@ public class Arbol {
     public String getConsole() {
         return console;
     }
+    
+    public void setInstructions(LinkedList<Instrucciones> instructions) {
+        this.instructions = instructions;
+    }
+    
     public void Print(String value){
         this.console += value + "\n";
+    }
+    
+    public void AddErrores(Errores e){
+        this.errors.add(e);
     }
 }

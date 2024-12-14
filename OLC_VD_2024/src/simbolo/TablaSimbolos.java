@@ -15,10 +15,17 @@ import java.util.List;
 public class TablaSimbolos {
     private HashMap<String, Simbolo> tablaActual;
     private String nombre;
+    private TablaSimbolos tablaAnterios;
     
     public TablaSimbolos(){
         this.tablaActual = new HashMap<>();
         this.nombre = "";
+    }
+
+    public TablaSimbolos(TablaSimbolos tablaAnterios) {
+        this.tablaAnterios = tablaAnterios;
+        this.tablaActual = new HashMap<>();
+        this.nombre = nombre;
     }
 
     public HashMap<String, Simbolo> getTablaActual() {
@@ -28,7 +35,11 @@ public class TablaSimbolos {
     public String getNombre() {
         return nombre;
     }
-
+    
+    public TablaSimbolos getTablaAnterior() {
+            return tablaAnterios;
+    }
+    
     public void setTablaActual(HashMap<String, Simbolo> tablaActual) {
         this.tablaActual = tablaActual;
     }
@@ -47,9 +58,11 @@ public class TablaSimbolos {
     }
     
     public Simbolo getVariable(String id){
-        Simbolo busqueda = (Simbolo)this.tablaActual.get(id.toLowerCase());
-        if(busqueda!=null){
-            return busqueda;
+        for(TablaSimbolos i = this; i!=null; i.getTablaAnterior()){
+            Simbolo busqueda = (Simbolo)this.tablaActual.get(id.toLowerCase());
+                if(busqueda!=null){
+                    return busqueda;
+            }
         }
         return null;
     }

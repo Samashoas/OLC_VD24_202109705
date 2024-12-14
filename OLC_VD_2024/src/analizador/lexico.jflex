@@ -43,6 +43,8 @@ CAST = "cast"
 AS = "as"
 LET = "let"
 CONST = "const"
+//Sentencias
+IF = "if"
 //Imprensión en consola
 IMPRIMIR = "console.log"
 //Tipos de datos
@@ -73,6 +75,8 @@ OR = "||"
 NOT = "!"
 
 // ------>SIMBOLOS<------
+LKEY = "{"
+RKEY = "}"
 IGUAL = "="
 PAR1 = "("
 PAR2 = ")"
@@ -106,6 +110,9 @@ WHITESPACE = [ \t\r\f\n]+
                              }
 <YYINITIAL> {CONST}          {MisTokens.add(new Tokens("CONST",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.CONST, yyline, yycolumn, yytext());
+                             }
+<YYINITIAL> {IF}             {MisTokens.add(new Tokens("IF",yytext(), yyline, yycolumn));
+                                return new Symbol(sym.IF, yyline, yycolumn, yytext());
                              }
 
 <YYINITIAL> {INT}            {MisTokens.add(new Tokens("INT",yytext(), yyline, yycolumn));
@@ -150,7 +157,12 @@ WHITESPACE = [ \t\r\f\n]+
 <YYINITIAL> {ID}             {MisTokens.add(new Tokens("ID",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.ID, yyline, yycolumn, yytext());
                              }
-
+<YYINITIAL> {LKEY}           {MisTokens.add(new Tokens("LKEY",yytext(), yyline, yycolumn));
+                              return new Symbol(sym.LKEY, yyline, yycolumn, yytext());
+                             }
+<YYINITIAL> {RKEY}           {MisTokens.add(new Tokens("RKEY",yytext(), yyline, yycolumn));
+                              return new Symbol(sym.RKEY, yyline, yycolumn, yytext());
+                             }
 <YYINITIAL> {PAR1}           {MisTokens.add(new Tokens("PAR1",yytext(), yyline, yycolumn));
                               return new Symbol(sym.PAR1, yyline, yycolumn, yytext());
                              }
