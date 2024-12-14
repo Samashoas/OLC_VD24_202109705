@@ -15,17 +15,17 @@ import java.util.List;
 public class TablaSimbolos {
     private HashMap<String, Simbolo> tablaActual;
     private String nombre;
-    private TablaSimbolos tablaAnterios;
+    private TablaSimbolos tablaAnterior;
     
     public TablaSimbolos(){
         this.tablaActual = new HashMap<>();
         this.nombre = "";
     }
 
-    public TablaSimbolos(TablaSimbolos tablaAnterios) {
-        this.tablaAnterios = tablaAnterios;
+    public TablaSimbolos(TablaSimbolos tablaAnterior) {
+        this.tablaAnterior = tablaAnterior;
         this.tablaActual = new HashMap<>();
-        this.nombre = nombre;
+        this.nombre = "";
     }
 
     public HashMap<String, Simbolo> getTablaActual() {
@@ -37,7 +37,7 @@ public class TablaSimbolos {
     }
     
     public TablaSimbolos getTablaAnterior() {
-            return tablaAnterios;
+            return tablaAnterior;
     }
     
     public void setTablaActual(HashMap<String, Simbolo> tablaActual) {
@@ -49,7 +49,7 @@ public class TablaSimbolos {
     }
     
     public boolean setVariable(Simbolo simbolo){
-        Simbolo busqueda = (Simbolo)this.tablaActual.get(simbolo.getId().toLowerCase());
+        Simbolo busqueda = (Simbolo) this.tablaActual.get(simbolo.getId().toLowerCase());
         if(busqueda==null){
             this.tablaActual.put(simbolo.getId().toLowerCase(), simbolo);
             return true;
@@ -58,8 +58,8 @@ public class TablaSimbolos {
     }
     
     public Simbolo getVariable(String id){
-        for(TablaSimbolos i = this; i!=null; i.getTablaAnterior()){
-            Simbolo busqueda = (Simbolo)this.tablaActual.get(id.toLowerCase());
+        for(TablaSimbolos i = this; i !=null; i = i.getTablaAnterior()){
+            Simbolo busqueda = (Simbolo)this.getTablaActual().get(id.toLowerCase());
                 if(busqueda!=null){
                     return busqueda;
             }

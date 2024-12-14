@@ -18,8 +18,8 @@ public class Arbol {
     private LinkedList<Errores> errors;
     // tabla de simbolos (global)
 
-    public Arbol(LinkedList<Instrucciones> instructions) {
-        this.instructions = instructions;
+    public Arbol(LinkedList<Instrucciones> instrucciones) {
+        this.instructions = instrucciones;
         console = "";
         this.errors = new LinkedList<>();
     }
@@ -32,8 +32,8 @@ public class Arbol {
         return console;
     }
     
-    public void setInstructions(LinkedList<Instrucciones> instructions) {
-        this.instructions = instructions;
+    public void setInstructions(LinkedList<Instrucciones> instrucciones) {
+        this.instructions = instrucciones;
     }
     
     public void Print(String value){

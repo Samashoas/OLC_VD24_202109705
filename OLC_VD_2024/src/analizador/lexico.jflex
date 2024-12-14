@@ -45,6 +45,7 @@ LET = "let"
 CONST = "const"
 //Sentencias
 IF = "if"
+ELSE = "else"
 //Imprensión en consola
 IMPRIMIR = "console.log"
 //Tipos de datos
@@ -113,6 +114,9 @@ WHITESPACE = [ \t\r\f\n]+
                              }
 <YYINITIAL> {IF}             {MisTokens.add(new Tokens("IF",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.IF, yyline, yycolumn, yytext());
+                             }
+<YYINITIAL> {ELSE}           {MisTokens.add(new Tokens("ELSE",yytext(), yyline, yycolumn));
+                                return new Symbol(sym.ELSE, yyline, yycolumn, yytext());
                              }
 
 <YYINITIAL> {INT}            {MisTokens.add(new Tokens("INT",yytext(), yyline, yycolumn));

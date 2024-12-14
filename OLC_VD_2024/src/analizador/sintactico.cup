@@ -11,6 +11,7 @@ import excepciones.Errores;
 import instrucciones.Print;
 import instrucciones.Declaracion;
 import instrucciones.AsignacionVar;
+import instrucciones.IfElse;
 import instrucciones.If;
 
 //expresiones
@@ -58,7 +59,7 @@ terminal LKEY, RKEY, PAR1, PAR2, MAS, MENOS, UMENOS, POR, DIVISION, POTENCIA, RA
 terminal IGUALACION, DIFERENCIA, MAYOR, MAYORIGUAL, MENOR, MENORIGUAL;
 terminal AND, OR, NOT;
 terminal INT, DOUBLE, CHAR, STRING;
-terminal IF;
+terminal IF, ELSE;
 
 nonterminal LinkedList<Instrucciones> inicio, instrucciones;
 nonterminal Instrucciones instruccion, impresion, declaracion, asignacion, sentIf;
@@ -102,6 +103,7 @@ asignacion ::= ID:a IGUAL expresion:c FINCADENA {: RESULT = new AsignacionVar(a,
 ;
 
 sentIf ::= IF PAR1 expresion:a PAR2 LKEY instrucciones:b RKEY {: RESULT = new If(a, b, aleft, aright); :}
+        | IF PAR1 expresion:a PAR2 LKEY instrucciones:b RKEY ELSE LKEY instrucciones:c RKEY {: RESULT = new IfElse(a, b, c, aleft, aright); :}
 ;
 
 expresion ::= MENOS expresion:a               {:   RESULT = new Aritmeticas(a, OperadoresAritmeticos.NEGATIVO, aleft, aright);:} %prec UMENOS 
