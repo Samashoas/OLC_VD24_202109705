@@ -38,8 +38,15 @@ import tokens.Tokens;
 // definir simbolos del sistema
 
 // ------>PALABRAS RESERVADAS<------
+//Generales
+CAST = "cast"
+AS = "as"
 //Imprensión en consola
 IMPRIMIR = "console.log"
+//Tipos de datos
+INT = "int"
+DOUBLE = "double"
+CHAR = "char"
 
 // ------>OPERACIONES<------
 //Operadores aritmeticos
@@ -82,6 +89,22 @@ WHITESPACE = [ \t\r\f\n]+
 <YYINITIAL> {IMPRIMIR}       {MisTokens.add(new Tokens("IMPRIMIR",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.IMPRIMIR, yyline, yycolumn, yytext());
                              }
+<YYINITIAL> {CAST}           {MisTokens.add(new Tokens("CAST",yytext(), yyline, yycolumn));
+                                return new Symbol(sym.CAST, yyline, yycolumn, yytext());
+                             }
+<YYINITIAL> {AS}             {MisTokens.add(new Tokens("AS",yytext(), yyline, yycolumn));
+                                return new Symbol(sym.AS, yyline, yycolumn, yytext());
+                             }
+
+<YYINITIAL> {INT}            {MisTokens.add(new Tokens("INT",yytext(), yyline, yycolumn));
+                                return new Symbol(sym.INT, yyline, yycolumn, yytext());
+                             }
+<YYINITIAL> {DOUBLE}         {MisTokens.add(new Tokens("DOUBLE",yytext(), yyline, yycolumn));
+                                return new Symbol(sym.DOUBLE, yyline, yycolumn, yytext());
+                             }
+<YYINITIAL> {CHAR}           {MisTokens.add(new Tokens("CHAR",yytext(), yyline, yycolumn));
+                                return new Symbol(sym.CHAR, yyline, yycolumn, yytext());
+                             }
 
 <YYINITIAL> {BOOLEANO}       {MisTokens.add(new Tokens("BOOLEANO",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.BOOLEANO, yyline, yycolumn, yytext());
@@ -93,16 +116,17 @@ WHITESPACE = [ \t\r\f\n]+
                                 return new Symbol(sym.ENTERO, yyline, yycolumn, yytext());
                              }
 
-<YYINITIAL> {CARACTER}       {String caracter = yytext(); 
-                             caracter=caracter.substring(1, caracter.length() - 1);
-                             MisTokens.add(new Tokens("CARACTER",caracter, yyline, yycolumn));
-                             return new Symbol(sym.CARACTER, yyline, yycolumn, caracter);
-                             }   
+  
 <YYINITIAL> {CADENA}         {String cadena = yytext(); 
                              cadena=cadena.substring(1, cadena.length() - 1);
                              MisTokens.add(new Tokens("CADENA",cadena, yyline, yycolumn));
                              return new Symbol(sym.CADENA, yyline, yycolumn, cadena);
                              }
+<YYINITIAL> {CARACTER}       {String caracter = yytext(); 
+                             caracter=caracter.substring(1, caracter.length() - 1);
+                             MisTokens.add(new Tokens("CARACTER",caracter, yyline, yycolumn));
+                             return new Symbol(sym.CARACTER, yyline, yycolumn, caracter);
+                             } 
 
 <YYINITIAL> {PAR1}           {MisTokens.add(new Tokens("PAR1",yytext(), yyline, yycolumn));
                               return new Symbol(sym.PAR1, yyline, yycolumn, yytext());

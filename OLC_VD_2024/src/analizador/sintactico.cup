@@ -15,6 +15,7 @@ import expresiones.Nativo;
 import expresiones.Aritmeticas;
 import expresiones.Relacionales;
 import expresiones.Logicos;
+import expresiones.Casteos;
 import expresiones.OperadoresAritmeticos;
 import expresiones.OperadoresRelacionales;
 import expresiones.OperadoresLogicos;
@@ -48,14 +49,16 @@ action code
 :}
 
 terminal String CARACTER, CADENA, ENTERO, DECIMAL, BOOLEANO;
-terminal FINCADENA, IMPRIMIR;
+terminal FINCADENA, IMPRIMIR, CAST, AS;
 terminal PAR1, PAR2, MAS, MENOS, UMENOS, POR, DIVISION, POTENCIA, RAIZ, MODULO;
 terminal IGUALACION, DIFERENCIA, MAYOR, MAYORIGUAL, MENOR, MENORIGUAL;
 terminal AND, OR, NOT;
+terminal INT, DOUBLE, CHAR;
 
 nonterminal LinkedList<Instrucciones> inicio, instrucciones;
 nonterminal Instrucciones instruccion, impresion;
 nonterminal Instrucciones expresion;
+nonterminal Tipo tipos;
 
 precedence left OR;
 precedence left AND;
@@ -83,31 +86,38 @@ instruccion ::= impresion:a {: RESULT = a; :}
 impresion ::= IMPRIMIR PAR1 expresion:a PAR2 FINCADENA{: RESULT = new Print(a, aleft, aright); :}
 ;
 
-expresion ::= MENOS expresion:a {:   RESULT = new Aritmeticas(a, OperadoresAritmeticos.NEGATIVO, aleft, aright);:} %prec UMENOS 
-            |expresion:a MAS expresion:b {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.SUMA, aleft, aright);   :}
-            |expresion:a MENOS expresion:b {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.RESTA, aleft, aright);   :}
-            |expresion:a POR expresion:b {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.MULTIPLICACION, aleft, aright);   :}
+expresion ::= MENOS expresion:a               {:   RESULT = new Aritmeticas(a, OperadoresAritmeticos.NEGATIVO, aleft, aright);:} %prec UMENOS 
+            |expresion:a MAS expresion:b      {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.SUMA, aleft, aright);   :}
+            |expresion:a MENOS expresion:b    {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.RESTA, aleft, aright);   :}
+            |expresion:a POR expresion:b      {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.MULTIPLICACION, aleft, aright);   :}
             |expresion:a DIVISION expresion:b {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.DIVISION, aleft, aright);   :}
             |expresion:a POTENCIA expresion:b {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.POTENCIA, aleft, aright);   :}
-            |expresion:a RAIZ expresion:b {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.RAIZ, aleft, aright);   :}
-            |expresion:a MODULO expresion:b {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.MODULO, aleft, aright);   :}
+            |expresion:a RAIZ expresion:b     {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.RAIZ, aleft, aright);   :}
+            |expresion:a MODULO expresion:b   {:   RESULT = new Aritmeticas(a, b, OperadoresAritmeticos.MODULO, aleft, aright);   :}
 
             |expresion:a IGUALACION expresion:b {:   RESULT = new Relacionales(a, b, OperadoresRelacionales.IGUALACION, aleft, aright);   :}
             |expresion:a DIFERENCIA expresion:b {:   RESULT = new Relacionales(a, b, OperadoresRelacionales.DIFERENCIA, aleft, aright);   :}
-            |expresion:a MAYOR expresion:b {:   RESULT = new Relacionales(a, b, OperadoresRelacionales.MAYORQUE, aleft, aright);   :}
+            |expresion:a MAYOR expresion:b      {:   RESULT = new Relacionales(a, b, OperadoresRelacionales.MAYORQUE, aleft, aright);   :}
             |expresion:a MAYORIGUAL expresion:b {:   RESULT = new Relacionales(a, b, OperadoresRelacionales.MAYORIGUAL, aleft, aright);   :}
-            |expresion:a MENOR expresion:b {:   RESULT = new Relacionales(a, b, OperadoresRelacionales.MENORQUE, aleft, aright);   :}
+            |expresion:a MENOR expresion:b      {:   RESULT = new Relacionales(a, b, OperadoresRelacionales.MENORQUE, aleft, aright);   :}
             |expresion:a MENORIGUAL expresion:b {:   RESULT = new Relacionales(a, b, OperadoresRelacionales.MENORIGUAL, aleft, aright);   :}
 
             |expresion:a AND expresion:b {:   RESULT = new Logicos(a, b, OperadoresLogicos.AND, aleft, aright);   :}
-            |expresion:a OR expresion:b {:   RESULT = new Logicos(a, b, OperadoresLogicos.OR, aleft, aright);   :}
-            |NOT expresion:a {:   RESULT = new Logicos(a, OperadoresLogicos.NOT, aleft, aright);   :} %prec NOT
+            |expresion:a OR expresion:b  {:   RESULT = new Logicos(a, b, OperadoresLogicos.OR, aleft, aright);   :}
+            |NOT expresion:a             {:   RESULT = new Logicos(a, OperadoresLogicos.NOT, aleft, aright);   :} %prec NOT
 
-            | ENTERO:a {: RESULT = new Nativo(Integer.parseInt(a), new Tipo(TipoDato.ENTERO), aleft, aright); :}
-            | DECIMAL:a {: RESULT = new Nativo(new Double(a), new Tipo(TipoDato.DECIMAL), aleft, aright); :}
+            |CAST PAR1 expresion:a AS tipos:b PAR2 {:   RESULT = new Casteos(a, b, aleft, aright);   :}
+
+            | ENTERO:a   {: RESULT = new Nativo(Integer.parseInt(a), new Tipo(TipoDato.ENTERO), aleft, aright); :}
+            | DECIMAL:a  {: RESULT = new Nativo(new Double(a), new Tipo(TipoDato.DECIMAL), aleft, aright); :}
             | CARACTER:a {: RESULT = new Nativo(a, new Tipo(TipoDato.CARACTER), aleft, aright); :}
-            | CADENA:a  {: RESULT = new Nativo(a ,new Tipo(TipoDato.CADENA), aleft, aright); :}
+            | CADENA:a   {: RESULT = new Nativo(a ,new Tipo(TipoDato.CADENA), aleft, aright); :}
             | BOOLEANO:a {: RESULT = new Nativo(Boolean.parseBoolean(a), new Tipo(TipoDato.BOOLEANO), aleft, aright); :}
             
             | PAR1 expresion:a PAR2 {: RESULT = a; :}
+;
+
+tipos ::= INT      {: RESULT = new Tipo(TipoDato.ENTERO); :}
+        | DOUBLE   {: RESULT = new Tipo(TipoDato.DECIMAL); :}
+        | CHAR     {: RESULT = new Tipo(TipoDato.CARACTER); :}
 ;

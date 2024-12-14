@@ -1,0 +1,84 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package expresiones;
+
+import abstracto.Instrucciones;
+import excepciones.Errores;
+import simbolo.*;
+
+/**
+ *
+ * @author jpsam
+ */
+public class Casteos extends Instrucciones{
+    private Instrucciones expresion;
+    private Tipo tipodest;
+
+    public Casteos(Instrucciones expresion, Tipo tipodest, int line, int column) {
+        super(tipodest, line, column);
+        this.expresion = expresion;
+        this.tipodest = tipodest;
+    }
+
+    @Override
+    public Object interpretar(Arbol arbol, TablaSimbolos tabla) {
+        Object Valor = null;
+        Valor = this.expresion.interpretar(arbol, tabla);
+        if (Valor instanceof Errores) {
+                return Valor;
+            }
+        
+        return switch (this.tipodest.getTipo()) {
+            case ENTERO ->
+                this.castofint(Valor);
+            case DECIMAL ->
+                this.castofdouble(Valor);
+            case CARACTER ->
+                this.castofchar(Valor);
+            default ->
+                new Errores("SEMANTICO", "Operador invalido", this.line, this.column);
+        };
+    }
+    
+    public Object castofint (Object valor){
+         var tipo1 = this.expresion.type.getTipo();
+
+        switch (tipo1) {
+            case DECIMAL -> {
+                this.type.setTipo(TipoDato.ENTERO);
+                Double doubleVar = Math.floor((Double) valor);
+                Integer integerValue = doubleVar.intValue(); 
+                return integerValue;
+            }
+            case CARACTER -> {
+                this.type.setTipo(TipoDato.ENTERO);
+                System.out.println("el valor ingresado es: " + valor);
+                return (int) valor.toString().charAt(0);
+            }
+            default -> {
+                return new Errores("SEMANTICO", "El casteo a entero solo puedo ser de decimal o caracter", this.line, this.column);
+            }
+        }
+    }
+    
+    public Object castofdouble(Object valor){
+        if (valor instanceof Integer){
+            return (double) (int) valor;
+        } else if (valor instanceof String){
+            return (double) valor.toString().charAt(0);
+        } else {
+            return new Errores("Semantico", "No se puede castear a decimal", this.line, this.column);
+        }
+    }
+    
+    public Object castofchar (Object valor){
+        if (valor instanceof Integer){
+            return (char) ((Integer)valor).intValue();
+        } else {
+            return new Errores("Semantico", "No se puede castear a caracter", this.line, this.line);
+        }
+    }
+    
+}

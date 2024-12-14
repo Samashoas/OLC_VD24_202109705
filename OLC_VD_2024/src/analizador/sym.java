@@ -8,34 +8,39 @@ package analizador;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int AND = 25;
-  public static final int MENOS = 12;
-  public static final int MENOR = 23;
-  public static final int DIFERENCIA = 20;
-  public static final int RAIZ = 17;
+  public static final int AND = 27;
+  public static final int MENOS = 14;
+  public static final int MENOR = 25;
+  public static final int DIFERENCIA = 22;
+  public static final int RAIZ = 19;
   public static final int CADENA = 3;
-  public static final int OR = 26;
-  public static final int MENORIGUAL = 24;
+  public static final int INT = 30;
+  public static final int OR = 28;
+  public static final int MENORIGUAL = 26;
+  public static final int CHAR = 32;
   public static final int FINCADENA = 7;
   public static final int DECIMAL = 5;
-  public static final int DIVISION = 15;
-  public static final int NOT = 27;
-  public static final int POTENCIA = 16;
+  public static final int DIVISION = 17;
+  public static final int NOT = 29;
+  public static final int POTENCIA = 18;
   public static final int IMPRIMIR = 8;
-  public static final int MODULO = 18;
-  public static final int UMENOS = 13;
-  public static final int POR = 14;
+  public static final int MODULO = 20;
+  public static final int AS = 10;
+  public static final int UMENOS = 15;
+  public static final int POR = 16;
   public static final int BOOLEANO = 6;
+  public static final int CAST = 9;
   public static final int CARACTER = 2;
-  public static final int MAYOR = 21;
+  public static final int MAYOR = 23;
   public static final int EOF = 0;
-  public static final int IGUALACION = 19;
-  public static final int MAYORIGUAL = 22;
+  public static final int IGUALACION = 21;
+  public static final int MAYORIGUAL = 24;
   public static final int error = 1;
-  public static final int PAR2 = 10;
-  public static final int PAR1 = 9;
+  public static final int PAR2 = 12;
+  public static final int PAR1 = 11;
   public static final int ENTERO = 4;
-  public static final int MAS = 11;
+  public static final int MAS = 13;
+  public static final int DOUBLE = 31;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -46,6 +51,8 @@ public class sym {
   "BOOLEANO",
   "FINCADENA",
   "IMPRIMIR",
+  "CAST",
+  "AS",
   "PAR1",
   "PAR2",
   "MAS",
@@ -64,7 +71,10 @@ public class sym {
   "MENORIGUAL",
   "AND",
   "OR",
-  "NOT"
+  "NOT",
+  "INT",
+  "DOUBLE",
+  "CHAR"
   };
 }
 
