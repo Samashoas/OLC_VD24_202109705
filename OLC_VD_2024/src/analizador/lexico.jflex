@@ -119,6 +119,11 @@ WHITESPACE = [ \t\r\f\n]+
   
 <YYINITIAL> {CADENA}         {String cadena = yytext(); 
                              cadena=cadena.substring(1, cadena.length() - 1);
+                             cadena = cadena.replace("\\n", "\n")
+                                             .replace("\\t", "\t")
+                                             .replace("\\\\", "\\\\")
+                                             .replace("\\\"", "\"")/*No funciona*/
+                                             .replace("\\'", "'");
                              MisTokens.add(new Tokens("CADENA",cadena, yyline, yycolumn));
                              return new Symbol(sym.CADENA, yyline, yycolumn, cadena);
                              }

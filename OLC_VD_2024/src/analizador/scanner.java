@@ -812,6 +812,11 @@ public class scanner implements java_cup.runtime.Scanner {
           case 18:
             { String cadena = yytext(); 
                              cadena=cadena.substring(1, cadena.length() - 1);
+                             cadena = cadena.replace("\\n", "\n")
+                                             .replace("\\t", "\t")
+                                             .replace("\\\\", "\\\\")
+                                             .replace("\\\"", "\"")
+                                             .replace("\\'", "'");
                              MisTokens.add(new Tokens("CADENA",cadena, yyline, yycolumn));
                              return new Symbol(sym.CADENA, yyline, yycolumn, cadena);
             }

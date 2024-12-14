@@ -33,6 +33,7 @@ public class IDE extends javax.swing.JFrame {
     private LinkedList<Tokens> listTokens;
     public IDE() {
         initComponents();
+        this.listTokens = new LinkedList<>();
         this.listaErrores = new LinkedList<>();
     }
 
