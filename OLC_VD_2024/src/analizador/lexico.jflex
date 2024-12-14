@@ -41,12 +41,14 @@ import tokens.Tokens;
 //Generales
 CAST = "cast"
 AS = "as"
+LET = "let"
 //Imprensión en consola
 IMPRIMIR = "console.log"
 //Tipos de datos
 INT = "int"
 DOUBLE = "double"
 CHAR = "char"
+STRING = "string"
 
 // ------>OPERACIONES<------
 //Operadores aritmeticos
@@ -70,12 +72,15 @@ OR = "||"
 NOT = "!"
 
 // ------>SIMBOLOS<------
+IGUAL = "="
 PAR1 = "("
 PAR2 = ")"
+COLOM = ":"
 FINCADENA = ";"
 
 // ------>Expresiones regulares<------
 BOOLEANO = "true"|"false"
+ID = [a-z][a-z0-9_]*
 ENTERO = [0-9]+
 DECIMAL = [0-9]+"."[0-9]+
 CARACTER = \'([^\']|[\t]|[\n]|[\r]|[ ])\' 
@@ -95,6 +100,9 @@ WHITESPACE = [ \t\r\f\n]+
 <YYINITIAL> {AS}             {MisTokens.add(new Tokens("AS",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.AS, yyline, yycolumn, yytext());
                              }
+<YYINITIAL> {LET}            {MisTokens.add(new Tokens("LET",yytext(), yyline, yycolumn));
+                                return new Symbol(sym.LET, yyline, yycolumn, yytext());
+                             }
 
 <YYINITIAL> {INT}            {MisTokens.add(new Tokens("INT",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.INT, yyline, yycolumn, yytext());
@@ -104,6 +112,9 @@ WHITESPACE = [ \t\r\f\n]+
                              }
 <YYINITIAL> {CHAR}           {MisTokens.add(new Tokens("CHAR",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.CHAR, yyline, yycolumn, yytext());
+                             }
+<YYINITIAL> {STRING}         {MisTokens.add(new Tokens("STRING",yytext(), yyline, yycolumn));
+                                return new Symbol(sym.STRING, yyline, yycolumn, yytext());
                              }
 
 <YYINITIAL> {BOOLEANO}       {MisTokens.add(new Tokens("BOOLEANO",yytext(), yyline, yycolumn));
@@ -131,13 +142,19 @@ WHITESPACE = [ \t\r\f\n]+
                              caracter=caracter.substring(1, caracter.length() - 1);
                              MisTokens.add(new Tokens("CARACTER",caracter, yyline, yycolumn));
                              return new Symbol(sym.CARACTER, yyline, yycolumn, caracter);
-                             } 
+                             }
+<YYINITIAL> {ID}             {MisTokens.add(new Tokens("ID",yytext(), yyline, yycolumn));
+                                return new Symbol(sym.ID, yyline, yycolumn, yytext());
+                             }
 
 <YYINITIAL> {PAR1}           {MisTokens.add(new Tokens("PAR1",yytext(), yyline, yycolumn));
                               return new Symbol(sym.PAR1, yyline, yycolumn, yytext());
                              }
 <YYINITIAL> {PAR2}           {MisTokens.add(new Tokens("PAR2",yytext(), yyline, yycolumn));
                               return new Symbol(sym.PAR2, yyline, yycolumn, yytext());
+                             }
+<YYINITIAL> {COLOM}          {MisTokens.add(new Tokens("COLOM",yytext(), yyline, yycolumn));
+                              return new Symbol(sym.COLOM, yyline, yycolumn, yytext());
                              }
 <YYINITIAL> {FINCADENA}      {MisTokens.add(new Tokens("FINCADENA",yytext(), yyline, yycolumn));
                               return new Symbol(sym.FINCADENA, yyline, yycolumn, yytext());
@@ -192,6 +209,10 @@ WHITESPACE = [ \t\r\f\n]+
                              }
 <YYINITIAL> {NOT}            {MisTokens.add(new Tokens("NOT",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.NOT, yyline, yycolumn, yytext());
+                             }
+
+<YYINITIAL> {IGUAL}          {MisTokens.add(new Tokens("IGUAL",yytext(), yyline, yycolumn));
+                                return new Symbol(sym.IGUAL, yyline, yycolumn, yytext());
                              }
 
 \/\/[^\n]*              { /* Ignorar comentarios de una línea */ }

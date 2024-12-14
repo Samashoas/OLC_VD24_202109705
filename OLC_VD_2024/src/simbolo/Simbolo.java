@@ -23,4 +23,30 @@ public class Simbolo {
         this.id = id;
         this.value = value;
     }
+
+    public Tipo getType() {
+        return type;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public Object getValue() {
+        return value;
+    }
+
+    public void setType(Tipo type) {
+        this.type = type;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setValue(Object value) {
+        this.value = value;
+    }
+    
+    
 }
