@@ -83,10 +83,24 @@ public class Casteos extends Instrucciones{
     }
     
     public Object castofchar (Object valor){
-        if (valor instanceof Integer){
-            return (char) ((Integer)valor).intValue();
-        } else {
-            return new Errores("Semantico", "No se puede castear a caracter", this.line, this.line);
+        var tipo1 = this.expresion.type.getTipo();
+        /*
+        if (op1 instanceof Integer) {
+            if((int) op1 < 0 && (int) op1 > 255) {
+                Variables.addToGlobalLinkedList(new Errores("SEMANTICO", "Esta fuera del rango del codigo ASCII", this.linea, this.col));
+                return new Errores("SEMANTICO", "Esta fuera del rango del codigo ASCII", this.linea, this.col);
+            }
+        }
+        */
+        
+        switch (tipo1) {
+            case ENTERO -> {
+                this.type.setTipo(TipoDato.CARACTER);
+                return (char) ((Integer) valor).intValue();
+            }
+            default -> {
+                return new Errores("SEMANTICO", "Casteo a double erroneo", this.line, this.column);
+            }
         }
     }
     
