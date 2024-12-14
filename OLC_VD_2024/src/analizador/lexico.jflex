@@ -189,4 +189,6 @@ WHITESPACE = [ \t\r\f\n]+
                                 return new Symbol(sym.NOT, yyline, yycolumn, yytext());
                              }
 
+\/\/[^\n]*              { /* Ignorar comentarios de una línea */ }
+\/\*([^*]|\*[^\/])*\*\/ { /* Ignorar comentarios de múltiples líneas */ }
 <YYINITIAL>. {erroresLexicos.add(new Errores("LEXICO", "El caracter "+ yytext() + " no pertenece al lenguaje", yyline, yycolumn));}
