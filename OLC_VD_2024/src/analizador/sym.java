@@ -13,15 +13,15 @@ public class sym {
   public static final int PAR1 = 17;
   public static final int DIFERENCIA = 29;
   public static final int LKEY = 15;
-  public static final int CHAR = 39;
+  public static final int CHAR = 41;
   public static final int CONST = 14;
   public static final int POR = 22;
   public static final int IGUALACION = 28;
   public static final int IMPRIMIR = 10;
   public static final int ENTERO = 4;
-  public static final int DOUBLE = 38;
-  public static final int INT = 37;
-  public static final int FOR = 43;
+  public static final int DOUBLE = 40;
+  public static final int INT = 39;
+  public static final int FOR = 45;
   public static final int NOT = 36;
   public static final int FINCADENA = 9;
   public static final int MENORIGUAL = 33;
@@ -30,13 +30,15 @@ public class sym {
   public static final int CARACTER = 2;
   public static final int OR = 35;
   public static final int RAIZ = 25;
-  public static final int IF = 41;
+  public static final int INCREMENTO = 37;
+  public static final int IF = 43;
   public static final int UMENOS = 21;
   public static final int ID = 7;
   public static final int MAYORIGUAL = 31;
   public static final int EOF = 0;
   public static final int DECIMAL = 5;
   public static final int RKEY = 16;
+  public static final int DECREMENTO = 38;
   public static final int error = 1;
   public static final int CADENA = 3;
   public static final int MODULO = 26;
@@ -45,14 +47,14 @@ public class sym {
   public static final int MAYOR = 30;
   public static final int POTENCIA = 24;
   public static final int COLOM = 8;
-  public static final int ELSE = 42;
-  public static final int WHILE = 44;
+  public static final int ELSE = 44;
+  public static final int WHILE = 46;
   public static final int LET = 13;
   public static final int BOOLEANO = 6;
-  public static final int STRING = 40;
+  public static final int STRING = 42;
   public static final int AS = 12;
   public static final int DIVISION = 23;
-  public static final int DO = 45;
+  public static final int DO = 47;
   public static final int MAS = 19;
   public static final String[] terminalNames = new String[] {
   "EOF",
@@ -92,6 +94,8 @@ public class sym {
   "AND",
   "OR",
   "NOT",
+  "INCREMENTO",
+  "DECREMENTO",
   "INT",
   "DOUBLE",
   "CHAR",

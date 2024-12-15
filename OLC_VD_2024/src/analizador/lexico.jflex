@@ -77,6 +77,9 @@ MENORIGUAL = "<="
 AND = "&&"
 OR = "||"
 NOT = "!"
+//Incrementos y Decrementos
+INCREMENTO = "++"
+DECREMENTO = "--"
 
 // ------>SIMBOLOS<------
 LKEY = "{"
@@ -211,6 +214,13 @@ WHITESPACE = [ \t\r\f\n]+
                              }
 <YYINITIAL> {MODULO}         {MisTokens.add(new Tokens("MODULO",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.MODULO, yyline, yycolumn, yytext());
+                             }
+                             
+<YYINITIAL> {DECREMENTO}     {MisTokens.add(new Tokens("DECREMENTO",yytext(), yyline, yycolumn));
+                                return new Symbol(sym.DECREMENTO, yyline, yycolumn, yytext());
+                             }
+<YYINITIAL> {INCREMENTO}     {MisTokens.add(new Tokens("INCREMENTO",yytext(), yyline, yycolumn));
+                                return new Symbol(sym.INCREMENTO, yyline, yycolumn, yytext());
                              }
 
 <YYINITIAL> {IGUALACION}     {MisTokens.add(new Tokens("IGUALACION",yytext(), yyline, yycolumn));

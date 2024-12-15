@@ -11,6 +11,8 @@ import excepciones.Errores;
 import instrucciones.Print;
 import instrucciones.Declaracion;
 import instrucciones.AsignacionVar;
+import instrucciones.Incremento;
+import instrucciones.Decremento;
 import instrucciones.IfElseIf;
 import instrucciones.IfElse;
 import instrucciones.If;
@@ -62,11 +64,12 @@ terminal COLOM, FINCADENA, IMPRIMIR, CAST, AS, LET, CONST;
 terminal LKEY, RKEY, PAR1, PAR2, MAS, MENOS, UMENOS, POR, DIVISION, POTENCIA, RAIZ, MODULO, IGUAL;
 terminal IGUALACION, DIFERENCIA, MAYOR, MAYORIGUAL, MENOR, MENORIGUAL;
 terminal AND, OR, NOT;
+terminal INCREMENTO, DECREMENTO;
 terminal INT, DOUBLE, CHAR, STRING;
 terminal IF, ELSE, FOR, WHILE, DO;
 
 nonterminal LinkedList<Instrucciones> inicio, instrucciones;
-nonterminal Instrucciones instruccion, impresion, declaracion, asignacion, sentIf, sentFor, actFor, sentWhile;
+nonterminal Instrucciones instruccion, impresion, declaracion, asignacion, sentIf, sentFor, actFor, sentWhile, insIncremento, insDecremento;
 nonterminal Instrucciones expresion;
 nonterminal Tipo tipos;
 
@@ -92,6 +95,8 @@ instrucciones ::= instrucciones:a instruccion:b {:RESULT = a; RESULT.add(b); :}
 instruccion ::= impresion:a FINCADENA{: RESULT = a; :}
                |declaracion:a FINCADENA{: RESULT = a; :}
                |asignacion:a FINCADENA{: RESULT = a; :}
+               |insIncremento:a {: RESULT = a; :}
+               |insDecremento:a {: RESULT = a; :}
                |sentIf:a {: RESULT = a; :}
                |sentFor:a {: RESULT = a; :}
                |sentWhile:a {: RESULT = a; :}
@@ -118,10 +123,20 @@ sentFor ::= FOR PAR1 asignacion:a FINCADENA expresion:b FINCADENA actFor:c PAR2 
 ;
 
 actFor ::= asignacion:a {: RESULT = a; :}
+        | insIncremento:a {: RESULT = a; :}
+        | insDecremento:a {: RESULT = a; :}
 ;
 
 sentWhile ::= WHILE PAR1 expresion:a PAR2 LKEY instrucciones:b RKEY {: RESULT = new While(a, b, aleft, aright); :}
             | DO LKEY instrucciones:a RKEY WHILE PAR1 expresion:b PAR2 FINCADENA {: RESULT = new DoWhile(b, a, aleft, aright); :}
+;
+
+insIncremento ::=ID:a INCREMENTO FINCADENA{: RESULT = new Incremento(a, aleft, aright); :}
+                |ID:a INCREMENTO {: RESULT = new Incremento(a, aleft, aright); :}
+;
+
+insDecremento ::=ID:a DECREMENTO FINCADENA{: RESULT = new Decremento(a, aleft, aright); :}
+                |ID:a DECREMENTO {: RESULT = new Decremento(a, aleft, aright); :}
 ;
 
 expresion ::= MENOS expresion:a               {:   RESULT = new Aritmeticas(a, OperadoresAritmeticos.NEGATIVO, aleft, aright);:} %prec UMENOS 
