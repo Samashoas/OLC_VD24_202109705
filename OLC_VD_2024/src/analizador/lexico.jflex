@@ -145,8 +145,7 @@ WHITESPACE = [ \t\r\f\n]+
 <YYINITIAL> {ENTERO}         {MisTokens.add(new Tokens("ENTERO",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.ENTERO, yyline, yycolumn, yytext());
                              }
-
-  
+ 
 <YYINITIAL> {CADENA}         {String cadena = yytext(); 
                              cadena=cadena.substring(1, cadena.length() - 1);
                              cadena = cadena.replace("\\n", "\n")

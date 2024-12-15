@@ -16,7 +16,7 @@ public class Arbol {
     private LinkedList<Instrucciones> instrucciones;
     private String console;
     private LinkedList<Errores> errors;
-    // tabla de simbolos (global)
+    //tabla de simbolos (global)
 
     public Arbol(LinkedList<Instrucciones> instrucciones) {
         this.instrucciones = instrucciones;

@@ -11,6 +11,7 @@ import excepciones.Errores;
 import instrucciones.Print;
 import instrucciones.Declaracion;
 import instrucciones.AsignacionVar;
+import instrucciones.IfElseIf;
 import instrucciones.IfElse;
 import instrucciones.If;
 import instrucciones.For;
@@ -106,6 +107,7 @@ asignacion ::= ID:a IGUAL expresion:c  {: RESULT = new AsignacionVar(a, c, aleft
 
 sentIf ::= IF PAR1 expresion:a PAR2 LKEY instrucciones:b RKEY {: RESULT = new If(a, b, aleft, aright); :}
         | IF PAR1 expresion:a PAR2 LKEY instrucciones:b RKEY ELSE LKEY instrucciones:c RKEY {: RESULT = new IfElse(a, b, c, aleft, aright); :}
+        | IF PAR1 expresion:a PAR2 LKEY instrucciones:b RKEY ELSE sentIf:c {: RESULT = new IfElseIf(a, b, c, aleft, aright); :}
 ;
                                                                                                         //For(Instrucciones asignacion, Instrucciones condicion, Instrucciones actualización, LinkedList<Instrucciones> instrucciones, Tipo type, int line, int column)
 sentFor ::= FOR PAR1 asignacion:a FINCADENA expresion:b FINCADENA actFor:c PAR2 LKEY instrucciones:d RKEY {: RESULT = new For(a, b, c, d, aleft, aright); :}
