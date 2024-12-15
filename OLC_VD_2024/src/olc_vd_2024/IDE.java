@@ -203,7 +203,6 @@ public class IDE extends javax.swing.JFrame {
                 System.out.println(e.toString());
             }
             
-            
             var ast = new Arbol((LinkedList<Instrucciones>) resultado.value);
             var tabla = new TablaSimbolos();
             
