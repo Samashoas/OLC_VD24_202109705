@@ -43,8 +43,14 @@ public class IfElseIf extends Instrucciones{
                 if(i instanceof Break){
                     return i;
                 }
+                if(i instanceof Continue){
+                    return i;
+                }
                 var resultado = i.interpretar(tree, nuevaTabla);
                 if(resultado instanceof Break){
+                    return resultado;
+                }
+                if(resultado instanceof Continue){
                     return resultado;
                 }
                 if (resultado instanceof Errores) {
@@ -55,8 +61,14 @@ public class IfElseIf extends Instrucciones{
             if(this.sentIfElse instanceof Break){
                 return this.sentIfElse;
             }
+            if(this.sentIfElse instanceof Continue){
+                return this.sentIfElse;
+            }
             var resultado = this.sentIfElse.interpretar(tree, nuevaTabla);
             if(resultado instanceof Break){
+                return resultado;
+            }
+            if(resultado instanceof Continue){
                 return resultado;
             }
             if (resultado instanceof Errores) {
