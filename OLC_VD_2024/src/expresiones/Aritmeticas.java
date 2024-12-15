@@ -67,7 +67,7 @@ public class Aritmeticas extends Instrucciones {
             case RAIZ ->
                 this.raiz(opIzq, opDer);
             case MODULO ->
-                this.raiz(opIzq, opDer);
+                this.modulo(opIzq, opDer);
             case NEGATIVO ->
                 this.negacion(Unico);
             default ->
