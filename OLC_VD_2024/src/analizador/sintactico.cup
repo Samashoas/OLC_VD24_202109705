@@ -16,6 +16,8 @@ import instrucciones.Decremento;
 import instrucciones.IfElseIf;
 import instrucciones.IfElse;
 import instrucciones.If;
+import instrucciones.Caso;
+import instrucciones.Match;
 import instrucciones.For;
 import instrucciones.While;
 import instrucciones.DoWhile;
@@ -62,16 +64,18 @@ action code
 terminal String CARACTER, CADENA, ENTERO, DECIMAL, BOOLEANO, ID;
 terminal COLOM, FINCADENA, IMPRIMIR, CAST, AS, LET, CONST;
 terminal LKEY, RKEY, PAR1, PAR2, MAS, MENOS, UMENOS, POR, DIVISION, POTENCIA, RAIZ, MODULO, IGUAL;
-terminal IGUALACION, DIFERENCIA, MAYOR, MAYORIGUAL, MENOR, MENORIGUAL;
+terminal TO, IGUALACION, DIFERENCIA, MAYOR, MAYORIGUAL, MENOR, MENORIGUAL;
 terminal AND, OR, NOT;
 terminal INCREMENTO, DECREMENTO;
 terminal INT, DOUBLE, CHAR, STRING;
-terminal IF, ELSE, FOR, WHILE, DO;
+terminal IF, ELSE, FOR, WHILE, DO, MATCH, DEFAULT;
 
 nonterminal LinkedList<Instrucciones> inicio, instrucciones;
-nonterminal Instrucciones instruccion, impresion, declaracion, asignacion, sentIf, sentFor, actFor, sentWhile, insIncremento, insDecremento;
+nonterminal Instrucciones instruccion, impresion, declaracion, asignacion, sentIf, sentFor, actFor, sentWhile, insIncremento, insDecremento, sentMatch, caso;
 nonterminal Instrucciones expresion;
+nonterminal LinkedList<Caso> listaCasos;
 nonterminal Tipo tipos;
+
 
 precedence left OR;
 precedence left AND;
@@ -100,6 +104,7 @@ instruccion ::= impresion:a FINCADENA{: RESULT = a; :}
                |sentIf:a {: RESULT = a; :}
                |sentFor:a {: RESULT = a; :}
                |sentWhile:a {: RESULT = a; :}
+               |sentMatch:a {: RESULT = a; :}
                |error FINCADENA {:RESULT = null; :}
                |error RKEY{:RESULT = null; :}
 ;
@@ -131,6 +136,16 @@ actFor ::= asignacion:a {: RESULT = a; :}
 
 sentWhile ::= WHILE PAR1 expresion:a PAR2 LKEY instrucciones:b RKEY {: RESULT = new While(a, b, aleft, aright); :}
             | DO LKEY instrucciones:a RKEY WHILE PAR1 expresion:b PAR2 FINCADENA {: RESULT = new DoWhile(b, a, aleft, aright); :}
+;
+
+sentMatch ::= MATCH expresion:a LKEY listaCasos:b DEFAULT TO LKEY instrucciones:c RKEY RKEY{: RESULT = new Match(a, b, c, aleft, aright); :}
+;
+
+listaCasos ::= caso:a               {: RESULT = new LinkedList<Caso>(); RESULT.add((Caso)a); :}
+             | listaCasos:a caso:b  {: RESULT = a; a.add((Caso)b); :}
+;
+
+caso ::= expresion:a TO LKEY instrucciones:b RKEY {: RESULT = new Caso(a, b, aleft, aright); :}
 ;
 
 insIncremento ::=ID:a INCREMENTO FINCADENA{: RESULT = new Incremento(a, aleft, aright); :}

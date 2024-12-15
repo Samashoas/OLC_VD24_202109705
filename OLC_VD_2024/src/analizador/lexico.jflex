@@ -49,6 +49,8 @@ ELSE = "else"
 FOR = "for"
 WHILE = "while"
 DO = "do"
+MATCH = "match"
+DEFAULT = "default"
 //Imprensión en consola
 IMPRIMIR = "console.log"
 //Tipos de datos
@@ -82,6 +84,7 @@ INCREMENTO = "++"
 DECREMENTO = "--"
 
 // ------>SIMBOLOS<------
+TO = "=>"
 LKEY = "{"
 RKEY = "}"
 IGUAL = "="
@@ -132,6 +135,12 @@ WHITESPACE = [ \t\r\f\n]+
                              }
 <YYINITIAL> {DO}             {MisTokens.add(new Tokens("DO",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.DO, yyline, yycolumn, yytext());
+                             }
+<YYINITIAL> {MATCH}          {MisTokens.add(new Tokens("MATCH",yytext(), yyline, yycolumn));
+                                return new Symbol(sym.MATCH, yyline, yycolumn, yytext());
+                             }
+<YYINITIAL> {DEFAULT}        {MisTokens.add(new Tokens("DEFAULT",yytext(), yyline, yycolumn));
+                                return new Symbol(sym.DEFAULT, yyline, yycolumn, yytext());
                              }
 
 <YYINITIAL> {INT}            {MisTokens.add(new Tokens("INT",yytext(), yyline, yycolumn));
@@ -215,14 +224,17 @@ WHITESPACE = [ \t\r\f\n]+
 <YYINITIAL> {MODULO}         {MisTokens.add(new Tokens("MODULO",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.MODULO, yyline, yycolumn, yytext());
                              }
-                             
+
 <YYINITIAL> {DECREMENTO}     {MisTokens.add(new Tokens("DECREMENTO",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.DECREMENTO, yyline, yycolumn, yytext());
                              }
 <YYINITIAL> {INCREMENTO}     {MisTokens.add(new Tokens("INCREMENTO",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.INCREMENTO, yyline, yycolumn, yytext());
                              }
-
+                             
+<YYINITIAL> {TO}             {MisTokens.add(new Tokens("TO",yytext(), yyline, yycolumn));
+                                return new Symbol(sym.TO, yyline, yycolumn, yytext());
+                             }
 <YYINITIAL> {IGUALACION}     {MisTokens.add(new Tokens("IGUALACION",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.IGUALACION, yyline, yycolumn, yytext());
                              }
