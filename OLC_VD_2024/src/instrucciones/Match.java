@@ -42,11 +42,11 @@ public class Match extends Instrucciones{
 
             if (valorExpresion.equals(valorCaso)) {
                 var nuevaTabla = new TablaSimbolos(table);
-                for (var instruccion : caso.getInstrucciones()) {
-                    if(instruccion instanceof Break){
-                        return instruccion;
+                for (var i : caso.getInstrucciones()) {
+                    if(i instanceof Break){
+                        return i;
                     }
-                    var resultado = instruccion.interpretar(tree, nuevaTabla);
+                    var resultado = i.interpretar(tree, nuevaTabla);
                     if(resultado instanceof Break){
                         return resultado;
                     }
@@ -60,11 +60,11 @@ public class Match extends Instrucciones{
 
         if (defaultInstrucciones != null) {
             var nuevaTabla = new TablaSimbolos(table);
-            for (var instruccion : defaultInstrucciones) {
-                if(instruccion instanceof Break){
-                    return instruccion;
+            for (var i : defaultInstrucciones) {
+                if(i instanceof Break){
+                    return i;
                 }
-                var resultado = instruccion.interpretar(tree, nuevaTabla);
+                var resultado = i.interpretar(tree, nuevaTabla);
                 if(resultado instanceof Break){
                     return resultado;
                 }
