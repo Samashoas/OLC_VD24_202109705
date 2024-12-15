@@ -47,7 +47,13 @@ public class For extends Instrucciones{
         while((boolean)this.condicion.interpretar(tree, nuevaTabla)){
             var nuevaTabla2 = new TablaSimbolos(nuevaTabla);
             for(var i: this.instrucciones){
+                if(i instanceof Break){
+                    return null;
+                }
                 var resIns = i.interpretar(tree, nuevaTabla2);
+                if(resIns instanceof Break){
+                    return null;
+                }
                 if(resIns instanceof Errores){
                     tree.AddErrores((Errores) resIns);
                 }

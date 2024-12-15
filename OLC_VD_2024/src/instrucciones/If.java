@@ -42,7 +42,13 @@ public class If extends Instrucciones{
         if((boolean)cond){
             //Creacion del nuevo entorno
             for(var i : this.instrucciones){
+                if(i instanceof Break){
+                    return i;
+                }
                 var resultado = i.interpretar(tree, nuevaTabla);
+                if(resultado instanceof Break){
+                    return resultado;
+                }
                 if(resultado instanceof Errores){
                     tree.AddErrores((Errores) resultado);
                 }
