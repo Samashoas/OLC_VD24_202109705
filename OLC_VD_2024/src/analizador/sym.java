@@ -8,57 +8,60 @@ package analizador;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int CAST = 11;
-  public static final int PAR2 = 18;
-  public static final int PAR1 = 17;
-  public static final int DIFERENCIA = 30;
-  public static final int LKEY = 15;
-  public static final int CHAR = 42;
-  public static final int CONST = 14;
-  public static final int POR = 22;
-  public static final int IGUALACION = 29;
-  public static final int IMPRIMIR = 10;
+  public static final int CAST = 13;
+  public static final int PAR2 = 20;
+  public static final int PAR1 = 19;
+  public static final int DIFERENCIA = 32;
+  public static final int LKEY = 17;
+  public static final int CHAR = 44;
+  public static final int CONST = 16;
+  public static final int POR = 24;
+  public static final int IGUALACION = 31;
+  public static final int IMPRIMIR = 12;
   public static final int ENTERO = 4;
-  public static final int DOUBLE = 41;
-  public static final int INT = 40;
-  public static final int FOR = 46;
-  public static final int MATCH = 49;
-  public static final int NOT = 37;
-  public static final int AND = 35;
-  public static final int FINCADENA = 9;
-  public static final int MENORIGUAL = 34;
-  public static final int IGUAL = 27;
+  public static final int DOUBLE = 43;
+  public static final int CONTINUE = 9;
+  public static final int INT = 42;
+  public static final int FOR = 49;
+  public static final int MATCH = 52;
+  public static final int NOT = 39;
+  public static final int AND = 37;
+  public static final int MENORIGUAL = 36;
+  public static final int FINCADENA = 11;
+  public static final int IGUAL = 29;
   public static final int CARACTER = 2;
-  public static final int OR = 36;
-  public static final int RAIZ = 25;
-  public static final int INCREMENTO = 38;
-  public static final int IF = 44;
-  public static final int UMENOS = 21;
+  public static final int OR = 38;
+  public static final int BOOL = 46;
+  public static final int RAIZ = 27;
+  public static final int INCREMENTO = 40;
+  public static final int IF = 47;
+  public static final int UMENOS = 23;
   public static final int ID = 7;
-  public static final int MAYORIGUAL = 32;
+  public static final int MAYORIGUAL = 34;
   public static final int EOF = 0;
   public static final int DECIMAL = 5;
-  public static final int RKEY = 16;
-  public static final int DECREMENTO = 39;
+  public static final int RKEY = 18;
+  public static final int DECREMENTO = 41;
   public static final int error = 1;
   public static final int CADENA = 3;
-  public static final int MODULO = 26;
-  public static final int MENOS = 20;
-  public static final int MENOR = 33;
-  public static final int MAYOR = 31;
-  public static final int POTENCIA = 24;
-  public static final int COLOM = 8;
-  public static final int ELSE = 45;
-  public static final int TO = 28;
-  public static final int WHILE = 47;
-  public static final int DEFAULT = 50;
-  public static final int LET = 13;
+  public static final int MODULO = 28;
+  public static final int MENOS = 22;
+  public static final int MENOR = 35;
+  public static final int BREAK = 8;
+  public static final int MAYOR = 33;
+  public static final int POTENCIA = 26;
+  public static final int COLOM = 10;
+  public static final int ELSE = 48;
+  public static final int TO = 30;
+  public static final int WHILE = 50;
+  public static final int DEFAULT = 53;
+  public static final int LET = 15;
   public static final int BOOLEANO = 6;
-  public static final int STRING = 43;
-  public static final int AS = 12;
-  public static final int DIVISION = 23;
-  public static final int DO = 48;
-  public static final int MAS = 19;
+  public static final int STRING = 45;
+  public static final int AS = 14;
+  public static final int DIVISION = 25;
+  public static final int DO = 51;
+  public static final int MAS = 21;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -68,6 +71,8 @@ public class sym {
   "DECIMAL",
   "BOOLEANO",
   "ID",
+  "BREAK",
+  "CONTINUE",
   "COLOM",
   "FINCADENA",
   "IMPRIMIR",
@@ -104,6 +109,7 @@ public class sym {
   "DOUBLE",
   "CHAR",
   "STRING",
+  "BOOL",
   "IF",
   "ELSE",
   "FOR",

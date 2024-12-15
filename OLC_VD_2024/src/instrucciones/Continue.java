@@ -21,7 +21,4 @@ public class Continue extends Instrucciones{
     public Object interpretar(Arbol tree, TablaSimbolos table) {
         return this;
     }
-    
-    
-    
 }

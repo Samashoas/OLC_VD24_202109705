@@ -51,6 +51,8 @@ WHILE = "while"
 DO = "do"
 MATCH = "match"
 DEFAULT = "default"
+BREAK = "break"
+CONTINUE = "continue"
 //Imprensión en consola
 IMPRIMIR = "console.log"
 //Tipos de datos
@@ -58,6 +60,7 @@ INT = "int"
 DOUBLE = "double"
 CHAR = "char"
 STRING = "string"
+BOOL = "bool"
 
 // ------>OPERACIONES<------
 //Operadores aritmeticos
@@ -95,7 +98,7 @@ FINCADENA = ";"
 
 // ------>Expresiones regulares<------
 BOOLEANO = "true"|"false"
-ID = [a-z][a-z0-9_]*
+ID = [a-zA-Z][a-zA-Z0-9_]*
 ENTERO = [0-9]+
 DECIMAL = [0-9]+"."[0-9]+
 CARACTER = \'([^\']|[\t]|[\n]|[\r]|[ ])\' 
@@ -142,6 +145,12 @@ WHITESPACE = [ \t\r\f\n]+
 <YYINITIAL> {DEFAULT}        {MisTokens.add(new Tokens("DEFAULT",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.DEFAULT, yyline, yycolumn, yytext());
                              }
+<YYINITIAL> {BREAK}          {MisTokens.add(new Tokens("BREAK",yytext(), yyline, yycolumn));
+                                return new Symbol(sym.BREAK, yyline, yycolumn, yytext());
+                             }
+<YYINITIAL> {CONTINUE}       {MisTokens.add(new Tokens("CONTINUE",yytext(), yyline, yycolumn));
+                                return new Symbol(sym.CONTINUE, yyline, yycolumn, yytext());
+                             }
 
 <YYINITIAL> {INT}            {MisTokens.add(new Tokens("INT",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.INT, yyline, yycolumn, yytext());
@@ -154,6 +163,9 @@ WHITESPACE = [ \t\r\f\n]+
                              }
 <YYINITIAL> {STRING}         {MisTokens.add(new Tokens("STRING",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.STRING, yyline, yycolumn, yytext());
+                             }
+<YYINITIAL> {BOOL}       {MisTokens.add(new Tokens("BOOLEANO",yytext(), yyline, yycolumn));
+                                return new Symbol(sym.BOOL, yyline, yycolumn, yytext());
                              }
 
 <YYINITIAL> {BOOLEANO}       {MisTokens.add(new Tokens("BOOLEANO",yytext(), yyline, yycolumn));
@@ -231,7 +243,7 @@ WHITESPACE = [ \t\r\f\n]+
 <YYINITIAL> {INCREMENTO}     {MisTokens.add(new Tokens("INCREMENTO",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.INCREMENTO, yyline, yycolumn, yytext());
                              }
-                             
+
 <YYINITIAL> {TO}             {MisTokens.add(new Tokens("TO",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.TO, yyline, yycolumn, yytext());
                              }
