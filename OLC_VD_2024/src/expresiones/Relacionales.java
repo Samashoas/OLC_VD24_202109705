@@ -49,7 +49,7 @@ public class Relacionales extends Instrucciones{
             case MENORIGUAL ->
                 this.menorigual(opIzq, opDer);
             default ->
-                new Errores("SEMANTICO", "Operador invalido", this.line, this.column);
+                new Errores("SEMANTICO", "Operador relacional invalido", this.line, this.column);
         };
     }
     
@@ -73,7 +73,7 @@ public class Relacionales extends Instrucciones{
                         return (int)op1 == (int)op2.toString().charAt(0);
                     }
                     default ->{
-                        return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
+                        return new Errores("SEMANTICO", "tipo de dato no permitido en igualación", this.line, this.column);
                     }
                 }
             }
@@ -92,7 +92,7 @@ public class Relacionales extends Instrucciones{
                         return (double)op1 == (double)op2.toString().charAt(0);
                     }
                     default ->{
-                        return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
+                        return new Errores("SEMANTICO", "tipo de dato no permitido en igualación", this.line, this.column);
                     }
                 }
             }
@@ -111,7 +111,7 @@ public class Relacionales extends Instrucciones{
                         return op1.toString().charAt(0) == op2.toString().charAt(0);
                     }
                     default ->{
-                        return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
+                        return new Errores("SEMANTICO", "tipo de dato no permitido en igualación", this.line, this.column);
                     }
                 }
             }
@@ -122,7 +122,7 @@ public class Relacionales extends Instrucciones{
                         return op1.toString() == op2.toString();
                     }
                     default ->{
-                        return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
+                        return new Errores("SEMANTICO", "tipo de dato no permitido en igualación", this.line, this.column);
                     }
                 }
             }
@@ -163,7 +163,7 @@ public class Relacionales extends Instrucciones{
                         return (int)op1 != (int)op2.toString().charAt(0);
                     }
                     default ->{
-                        return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
+                        return new Errores("SEMANTICO", "tipo de dato no permitido en diferencia", this.line, this.column);
                     }
                 }
             }
@@ -182,7 +182,7 @@ public class Relacionales extends Instrucciones{
                         return (double)op1 != (double)op2.toString().charAt(0);
                     }
                     default ->{
-                        return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
+                        return new Errores("SEMANTICO", "tipo de dato no permitido en diferencia", this.line, this.column);
                     }
                 }
             }
@@ -201,7 +201,7 @@ public class Relacionales extends Instrucciones{
                         return op1.toString().charAt(0) != op2.toString().charAt(0);
                     }
                     default ->{
-                        return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
+                        return new Errores("SEMANTICO", "tipo de dato no permitido en diferencia", this.line, this.column);
                     }
                 }
             }
@@ -212,7 +212,7 @@ public class Relacionales extends Instrucciones{
                         return op1.toString() != op2.toString();
                     }
                     default ->{
-                        return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
+                        return new Errores("SEMANTICO", "tipo de dato no permitido en diferencia", this.line, this.column);
                     }
                 }
             }
@@ -223,12 +223,12 @@ public class Relacionales extends Instrucciones{
                         return !(op1.toString().equals(op2.toString()));
                     }
                     default ->{
-                        return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
+                        return new Errores("SEMANTICO", "tipo de dato no permitido en diferencia", this.line, this.column);
                     }
                 }
             }
             default -> {
-                return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
+                return new Errores("SEMANTICO", "tipo de dato no permitido en diferencia", this.line, this.column);
             }
         }
     }
@@ -253,7 +253,7 @@ public class Relacionales extends Instrucciones{
                         return (int)op1 > (int)op2.toString().charAt(0);
                     }
                     default ->{
-                        return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
+                        return new Errores("SEMANTICO", "tipo de dato no permitido en Mayor Que", this.line, this.column);
                     }
                 }
             }
@@ -272,7 +272,7 @@ public class Relacionales extends Instrucciones{
                         return (double)op1 > (double)op2.toString().charAt(0);
                     }
                     default ->{
-                        return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
+                        return new Errores("SEMANTICO", "tipo de dato no permitido en Mayor Que", this.line, this.column);
                     }
                 }
             }
@@ -291,7 +291,7 @@ public class Relacionales extends Instrucciones{
                         return op1.toString().charAt(0) > op2.toString().charAt(0);
                     }
                     default ->{
-                        return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
+                        return new Errores("SEMANTICO", "tipo de dato no permitido en Mayor Que", this.line, this.column);
                     }
                 }
             }
@@ -304,12 +304,12 @@ public class Relacionales extends Instrucciones{
                         return bool1>bool2;
                     }
                     default ->{
-                        return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
+                        return new Errores("SEMANTICO", "tipo de dato no permitido en Mayor Que", this.line, this.column);
                     }
                 }
             }
             default -> {
-                return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
+                return new Errores("SEMANTICO", "tipo de dato no permitido en Mayor Que", this.line, this.column);
             }
         }
     }
@@ -334,7 +334,7 @@ public class Relacionales extends Instrucciones{
                         return (int)op1 >= (int)op2.toString().charAt(0);
                     }
                     default ->{
-                        return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
+                        return new Errores("SEMANTICO", "tipo de dato no permitido en Mayor Igual", this.line, this.column);
                     }
                 }
             }
@@ -353,7 +353,7 @@ public class Relacionales extends Instrucciones{
                         return (double)op1 >= (double)op2.toString().charAt(0);
                     }
                     default ->{
-                        return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
+                        return new Errores("SEMANTICO", "tipo de dato no permitido en Mayor Igual", this.line, this.column);
                     }
                 }
             }
@@ -372,7 +372,7 @@ public class Relacionales extends Instrucciones{
                         return op1.toString().charAt(0) >= op2.toString().charAt(0);
                     }
                     default ->{
-                        return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
+                        return new Errores("SEMANTICO", "tipo de dato no permitido en Mayor Igual", this.line, this.column);
                     }
                 }
             }
@@ -385,12 +385,12 @@ public class Relacionales extends Instrucciones{
                         return bool1 >= bool2;
                     }
                     default ->{
-                        return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
+                        return new Errores("SEMANTICO", "tipo de dato no permitido en Mayor Igual", this.line, this.column);
                     }
                 }
             }
             default -> {
-                return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
+                return new Errores("SEMANTICO", "tipo de dato no permitido en Mayor Igual", this.line, this.column);
             }
         }
     }
@@ -415,7 +415,7 @@ public class Relacionales extends Instrucciones{
                         return (int)op1 < (int)op2.toString().charAt(0);
                     }
                     default ->{
-                        return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
+                        return new Errores("SEMANTICO", "tipo de dato no permitido en Menor Que", this.line, this.column);
                     }
                 }
             }
@@ -434,7 +434,7 @@ public class Relacionales extends Instrucciones{
                         return (double)op1 < (double)op2.toString().charAt(0);
                     }
                     default ->{
-                        return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
+                        return new Errores("SEMANTICO", "tipo de dato no permitido en Menor Que", this.line, this.column);
                     }
                 }
             }
@@ -453,7 +453,7 @@ public class Relacionales extends Instrucciones{
                         return op1.toString().charAt(0) < op2.toString().charAt(0);
                     }
                     default ->{
-                        return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
+                        return new Errores("SEMANTICO", "tipo de dato no permitido en Menor Que", this.line, this.column);
                     }
                 }
             }
@@ -466,12 +466,12 @@ public class Relacionales extends Instrucciones{
                         return bool1 < bool2;
                     }
                     default ->{
-                        return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
+                        return new Errores("SEMANTICO", "tipo de dato no permitido en Menor Que", this.line, this.column);
                     }
                 }
             }
             default -> {
-                return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
+                return new Errores("SEMANTICO", "tipo de dato no permitido en Menor Que", this.line, this.column);
             }
         }
     }
@@ -496,7 +496,7 @@ public class Relacionales extends Instrucciones{
                         return (int)op1 <= (int)op2.toString().charAt(0);
                     }
                     default ->{
-                        return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
+                        return new Errores("SEMANTICO", "tipo de dato no permitido en Menor Igual", this.line, this.column);
                     }
                 }
             }
@@ -515,7 +515,7 @@ public class Relacionales extends Instrucciones{
                         return (double)op1 <= (double)op2.toString().charAt(0);
                     }
                     default ->{
-                        return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
+                        return new Errores("SEMANTICO", "tipo de dato no permitido en Menor Igual", this.line, this.column);
                     }
                 }
             }
@@ -534,7 +534,7 @@ public class Relacionales extends Instrucciones{
                         return op1.toString().charAt(0) <= op2.toString().charAt(0);
                     }
                     default ->{
-                        return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
+                        return new Errores("SEMANTICO", "tipo de dato no permitido en Menor Igual", this.line, this.column);
                     }
                 }
             }
@@ -547,12 +547,12 @@ public class Relacionales extends Instrucciones{
                         return bool1 <= bool2;
                     }
                     default ->{
-                        return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
+                        return new Errores("SEMANTICO", "tipo de dato no permitido en Menor Igual", this.line, this.column);
                     }
                 }
             }
             default -> {
-                return new Errores("SEMANTICO", "Igualación no permitida", this.line, this.column);
+                return new Errores("SEMANTICO", "tipo de dato no permitido en Menor Igual", this.line, this.column);
             }
         }
     }

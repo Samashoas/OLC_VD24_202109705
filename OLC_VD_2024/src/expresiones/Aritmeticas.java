@@ -106,7 +106,7 @@ public class Aritmeticas extends Instrucciones {
                         return op1;
                     }
                     default -> {
-                        return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
+                        return new Errores("SEMANTICO", "Tipo de dato no permitido para realizar sumas", this.line, this.column);
                     }
                 }
             }
@@ -136,7 +136,7 @@ public class Aritmeticas extends Instrucciones {
                         return op1;
                     }
                     default -> {
-                        return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
+                        return new Errores("SEMANTICO", "Tipo de dato no permitido para realizar sumas", this.line, this.column);
                     }
                 }
             }
@@ -159,7 +159,7 @@ public class Aritmeticas extends Instrucciones {
                         return op1.toString() + op2.toString();
                     }
                     default -> {
-                        return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
+                        return new Errores("SEMANTICO", "Tipo de dato no permitido para realizar sumas", this.line, this.column);
                     }
                 }
             }
@@ -186,7 +186,7 @@ public class Aritmeticas extends Instrucciones {
                         return op1.toString()+op2.toString();
                     }
                     default -> {
-                        return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
+                        return new Errores("SEMANTICO", "Tipo de dato no permitido para realizar sumas", this.line, this.column);
                     }
                 }
             }
@@ -211,12 +211,12 @@ public class Aritmeticas extends Instrucciones {
                         return op1.toString() + op2.toString();
                     }
                     default -> {
-                        return new Errores("SEMANTICO", "Suma NO valida", this.line, this.column);
+                        return new Errores("SEMANTICO", "Tipo de dato no permitido para realizar sumas", this.line, this.column);
                     }
                 }
             }
             default -> {
-                return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
+                return new Errores("SEMANTICO", "Tipo de dato no permitido para realizar sumas", this.line, this.column);
             }
         }
     }
@@ -241,7 +241,7 @@ public class Aritmeticas extends Instrucciones {
                         return Integer.valueOf((int) op1 - op2.toString().charAt(0));
                     }
                     default -> {
-                        return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
+                        return new Errores("SEMANTICO", "Tipo de dato no permitido para realizar restas", this.line, this.column);
                     }
                 }
             }
@@ -261,7 +261,7 @@ public class Aritmeticas extends Instrucciones {
                         return Double.valueOf((double) op1 - op2.toString().charAt(0));
                     }
                     default -> {
-                        return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
+                        return new Errores("SEMANTICO", "Tipo de dato no permitido para realizar restas", this.line, this.column);
                     }
                 }
             }
@@ -276,12 +276,12 @@ public class Aritmeticas extends Instrucciones {
                         return Double.valueOf(op1.toString().charAt(0) - (double) op2);
                     }
                     default -> {
-                        return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
+                        return new Errores("SEMANTICO", "Tipo de dato no permitido para realizar restas", this.line, this.column);
                     }
                 }
             }
             default -> {
-                return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
+                return new Errores("SEMANTICO", "Tipo de dato no permitido para realizar restas", this.line, this.column);
 
             }
         }
@@ -307,7 +307,7 @@ public class Aritmeticas extends Instrucciones {
                         return Integer.valueOf((int) op1 * op2.toString().charAt(0));
                     }
                     default -> {
-                        return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
+                        return new Errores("SEMANTICO", "Tipo de dato no permitido para realizar multiplicaciones", this.line, this.column);
                     }
                 }
             }
@@ -327,7 +327,7 @@ public class Aritmeticas extends Instrucciones {
                         return Double.valueOf((double) op1 * op2.toString().charAt(0));
                     }
                     default -> {
-                        return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
+                        return new Errores("SEMANTICO", "Tipo de dato no permitido para realizar multiplicaciones", this.line, this.column);
                     }
                 }
             }
@@ -342,12 +342,12 @@ public class Aritmeticas extends Instrucciones {
                         return Double.valueOf(op1.toString().charAt(0) * (double) op2);
                     }
                     default -> {
-                        return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
+                        return new Errores("SEMANTICO", "Tipo de dato no permitido para realizar multiplicaciones", this.line, this.column);
                     }
                 }
             }
             default -> {
-                return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
+                return new Errores("SEMANTICO", "Tipo de dato no permitido para realizar multiplicaciones", this.line, this.column);
 
             }
         }
@@ -373,7 +373,7 @@ public class Aritmeticas extends Instrucciones {
                         return Double.valueOf((int) op1 / (double)op2.toString().charAt(0));
                     }
                     default -> {
-                        return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
+                        return new Errores("SEMANTICO", "Tipo de dato no permitido para realizar divisiones", this.line, this.column);
                     }
                 }
             }
@@ -393,7 +393,7 @@ public class Aritmeticas extends Instrucciones {
                         return Double.valueOf((double) op1 / (double)op2.toString().charAt(0));
                     }
                     default -> {
-                        return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
+                        return new Errores("SEMANTICO", "Tipo de dato no permitido para realizar divisiones", this.line, this.column);
                     }
                 }
             }
@@ -408,12 +408,12 @@ public class Aritmeticas extends Instrucciones {
                         return Double.valueOf((double)op1.toString().charAt(0) / (double) op2);
                     }
                     default -> {
-                        return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
+                        return new Errores("SEMANTICO", "Tipo de dato no permitido para realizar divisiones", this.line, this.column);
                     }
                 }
             }
             default -> {
-                return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
+                return new Errores("SEMANTICO", "Tipo de dato no permitido para realizar divisiones", this.line, this.column);
 
             }
         }
@@ -435,7 +435,7 @@ public class Aritmeticas extends Instrucciones {
                         return Math.pow((int) op1, (double) op2);
                     }
                     default -> {
-                        return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
+                        return new Errores("SEMANTICO", "Tipo de dato no permitido para realizar potencias", this.line, this.column);
                     }
                 }
             }
@@ -451,12 +451,12 @@ public class Aritmeticas extends Instrucciones {
                         return Math.pow((double) op1, (double) op2);
                     }
                     default -> {
-                        return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
+                        return new Errores("SEMANTICO", "Tipo de dato no permitido para realizar potencias", this.line, this.column);
                     }
                 }
             }
             default -> {
-                return new Errores("SEMANTICO", "Suma erronea", this.line, this.column); 
+                return new Errores("SEMANTICO", "Tipo de dato no permitido para realizar potencias", this.line, this.column); 
             }
         }
     }
@@ -477,7 +477,7 @@ public class Aritmeticas extends Instrucciones {
                         return Math.pow((int) op1, (1/(double) op2));
                     }
                     default -> {
-                        return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
+                        return new Errores("SEMANTICO", "Tipo de dato no permitido para realizar raices", this.line, this.column);
                     }
                 }
             }
@@ -493,12 +493,12 @@ public class Aritmeticas extends Instrucciones {
                         return Math.pow((double) op1, (1/(double) op2));
                     }
                     default -> {
-                        return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
+                        return new Errores("SEMANTICO", "Tipo de dato no permitido para realizar raices", this.line, this.column);
                     }
                 }
             }
             default -> {
-                return new Errores("SEMANTICO", "Suma erronea", this.line, this.column); 
+                return new Errores("SEMANTICO", "Tipo de dato no permitido para realizar raices", this.line, this.column); 
             }
         }
     }
@@ -519,7 +519,7 @@ public class Aritmeticas extends Instrucciones {
                         return Double.valueOf((int) op1 % (double) op2);
                     }
                     default -> {
-                        return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
+                        return new Errores("SEMANTICO", "Tipo de dato no permitido para realizar modulos", this.line, this.column);
                     }
                 }
             }
@@ -535,12 +535,12 @@ public class Aritmeticas extends Instrucciones {
                         return Double.valueOf((double) op1 % (double) op2);
                     }
                     default -> {
-                        return new Errores("SEMANTICO", "Suma erronea", this.line, this.column);
+                        return new Errores("SEMANTICO", "Tipo de dato no permitido para realizar modulos", this.line, this.column);
                     }
                 }
             }
             default -> {
-                return new Errores("SEMANTICO", "Suma erronea", this.line, this.column); 
+                return new Errores("SEMANTICO", "Tipo de dato no permitido para realizar modulos", this.line, this.column); 
             }
         }
     }
@@ -557,7 +557,7 @@ public class Aritmeticas extends Instrucciones {
                 return Double.valueOf((double) op1 * -1);
             }
             default -> {
-                return new Errores("SEMANTICO", "Negacion erronea", this.line, this.column);
+                return new Errores("SEMANTICO", "Tipo de dato no compatible con Negacion", this.line, this.column);
             }
         }
     }

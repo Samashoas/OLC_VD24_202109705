@@ -60,7 +60,7 @@ public class Logicos extends Instrucciones{
             case NOT ->
                 this.not(Unico);
             default ->
-                new Errores("SEMANTICO", "Operador invalido", this.line, this.column);
+                new Errores("SEMANTICO", "Operador logico invalido", this.line, this.column);
         };
     }
     
@@ -76,12 +76,12 @@ public class Logicos extends Instrucciones{
                         return Boolean.parseBoolean(op1.toString()) && Boolean.parseBoolean(op2.toString());
                     }
                     default ->{
-                        return new Errores("SEMANTICO", "Operador logico invalido", this.line, this.column);
+                        return new Errores("SEMANTICO", "No es un valor Booleano", this.line, this.column);
                     }
                 }
             }
             default ->{
-                return new Errores("SEMANTICO", "Operador logico invalido", this.line, this.column);
+                return new Errores("SEMANTICO", "No es un valor Booleano", this.line, this.column);
             }
         }
     }
@@ -98,12 +98,12 @@ public class Logicos extends Instrucciones{
                         return Boolean.parseBoolean(op1.toString()) || Boolean.parseBoolean(op2.toString());
                     }
                     default ->{
-                        return new Errores("SEMANTICO", "Operador logico invalido", this.line, this.column);
+                        return new Errores("SEMANTICO", "No es un valor Booleano", this.line, this.column);
                     }
                 }
             }
             default ->{
-                return new Errores("SEMANTICO", "Operador logico invalido", this.line, this.column);
+                return new Errores("SEMANTICO", "No es un valor Booleano", this.line, this.column);
             }
         }
     }
@@ -116,7 +116,7 @@ public class Logicos extends Instrucciones{
                 return !Boolean.parseBoolean(op1.toString());
             }
             default -> {
-                return new Errores("SEMANTICO", "Negacion erronea", this.line, this.column);
+                return new Errores("SEMANTICO", "Tipo de dato no compatible con Negacion", this.line, this.column);
             }
         }
     }

@@ -58,7 +58,7 @@ public class Casteos extends Instrucciones{
                 return (int) valor.toString().charAt(0);
             }
             default -> {
-                return new Errores("SEMANTICO", "El casteo a entero solo puedo ser de decimal o caracter", this.line, this.column);
+                return new Errores("SEMANTICO", "El casteo a entero solo puedo ser con decimal o caracter", this.line, this.column);
             }
         }
     }
@@ -77,7 +77,7 @@ public class Casteos extends Instrucciones{
                 return (double) valor.toString().charAt(0);
             }
             default -> {
-                return new Errores("SEMANTICO", "Casteo a double erroneo", this.line, this.column);
+                return new Errores("SEMANTICO", "El casteo a double unicamente puede ser con entero o caracter", this.line, this.column);
             }
         }
     }
@@ -90,15 +90,13 @@ public class Casteos extends Instrucciones{
                 return new Errores("SEMANTICO", "Esta fuera del rango del codigo ASCII", this.line, this.column);
             }
         }
-        
-        
         switch (tipo1) {
             case ENTERO -> {
                 this.type.setTipo(TipoDato.CARACTER);
                 return (char) ((Integer) valor).intValue();
             }
             default -> {
-                return new Errores("SEMANTICO", "Casteo a double erroneo", this.line, this.column);
+                return new Errores("SEMANTICO", "El casteo unicamente puede ser con tipos enteros", this.line, this.column);
             }
         }
     }
