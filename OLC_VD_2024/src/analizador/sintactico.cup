@@ -16,6 +16,7 @@ import instrucciones.IfElse;
 import instrucciones.If;
 import instrucciones.For;
 import instrucciones.While;
+import instrucciones.DoWhile;
 
 //expresiones
 import expresiones.Nativo;
@@ -62,7 +63,7 @@ terminal LKEY, RKEY, PAR1, PAR2, MAS, MENOS, UMENOS, POR, DIVISION, POTENCIA, RA
 terminal IGUALACION, DIFERENCIA, MAYOR, MAYORIGUAL, MENOR, MENORIGUAL;
 terminal AND, OR, NOT;
 terminal INT, DOUBLE, CHAR, STRING;
-terminal IF, ELSE, FOR, WHILE;
+terminal IF, ELSE, FOR, WHILE, DO;
 
 nonterminal LinkedList<Instrucciones> inicio, instrucciones;
 nonterminal Instrucciones instruccion, impresion, declaracion, asignacion, sentIf, sentFor, actFor, sentWhile;
@@ -109,8 +110,8 @@ asignacion ::= ID:a IGUAL expresion:c  {: RESULT = new AsignacionVar(a, c, aleft
 ;
 
 sentIf ::= IF PAR1 expresion:a PAR2 LKEY instrucciones:b RKEY {: RESULT = new If(a, b, aleft, aright); :}
-        | IF PAR1 expresion:a PAR2 LKEY instrucciones:b RKEY ELSE LKEY instrucciones:c RKEY {: RESULT = new IfElse(a, b, c, aleft, aright); :}
-        | IF PAR1 expresion:a PAR2 LKEY instrucciones:b RKEY ELSE sentIf:c {: RESULT = new IfElseIf(a, b, c, aleft, aright); :}
+         | IF PAR1 expresion:a PAR2 LKEY instrucciones:b RKEY ELSE LKEY instrucciones:c RKEY {: RESULT = new IfElse(a, b, c, aleft, aright); :}
+         | IF PAR1 expresion:a PAR2 LKEY instrucciones:b RKEY ELSE sentIf:c {: RESULT = new IfElseIf(a, b, c, aleft, aright); :}
 ;
                                                                                                         //For(Instrucciones asignacion, Instrucciones condicion, Instrucciones actualización, LinkedList<Instrucciones> instrucciones, Tipo type, int line, int column)
 sentFor ::= FOR PAR1 asignacion:a FINCADENA expresion:b FINCADENA actFor:c PAR2 LKEY instrucciones:d RKEY {: RESULT = new For(a, b, c, d, aleft, aright); :}
@@ -120,6 +121,7 @@ actFor ::= asignacion:a {: RESULT = a; :}
 ;
 
 sentWhile ::= WHILE PAR1 expresion:a PAR2 LKEY instrucciones:b RKEY {: RESULT = new While(a, b, aleft, aright); :}
+            | DO LKEY instrucciones:a RKEY WHILE PAR1 expresion:b PAR2 FINCADENA {: RESULT = new DoWhile(b, a, aleft, aright); :}
 ;
 
 expresion ::= MENOS expresion:a               {:   RESULT = new Aritmeticas(a, OperadoresAritmeticos.NEGATIVO, aleft, aright);:} %prec UMENOS 

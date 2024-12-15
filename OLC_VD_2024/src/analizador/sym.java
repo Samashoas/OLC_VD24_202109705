@@ -52,6 +52,7 @@ public class sym {
   public static final int STRING = 40;
   public static final int AS = 12;
   public static final int DIVISION = 23;
+  public static final int DO = 45;
   public static final int MAS = 19;
   public static final String[] terminalNames = new String[] {
   "EOF",
@@ -98,7 +99,8 @@ public class sym {
   "IF",
   "ELSE",
   "FOR",
-  "WHILE"
+  "WHILE",
+  "DO"
   };
 }
 

@@ -48,6 +48,7 @@ IF = "if"
 ELSE = "else"
 FOR = "for"
 WHILE = "while"
+DO = "do"
 //Imprensión en consola
 IMPRIMIR = "console.log"
 //Tipos de datos
@@ -125,6 +126,9 @@ WHITESPACE = [ \t\r\f\n]+
                              }
 <YYINITIAL> {WHILE}          {MisTokens.add(new Tokens("WHILE",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.WHILE, yyline, yycolumn, yytext());
+                             }
+<YYINITIAL> {DO}             {MisTokens.add(new Tokens("DO",yytext(), yyline, yycolumn));
+                                return new Symbol(sym.DO, yyline, yycolumn, yytext());
                              }
 
 <YYINITIAL> {INT}            {MisTokens.add(new Tokens("INT",yytext(), yyline, yycolumn));
