@@ -32,9 +32,15 @@ public class DoWhile extends Instrucciones{
                 if(i instanceof Break){
                     return null;
                 }
+                if(i instanceof Continue){
+                    break;
+                }
                 var resIns = i.interpretar(tree, nuevaTabla2);
                 if(resIns instanceof Break){
                     return null;
+                }
+                if(i instanceof Continue){
+                    break;
                 }
                 if (resIns instanceof Errores) {
                     tree.AddErrores((Errores) resIns);
