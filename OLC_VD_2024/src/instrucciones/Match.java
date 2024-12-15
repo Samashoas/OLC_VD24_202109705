@@ -43,7 +43,13 @@ public class Match extends Instrucciones{
             if (valorExpresion.equals(valorCaso)) {
                 var nuevaTabla = new TablaSimbolos(table);
                 for (var instruccion : caso.getInstrucciones()) {
+                    if(instruccion instanceof Break){
+                        return instruccion;
+                    }
                     var resultado = instruccion.interpretar(tree, nuevaTabla);
+                    if(resultado instanceof Break){
+                        return resultado;
+                    }
                     if (resultado instanceof Errores) {
                         tree.AddErrores((Errores) resultado);
                     }
@@ -55,7 +61,13 @@ public class Match extends Instrucciones{
         if (defaultInstrucciones != null) {
             var nuevaTabla = new TablaSimbolos(table);
             for (var instruccion : defaultInstrucciones) {
+                if(instruccion instanceof Break){
+                    return instruccion;
+                }
                 var resultado = instruccion.interpretar(tree, nuevaTabla);
+                if(resultado instanceof Break){
+                    return resultado;
+                }
                 if (resultado instanceof Errores) {
                     tree.AddErrores((Errores) resultado);
                 }
