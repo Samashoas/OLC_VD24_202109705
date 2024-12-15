@@ -21,6 +21,7 @@ public class sym {
   public static final int ENTERO = 4;
   public static final int DOUBLE = 38;
   public static final int INT = 37;
+  public static final int FOR = 43;
   public static final int NOT = 36;
   public static final int FINCADENA = 9;
   public static final int MENORIGUAL = 33;
@@ -94,7 +95,8 @@ public class sym {
   "CHAR",
   "STRING",
   "IF",
-  "ELSE"
+  "ELSE",
+  "FOR"
   };
 }
 

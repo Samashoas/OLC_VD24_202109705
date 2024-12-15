@@ -13,6 +13,7 @@ import instrucciones.Declaracion;
 import instrucciones.AsignacionVar;
 import instrucciones.IfElse;
 import instrucciones.If;
+import instrucciones.For;
 
 //expresiones
 import expresiones.Nativo;
@@ -59,10 +60,10 @@ terminal LKEY, RKEY, PAR1, PAR2, MAS, MENOS, UMENOS, POR, DIVISION, POTENCIA, RA
 terminal IGUALACION, DIFERENCIA, MAYOR, MAYORIGUAL, MENOR, MENORIGUAL;
 terminal AND, OR, NOT;
 terminal INT, DOUBLE, CHAR, STRING;
-terminal IF, ELSE;
+terminal IF, ELSE, FOR;
 
 nonterminal LinkedList<Instrucciones> inicio, instrucciones;
-nonterminal Instrucciones instruccion, impresion, declaracion, asignacion, sentIf;
+nonterminal Instrucciones instruccion, impresion, declaracion, asignacion, sentIf, sentFor, actFor;
 nonterminal Instrucciones expresion;
 nonterminal Tipo tipos;
 
@@ -85,25 +86,32 @@ instrucciones ::= instrucciones:a instruccion:b {:RESULT = a; RESULT.add(b); :}
                 | instruccion:a {: RESULT = new LinkedList<Instrucciones>(); RESULT.add(a); :}
 ;
 
-instruccion ::= impresion:a {: RESULT = a; :}
-               |declaracion:a {: RESULT = a; :}
-               |asignacion:a {: RESULT = a; :}
+instruccion ::= impresion:a FINCADENA{: RESULT = a; :}
+               |declaracion:a FINCADENA{: RESULT = a; :}
+               |asignacion:a FINCADENA{: RESULT = a; :}
                |sentIf:a {: RESULT = a; :}
+               |sentFor:a {: RESULT = a; :}
                |error FINCADENA {:RESULT = null; :}
 ;
 
-impresion ::= IMPRIMIR PAR1 expresion:a PAR2 FINCADENA{: RESULT = new Print(a, aleft, aright); :}
+impresion ::= IMPRIMIR PAR1 expresion:a PAR2 {: RESULT = new Print(a, aleft, aright); :}
 ;
                                                                 //Declaracion(String Identificador, Instrucciones valor, Tipo type, int line, int column)
-declaracion ::= LET ID:a COLOM tipos:b IGUAL expresion:c FINCADENA {: RESULT = new Declaracion(a, c, b, true, aleft, aright); :}
-              | CONST ID:a COLOM tipos:b IGUAL expresion:c FINCADENA {: RESULT = new Declaracion(a, c, b, false, aleft, aright); :}
+declaracion ::= LET ID:a COLOM tipos:b IGUAL expresion:c  {: RESULT = new Declaracion(a, c, b, true, aleft, aright); :}
+              | CONST ID:a COLOM tipos:b IGUAL expresion:c  {: RESULT = new Declaracion(a, c, b, false, aleft, aright); :}
 ;
 
-asignacion ::= ID:a IGUAL expresion:c FINCADENA {: RESULT = new AsignacionVar(a, c, aleft, aright); :}
+asignacion ::= ID:a IGUAL expresion:c  {: RESULT = new AsignacionVar(a, c, aleft, aright); :}
 ;
 
 sentIf ::= IF PAR1 expresion:a PAR2 LKEY instrucciones:b RKEY {: RESULT = new If(a, b, aleft, aright); :}
         | IF PAR1 expresion:a PAR2 LKEY instrucciones:b RKEY ELSE LKEY instrucciones:c RKEY {: RESULT = new IfElse(a, b, c, aleft, aright); :}
+;
+                                                                                                        //For(Instrucciones asignacion, Instrucciones condicion, Instrucciones actualización, LinkedList<Instrucciones> instrucciones, Tipo type, int line, int column)
+sentFor ::= FOR PAR1 asignacion:a FINCADENA expresion:b FINCADENA actFor:c PAR2 LKEY instrucciones:d RKEY {: RESULT = new For(a, b, c, d, aleft, aright); :}
+;
+
+actFor ::= asignacion:a {: RESULT = a; :}
 ;
 
 expresion ::= MENOS expresion:a               {:   RESULT = new Aritmeticas(a, OperadoresAritmeticos.NEGATIVO, aleft, aright);:} %prec UMENOS 

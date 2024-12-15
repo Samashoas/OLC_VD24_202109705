@@ -59,7 +59,7 @@ public class TablaSimbolos {
     
     public Simbolo getVariable(String id){
         for(TablaSimbolos i = this; i !=null; i = i.getTablaAnterior()){
-            Simbolo busqueda = (Simbolo)this.getTablaActual().get(id.toLowerCase());
+            Simbolo busqueda = (Simbolo)i.getTablaActual().get(id.toLowerCase());
                 if(busqueda!=null){
                     return busqueda;
             }

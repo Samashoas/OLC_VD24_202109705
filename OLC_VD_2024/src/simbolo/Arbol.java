@@ -13,19 +13,19 @@ import java.util.LinkedList;
  * @author jpsam
  */
 public class Arbol {
-    private LinkedList<Instrucciones> instructions;
+    private LinkedList<Instrucciones> instrucciones;
     private String console;
     private LinkedList<Errores> errors;
     // tabla de simbolos (global)
 
     public Arbol(LinkedList<Instrucciones> instrucciones) {
-        this.instructions = instrucciones;
+        this.instrucciones = instrucciones;
         console = "";
         this.errors = new LinkedList<>();
     }
 
     public LinkedList<Instrucciones> getInstructions() {
-        return instructions;
+        return instrucciones;
     }
 
     public String getConsole() {
@@ -33,7 +33,7 @@ public class Arbol {
     }
     
     public void setInstructions(LinkedList<Instrucciones> instrucciones) {
-        this.instructions = instrucciones;
+        this.instrucciones = instrucciones;
     }
     
     public void Print(String value){
