@@ -108,7 +108,9 @@ impresion ::= IMPRIMIR PAR1 expresion:a PAR2 {: RESULT = new Print(a, aleft, ari
 ;
                                                                 //Declaracion(String Identificador, Instrucciones valor, Tipo type, int line, int column)
 declaracion ::= LET ID:a COLOM tipos:b IGUAL expresion:c  {: RESULT = new Declaracion(a, c, b, true, aleft, aright); :}
+              | LET ID:a COLOM tipos:b {: RESULT = new Declaracion(a, null, b, true, aleft, aright); :}
               | CONST ID:a COLOM tipos:b IGUAL expresion:c  {: RESULT = new Declaracion(a, c, b, false, aleft, aright); :}
+              | CONST ID:a COLOM tipos:b {: RESULT = new Declaracion(a, null, b, false, aleft, aright); :}
 ;
 
 asignacion ::= ID:a IGUAL expresion:c  {: RESULT = new AsignacionVar(a, c, aleft, aright); :}
@@ -176,4 +178,5 @@ tipos ::= INT      {: RESULT = new Tipo(TipoDato.ENTERO); :}
         | DOUBLE   {: RESULT = new Tipo(TipoDato.DECIMAL); :}
         | CHAR     {: RESULT = new Tipo(TipoDato.CARACTER); :}
         | STRING   {: RESULT = new Tipo(TipoDato.CADENA); :}
+        | BOOLEANO {: RESULT = new Tipo(TipoDato.BOOLEANO); :}
 ;

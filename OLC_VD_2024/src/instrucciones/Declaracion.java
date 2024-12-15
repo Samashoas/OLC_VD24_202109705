@@ -6,10 +6,7 @@ package instrucciones;
 
 import abstracto.Instrucciones;
 import excepciones.Errores;
-import simbolo.Arbol;
-import simbolo.Simbolo;
-import simbolo.TablaSimbolos;
-import simbolo.Tipo;
+import simbolo.*;
 
 /**
  *
@@ -29,21 +26,40 @@ public class Declaracion extends Instrucciones{
 
     @Override
     public Object interpretar(Arbol tree, TablaSimbolos table) {
-        var ValInterpretado = this.valor.interpretar(tree, table);
-        if(ValInterpretado instanceof Errores){
-            return ValInterpretado;
+        Object ValInterpretado;
+        if (this.valor != null) {
+            ValInterpretado = this.valor.interpretar(tree, table);
+            if (ValInterpretado instanceof Errores) {
+                return ValInterpretado;
+            }
+
+            if (this.valor.type.getTipo() != this.type.getTipo()) {
+                return new Errores("SEMANTICO", "Los tipos no coinciden", this.line, this.column);
+            }
+        } else {
+            ValInterpretado = getDefaultValue(this.type.getTipo());
         }
-        
-        if(this.valor.type.getTipo()!=this.type.getTipo()){
-            return new Errores("SEMANTICO", "Los tipos no coinciden", this.line, this.column);
-        }
-        
-        if(table.setVariable(new Simbolo(this.type, this.Identificador, ValInterpretado, this.IsMutable))){
+
+        if (table.setVariable(new Simbolo(this.type, this.Identificador, ValInterpretado, this.IsMutable))) {
             return null;
         }
         return new Errores("SEMANTICO", "La variable ya existe", this.line, this.column);
-        
     }
-    
-    
+
+    private Object getDefaultValue(TipoDato tipo) {
+        switch (tipo) {
+            case ENTERO:
+                return 0;
+            case DECIMAL:
+                return 0.0;
+            case BOOLEANO:
+                return false;
+            case CADENA:
+                return "";
+            case CARACTER:
+                return '\u0000';
+            default:
+                return null;
+        }
+    }
 }
