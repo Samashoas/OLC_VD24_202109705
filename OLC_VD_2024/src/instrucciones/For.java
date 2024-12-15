@@ -50,9 +50,17 @@ public class For extends Instrucciones{
                 if(i instanceof Break){
                     return null;
                 }
+                if(i instanceof Continue){
+                    System.out.println("Continue instrucciones");
+                    break;
+                }
                 var resIns = i.interpretar(tree, nuevaTabla2);
                 if(resIns instanceof Break){
                     return null;
+                }
+                if(resIns instanceof Continue){
+                    System.out.println("clase resultado");
+                    break;
                 }
                 if(resIns instanceof Errores){
                     tree.AddErrores((Errores) resIns);

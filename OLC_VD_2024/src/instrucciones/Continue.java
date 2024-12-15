@@ -19,6 +19,7 @@ public class Continue extends Instrucciones{
 
     @Override
     public Object interpretar(Arbol tree, TablaSimbolos table) {
+        System.out.println("clase continue");
         return this;
     }
 }

@@ -73,7 +73,8 @@ terminal INT, DOUBLE, CHAR, STRING, BOOL;
 terminal IF, ELSE, FOR, WHILE, DO, MATCH, DEFAULT;
 
 nonterminal LinkedList<Instrucciones> inicio, instrucciones;
-nonterminal Instrucciones instruccion, impresion, declaracion, asignacion, sentIf, sentFor, actFor, sentWhile, insIncremento, insDecremento, sentMatch, caso, sentBreak, sentContinue;
+nonterminal Instrucciones instruccion, impresion, declaracion, asignacion, sentIf, sentFor, actFor, sentWhile, insIncremento, insDecremento, sentMatch, caso, sentBreak;
+nonterminal Instrucciones sentContinue;
 nonterminal Instrucciones expresion;
 nonterminal LinkedList<Caso> listaCasos;
 nonterminal Tipo tipos;

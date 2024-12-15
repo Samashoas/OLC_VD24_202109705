@@ -45,8 +45,14 @@ public class If extends Instrucciones{
                 if(i instanceof Break){
                     return i;
                 }
+                if(i instanceof Continue){
+                    return i;
+                }
                 var resultado = i.interpretar(tree, nuevaTabla);
                 if(resultado instanceof Break){
+                    return resultado;
+                }
+                if(resultado instanceof Continue){
                     return resultado;
                 }
                 if(resultado instanceof Errores){

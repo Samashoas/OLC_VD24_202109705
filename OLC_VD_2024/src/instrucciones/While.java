@@ -25,17 +25,13 @@ public class While extends Instrucciones{
 
     @Override
     public Object interpretar(Arbol tree, TablaSimbolos table) {
-        var cond = this.condicion.interpretar(tree, table);
+        var cond = this.condicion.interpretar(tree, table); 
         if (cond instanceof Errores) {
             return cond;
         }
 
         if (this.condicion.type.getTipo() != TipoDato.BOOLEANO) {
             return new Errores("SEMANTICO", "La condicion debe de ser de tipo booleano", this.line, this.column);
-        }
-        
-        if(cond instanceof String){
-            cond = (cond.toString().toLowerCase()).equals("true") ? true : false;
         }
 
         var nuevaTabla = new TablaSimbolos(table);
@@ -49,9 +45,21 @@ public class While extends Instrucciones{
                 if(resIns instanceof Break){
                     return null;
                 }
-                if (resIns instanceof Errores) {
-                    return new Errores("SEMANTICO", "Error encotrado dentro de sentencia While", this.line, this.column);
+                if(resIns instanceof Continue || i instanceof Continue){
+                    System.out.println("Continue resultado e instrucciones");
+                    break;
                 }
+                if (resIns instanceof Errores) {
+                    return new Errores("SEMANTICO", "Error encontrado dentro de sentencia While", this.line, this.column);
+                }
+            }
+            // Ejecutar la condición nuevamente para el continue
+            cond = this.condicion.interpretar(tree, nuevaTabla);
+            if (cond instanceof Errores) {
+                return cond;
+            }
+            if (this.condicion.type.getTipo() != TipoDato.BOOLEANO) {
+                return new Errores("SEMANTICO", "La condicion debe de ser de tipo booleano", this.line, this.column);
             }
         }
         return null;
