@@ -42,6 +42,13 @@ public class If extends Instrucciones{
         if((boolean)cond){
             //Creacion del nuevo entorno
             for(var i : this.instrucciones){
+                /*
+                try{
+                  var resultado = i.interpretar(tree, nuevaTabla);
+                }catch(Exception e){
+                    tree.AddErrores((Errores) resultado);
+                }
+                */
                 var resultado = i.interpretar(tree, nuevaTabla);
                 if(resultado instanceof Errores){
                     tree.AddErrores((Errores) resultado);

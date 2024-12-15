@@ -46,6 +46,7 @@ public class sym {
   public static final int POTENCIA = 24;
   public static final int COLOM = 8;
   public static final int ELSE = 42;
+  public static final int WHILE = 44;
   public static final int LET = 13;
   public static final int BOOLEANO = 6;
   public static final int STRING = 40;
@@ -96,7 +97,8 @@ public class sym {
   "STRING",
   "IF",
   "ELSE",
-  "FOR"
+  "FOR",
+  "WHILE"
   };
 }
 

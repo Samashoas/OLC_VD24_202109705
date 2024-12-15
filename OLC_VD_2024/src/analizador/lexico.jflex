@@ -47,6 +47,7 @@ CONST = "const"
 IF = "if"
 ELSE = "else"
 FOR = "for"
+WHILE = "while"
 //Imprensión en consola
 IMPRIMIR = "console.log"
 //Tipos de datos
@@ -121,6 +122,9 @@ WHITESPACE = [ \t\r\f\n]+
                              }
 <YYINITIAL> {FOR}            {MisTokens.add(new Tokens("FOR",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.FOR, yyline, yycolumn, yytext());
+                             }
+<YYINITIAL> {WHILE}          {MisTokens.add(new Tokens("WHILE",yytext(), yyline, yycolumn));
+                                return new Symbol(sym.WHILE, yyline, yycolumn, yytext());
                              }
 
 <YYINITIAL> {INT}            {MisTokens.add(new Tokens("INT",yytext(), yyline, yycolumn));
