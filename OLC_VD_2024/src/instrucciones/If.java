@@ -42,6 +42,9 @@ public class If extends Instrucciones{
         if((boolean)cond){
             //Creacion del nuevo entorno
             for(var i : this.instrucciones){
+                if(i == null){
+                    return new Errores ("SEMANTICO", "Error en el if", this.line, this.column);
+                }
                 if(i instanceof Break){
                     return i;
                 }

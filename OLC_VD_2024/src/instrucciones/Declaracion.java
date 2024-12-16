@@ -53,7 +53,7 @@ public class Declaracion extends Instrucciones{
             case DECIMAL:
                 return 0.0;
             case BOOLEANO:
-                return false;
+                return true;
             case CADENA:
                 return "";
             case CARACTER:

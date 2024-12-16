@@ -29,6 +29,9 @@ public class DoWhile extends Instrucciones{
         do {
             var nuevaTabla2 = new TablaSimbolos(nuevaTabla);
             for (var i : this.instrucciones) {
+                if(i == null){
+                    return new Errores("SEMANTICO", "error en el do while", this.line, this.column);
+                }
                 if(i instanceof Break){
                     return null;
                 }
@@ -39,7 +42,7 @@ public class DoWhile extends Instrucciones{
                 if(resIns instanceof Break){
                     return null;
                 }
-                if(i instanceof Continue){
+                if(resIns instanceof Continue){
                     break;
                 }
                 if (resIns instanceof Errores) {

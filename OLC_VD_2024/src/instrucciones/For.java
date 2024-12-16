@@ -47,6 +47,9 @@ public class For extends Instrucciones{
         while((boolean)this.condicion.interpretar(tree, nuevaTabla)){
             var nuevaTabla2 = new TablaSimbolos(nuevaTabla);
             for(var i: this.instrucciones){
+                if(i == null){
+                    return new Errores("SEMANTICO", "error en el for", this.line, this.column);
+                }
                 if(i instanceof Break){
                     return null;
                 }

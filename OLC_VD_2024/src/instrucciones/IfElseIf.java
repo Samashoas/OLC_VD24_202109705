@@ -40,6 +40,9 @@ public class IfElseIf extends Instrucciones{
 
         if ((boolean) cond) {
             for (var i : this.instrucciones) {
+                if(i == null){
+                    return new Errores ("SEMANTICO", "Error en el if", this.line, this.column);
+                }
                 if(i instanceof Break){
                     return i;
                 }
@@ -58,6 +61,9 @@ public class IfElseIf extends Instrucciones{
                 }
             }
         } else if (this.sentIfElse != null) {
+            if(this.sentIfElse == null){
+                return new Errores ("SEMANTICO", "Error en el if else", this.line, this.column);
+            }
             if(this.sentIfElse instanceof Break){
                 return this.sentIfElse;
             }
