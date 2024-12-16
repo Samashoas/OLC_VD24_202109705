@@ -1,0 +1,105 @@
+<inicio> ::= <instrucciones>
+
+<instrucciones> ::= <instrucciones> <instruccion>
+                | <instruccion>
+
+<instruccion> ::= <impresion>
+              | <declaracion>
+              | <asignacion>
+              | <insIncremento>
+              | <insDecremento>
+              | <sentIf>
+              | <sentFor>
+              | <sentWhile>
+              | <sentMatch>
+              | <sentBreak>
+              | <sentContinue>
+              | <error>
+
+<impresion> ::= IMPRIMIR "(" <expresion> ")"
+
+<sentBreak> ::= BREAK
+
+<sentContinue> ::= CONTINUE
+
+<declaracion> ::= LET <ID> ":" <tipos> "=" <expresion>
+              | LET <ID> ":" <tipos>
+              | CONST <ID> ":" <tipos> "=" <expresion>
+              | CONST <ID> ":" <tipos>
+
+<asignacion> ::= <ID> "=" <expresion>
+
+<sentIf> ::= IF "(" <expresion> ")" <instrucciones>
+         | IF "(" <expresion> ")" <instrucciones> ELSE <sentIf>
+
+<sentFor> ::= FOR "(" <asignacion> <expresion> <actFor> ")" <instrucciones>
+
+<actFor> ::= <asignacion>
+          | <insIncremento>
+          | <insDecremento>
+
+<sentWhile> ::= WHILE "(" <expresion> ")" <instrucciones>
+            | DO <instrucciones> WHILE "(" <expresion> ")"
+
+<sentMatch> ::= MATCH <expresion> "{" <listaCasos> "}" DEFAULT TO "{" <instrucciones> "}"
+
+<listaCasos> ::= <caso>
+             | <listaCasos> <caso>
+
+<caso> ::= <expresion> TO "{" <instrucciones> "}"
+
+<insIncremento> ::= <ID> INCREMENTO
+                | <ID> INCREMENTO ";"
+
+<insDecremento> ::= <ID> DECREMENTO
+                | <ID> DECREMENTO ";"
+
+<expresion> ::= MENOS <expresion>
+            | <expresion> MAS <expresion>
+            | <expresion> MENOS <expresion>
+            | <expresion> POR <expresion>
+            | <expresion> DIVISION <expresion>
+            | <expresion> POTENCIA <expresion>
+            | <expresion> RAIZ <expresion>
+            | <expresion> MODULO <expresion>
+
+            | <expresion> IGUALACION <expresion>
+            | <expresion> DIFERENCIA <expresion>
+            | <expresion> MAYOR <expresion>
+            | <expresion> MAYORIGUAL <expresion>
+            | <expresion> MENOR <expresion>
+            | <expresion> MENORIGUAL <expresion>
+
+            | <expresion> AND <expresion>
+            | <expresion> OR <expresion>
+            | NOT <expresion>
+
+            | CAST "(" <expresion> AS <tipos> ")"
+
+            | ENTERO
+            | DECIMAL
+            | CARACTER
+            | CADENA
+            | BOOLEANO
+            | "(" <expresion> ")"
+            | <ID>
+
+<tipos> ::= INT
+        | DOUBLE
+        | CHAR
+        | STRING
+        | BOOL
+
+<ID> ::= <letra> <IDresto>
+      | <letra>
+
+<IDresto> ::= <letra> <IDresto>
+          | <digito> <IDresto>
+          | ε
+
+<letra> ::= a | b | c | d | e | f | g | h | i | j | k | l | m | n | o | p | q | r | s | t | u | v | w | x | y | z
+         | A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z
+         
+<digito> ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+
+<error> ::= ε
