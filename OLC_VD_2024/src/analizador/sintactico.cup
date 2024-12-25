@@ -30,6 +30,7 @@ import expresiones.Aritmeticas;
 import expresiones.Relacionales;
 import expresiones.Logicos;
 import expresiones.Casteos;
+import expresiones.Round;
 import expresiones.AccesoVar;
 import expresiones.OperadoresAritmeticos;
 import expresiones.OperadoresRelacionales;
@@ -64,7 +65,7 @@ action code
 :}
 
 terminal String CARACTER, CADENA, ENTERO, DECIMAL, BOOLEANO, ID, BREAK, CONTINUE;
-terminal COLOM, FINCADENA, IMPRIMIR, CAST, AS, LET, CONST;
+terminal COLOM, FINCADENA, IMPRIMIR, CAST, AS, LET, CONST, ROUND;
 terminal LKEY, RKEY, PAR1, PAR2, MAS, MENOS, UMENOS, POR, DIVISION, POTENCIA, RAIZ, MODULO, IGUAL;
 terminal TO, IGUALACION, DIFERENCIA, MAYOR, MAYORIGUAL, MENOR, MENORIGUAL;
 terminal AND, OR, NOT;
@@ -188,6 +189,8 @@ expresion ::= MENOS expresion:a               {:   RESULT = new Aritmeticas(a, O
             |NOT expresion:a             {:   RESULT = new Logicos(a, OperadoresLogicos.NOT, aleft, aright);   :} %prec NOT
 
             |CAST PAR1 expresion:a AS tipos:b PAR2 {:   RESULT = new Casteos(a, b, aleft, aright);   :}
+
+            |ROUND PAR1 expresion:a PAR2 {:   RESULT = new Round(a, aleft, aright);   :}
 
             | ENTERO:a   {: RESULT = new Nativo(Integer.parseInt(a), new Tipo(TipoDato.ENTERO), aleft, aright); :}
             | DECIMAL:a  {: RESULT = new Nativo(new Double(a), new Tipo(TipoDato.DECIMAL), aleft, aright); :}
