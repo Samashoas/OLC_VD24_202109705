@@ -33,7 +33,15 @@ public class Round extends Instrucciones{
             return new Errores("SEMANTICO", "La funcion Round solo acepta valores numericos", this.line, this.column);
         }
         
-        return Math.round((Double)Valor);
+        //return Math.round((Double)Valor);
+        
+        if(Valor instanceof Double){
+            return Math.round((Double)Valor);
+        }else if(Valor instanceof Integer){
+            return Math.round((Integer)Valor);
+        }else{
+            return new Errores("SEMANTICO", "Valor no numerico en la funcion Round", this.line, this.column);
+        }
     }
     
     
