@@ -10,6 +10,7 @@ import excepciones.Errores;
 
 //instrucciones
 import instrucciones.Run;
+import instrucciones.Llamada;
 import instrucciones.Print;
 import instrucciones.Declaracion;
 import instrucciones.AsignacionVar;
@@ -83,7 +84,7 @@ nonterminal LinkedList<Caso> listaCasos;
 nonterminal Instrucciones instruccion, impresion, declaracion, asignacion, sentIf, sentFor, actFor, sentWhile, insIncremento, insDecremento, sentMatch, caso, sentBreak;
 nonterminal Instrucciones sentContinue;
 nonterminal Instrucciones expresion;
-nonterminal Instrucciones SentMetodo, Correr;
+nonterminal Instrucciones SentMetodo, Correr, Llamada;
 nonterminal Tipo tipos;
 
 
@@ -119,6 +120,7 @@ instruccion ::= impresion:a FINCADENA   {: RESULT = a; :}
                |sentMatch:a             {: RESULT = a; :}
                |sentBreak:a             {: RESULT = a; :}
                |sentContinue:a          {: RESULT = a; :}
+               |Llamada:a FINCADENA     {: RESULT = a; :}
                |error FINCADENA         {:RESULT = null; :}
                |error RKEY              {:RESULT = null; :}
 ;
@@ -128,6 +130,10 @@ impresion ::= IMPRIMIR PAR1 expresion:a PAR2 {: RESULT = new Print(a, aleft, ari
 
 Correr ::= RUN ID:a PAR1 paramLlamada:b PAR2 FINCADENA {: RESULT = new Run(a, b, aleft, aright); :}
          | RUN ID:a PAR1 PAR2 FINCADENA                {: RESULT = new Run(a, new LinkedList<HashMap>(), aleft, aright); :}
+;
+
+Llamada ::= ID:a PAR1 paramLlamada:b PAR2  {: RESULT = new Llamada(a, b, aleft, aright); :}
+          | ID:a PAR1 PAR2                 {: RESULT = new Llamada(a, new LinkedList<HashMap>(), aleft, aright); :}
 ;
 
 sentBreak ::= BREAK:a FINCADENA {: RESULT = new Break(aleft, aright); :}
@@ -150,17 +156,17 @@ SentMetodo ::= tipos:a ID:b PAR1 PAR2 LKEY instrucciones:c RKEY {: RESULT = new 
 ;
 
 params ::= params:a COMA parametro:b {: RESULT = a; 
-                                   RESULT.add(b); :}
-         | parametro:a          {: RESULT = new LinkedList<HashMap>(); 
-                                   RESULT.add(a); :}
+                                        RESULT.add(b); :}
+         | parametro:a               {: RESULT = new LinkedList<HashMap>(); 
+                                        RESULT.add(a); :}
 ;
 
-parametro ::= tipos:a ID:b IGUAL expresion:c {: var hm = new HashMap<String, Object>();
+parametro ::= ID:b COLOM tipos:a IGUAL expresion:c {: var hm = new HashMap<String, Object>();
                                                     hm.put("tipo", a);
                                                     hm.put("id", b);
                                                     hm.put("expresion", c);
                                                     RESULT = hm; :}
-            | tipos:a ID:b                   {: var hm2 = new HashMap<String, Object>();
+            | ID:b COLOM tipos:a                   {: var hm2 = new HashMap<String, Object>();
                                                     hm2.put("tipo", a);
                                                     hm2.put("id", b);
                                                     RESULT = hm2; :}
@@ -244,6 +250,7 @@ expresion ::= MENOS expresion:a               {:   RESULT = new Aritmeticas(a, O
             | BOOLEANO:a {: RESULT = new Nativo(Boolean.parseBoolean(a), new Tipo(TipoDato.BOOLEANO), aleft, aright); :}
             
             | PAR1 expresion:a PAR2 {: RESULT = a; :}
+            | Llamada:a {: RESULT = a; :}
 
             | ID:a {: RESULT = new AccesoVar(a, aleft, aright); :}
 ;
