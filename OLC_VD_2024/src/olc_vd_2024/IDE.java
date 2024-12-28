@@ -8,6 +8,9 @@ import abstracto.Instrucciones;
 import analizador.parser;
 import analizador.scanner;
 import excepciones.Errores;
+import instrucciones.Declaracion;
+import instrucciones.Metodo;
+import instrucciones.Run;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -205,16 +208,45 @@ public class IDE extends javax.swing.JFrame {
             
             var ast = new Arbol((LinkedList<Instrucciones>) resultado.value);
             var tabla = new TablaSimbolos();
+            //Se almacena una tabla global
+            ast.setTablaGlobal(tabla);
             
+            //primer recorrido, es para almacenar
             for(var a:ast.getInstructions()){
                 if (a == null){
                     continue;
                 }
+                
+                if(a instanceof Metodo){
+                    ast.addFunciones(a);
+                    continue;
+                }
+                //var res = a.interpretar(ast, tabla);
+                
+                /*
                 var res = a.interpretar(ast, tabla);
                 if(res instanceof Errores){
                     this.listaErrores.add((Errores)res);
                 }
+                */
             }
+            //segundo recorrido
+            for(var a:ast.getInstructions()){
+                if(a instanceof Declaracion){
+                    var res = a.interpretar(ast, tabla);
+                    if(res instanceof Errores){
+                       ast.AddErrores((Errores)res);
+                    }
+                }
+            }
+            //tercer recorrido -> llamar a la funcion o metodo
+            for(var a:ast.getInstructions()){
+                if(a instanceof Run){
+                    var res = a.interpretar(ast, tabla);
+                    break;
+                }
+            }
+            
             jTextArea2.setText(ast.getConsole());
             
         }catch(Exception e){

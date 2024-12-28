@@ -56,12 +56,14 @@ BREAK = "break"
 CONTINUE = "continue"
 //Imprensión en consola
 IMPRIMIR = "console.log"
+RUN = "run_main"
 //Tipos de datos
 INT = "int"
 DOUBLE = "double"
 CHAR = "char"
 STRING = "string"
 BOOL = "bool"
+VOID = "void"
 
 // ------>OPERACIONES<------
 //Operadores aritmeticos
@@ -94,6 +96,7 @@ RKEY = "}"
 IGUAL = "="
 PAR1 = "("
 PAR2 = ")"
+COMA = ","
 COLOM = ":"
 FINCADENA = ";"
 
@@ -110,6 +113,9 @@ WHITESPACE = [ \t\r\f\n]+
 // retorno de expresiones regulares
 %%
 <YYINITIAL> {WHITESPACE}     {}
+<YYINITIAL> {RUN}            {MisTokens.add(new Tokens("RUN",yytext(), yyline, yycolumn));
+                                return new Symbol(sym.RUN, yyline, yycolumn, yytext());
+                             }
 <YYINITIAL> {IMPRIMIR}       {MisTokens.add(new Tokens("IMPRIMIR",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.IMPRIMIR, yyline, yycolumn, yytext());
                              }
@@ -169,8 +175,11 @@ WHITESPACE = [ \t\r\f\n]+
 <YYINITIAL> {STRING}         {MisTokens.add(new Tokens("STRING",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.STRING, yyline, yycolumn, yytext());
                              }
-<YYINITIAL> {BOOL}       {MisTokens.add(new Tokens("BOOLEANO",yytext(), yyline, yycolumn));
+<YYINITIAL> {BOOL}           {MisTokens.add(new Tokens("BOOLEANO",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.BOOL, yyline, yycolumn, yytext());
+                             }
+<YYINITIAL> {VOID}           {MisTokens.add(new Tokens("VOID",yytext(), yyline, yycolumn));
+                                return new Symbol(sym.VOID, yyline, yycolumn, yytext());
                              }
 
 <YYINITIAL> {BOOLEANO}       {MisTokens.add(new Tokens("BOOLEANO",yytext(), yyline, yycolumn));
@@ -212,6 +221,9 @@ WHITESPACE = [ \t\r\f\n]+
                              }
 <YYINITIAL> {PAR2}           {MisTokens.add(new Tokens("PAR2",yytext(), yyline, yycolumn));
                               return new Symbol(sym.PAR2, yyline, yycolumn, yytext());
+                             }
+<YYINITIAL> {COMA}           {MisTokens.add(new Tokens("COMA",yytext(), yyline, yycolumn));
+                              return new Symbol(sym.COMA, yyline, yycolumn, yytext());
                              }
 <YYINITIAL> {COLOM}          {MisTokens.add(new Tokens("COLOM",yytext(), yyline, yycolumn));
                               return new Symbol(sym.COLOM, yyline, yycolumn, yytext());

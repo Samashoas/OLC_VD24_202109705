@@ -3,14 +3,17 @@ package analizador;
 // importaciones si fuese necesario
 import java_cup.runtime.Symbol;
 import java.util.LinkedList;
+import java.util.HashMap;
 import abstracto.Instrucciones;
 import simbolo.*;
 import excepciones.Errores;
 
 //instrucciones
+import instrucciones.Run;
 import instrucciones.Print;
 import instrucciones.Declaracion;
 import instrucciones.AsignacionVar;
+import instrucciones.Metodo;
 import instrucciones.Incremento;
 import instrucciones.Decremento;
 import instrucciones.IfElseIf;
@@ -65,19 +68,22 @@ action code
 :}
 
 terminal String CARACTER, CADENA, ENTERO, DECIMAL, BOOLEANO, ID, BREAK, CONTINUE;
-terminal COLOM, FINCADENA, IMPRIMIR, CAST, AS, LET, CONST, ROUND;
-terminal LKEY, RKEY, PAR1, PAR2, MAS, MENOS, UMENOS, POR, DIVISION, POTENCIA, RAIZ, MODULO, IGUAL;
+terminal RUN, COLOM, FINCADENA, IMPRIMIR, CAST, AS, LET, CONST, ROUND;
+terminal LKEY, RKEY, PAR1, PAR2, COMA, MAS, MENOS, UMENOS, POR, DIVISION, POTENCIA, RAIZ, MODULO, IGUAL;
 terminal TO, IGUALACION, DIFERENCIA, MAYOR, MAYORIGUAL, MENOR, MENORIGUAL;
 terminal AND, OR, NOT;
 terminal INCREMENTO, DECREMENTO;
-terminal INT, DOUBLE, CHAR, STRING, BOOL;
+terminal INT, DOUBLE, CHAR, STRING, BOOL, VOID;
 terminal IF, ELSE, FOR, WHILE, DO, MATCH, DEFAULT;
 
 nonterminal LinkedList<Instrucciones> inicio, instrucciones;
+nonterminal LinkedList<HashMap> params, paramLlamada;
+nonterminal HashMap<String, Object> parametro;
+nonterminal LinkedList<Caso> listaCasos;
 nonterminal Instrucciones instruccion, impresion, declaracion, asignacion, sentIf, sentFor, actFor, sentWhile, insIncremento, insDecremento, sentMatch, caso, sentBreak;
 nonterminal Instrucciones sentContinue;
 nonterminal Instrucciones expresion;
-nonterminal LinkedList<Caso> listaCasos;
+nonterminal Instrucciones SentMetodo, Correr;
 nonterminal Tipo tipos;
 
 
@@ -97,25 +103,31 @@ inicio ::= instrucciones:a {: RESULT = a; :}
 ;
 
 instrucciones ::= instrucciones:a instruccion:b {:RESULT = a; RESULT.add(b); :}
-                | instruccion:a {: RESULT = new LinkedList<Instrucciones>(); RESULT.add(a); :}
+                | instruccion:a                 {: RESULT = new LinkedList<Instrucciones>(); RESULT.add(a); :}
 ;
 
-instruccion ::= impresion:a FINCADENA{: RESULT = a; :}
-               |declaracion:a FINCADENA{: RESULT = a; :}
-               |asignacion:a FINCADENA{: RESULT = a; :}
-               |insIncremento:a {: RESULT = a; :}
-               |insDecremento:a {: RESULT = a; :}
-               |sentIf:a {: RESULT = a; :}
-               |sentFor:a {: RESULT = a; :}
-               |sentWhile:a {: RESULT = a; :}
-               |sentMatch:a {: RESULT = a; :}
-               |sentBreak:a {: RESULT = a; :}
-               |sentContinue:a {: RESULT = a; :}
-               |error FINCADENA {:RESULT = null; :}
-               |error RKEY{:RESULT = null; :}
+instruccion ::= impresion:a FINCADENA   {: RESULT = a; :}
+               |Correr:a                {: RESULT = a; :}
+               |declaracion:a FINCADENA {: RESULT = a; :}
+               |asignacion:a FINCADENA  {: RESULT = a; :}
+               |insIncremento:a         {: RESULT = a; :}
+               |insDecremento:a         {: RESULT = a; :}
+               |SentMetodo:a            {: RESULT = a; :}
+               |sentIf:a                {: RESULT = a; :}
+               |sentFor:a               {: RESULT = a; :}
+               |sentWhile:a             {: RESULT = a; :}
+               |sentMatch:a             {: RESULT = a; :}
+               |sentBreak:a             {: RESULT = a; :}
+               |sentContinue:a          {: RESULT = a; :}
+               |error FINCADENA         {:RESULT = null; :}
+               |error RKEY              {:RESULT = null; :}
 ;
 
 impresion ::= IMPRIMIR PAR1 expresion:a PAR2 {: RESULT = new Print(a, aleft, aright); :}
+;
+
+Correr ::= RUN ID:a PAR1 paramLlamada:b PAR2 FINCADENA {: RESULT = new Run(a, b, aleft, aright); :}
+         | RUN ID:a PAR1 PAR2 FINCADENA                {: RESULT = new Run(a, new LinkedList<HashMap>(), aleft, aright); :}
 ;
 
 sentBreak ::= BREAK:a FINCADENA {: RESULT = new Break(aleft, aright); :}
@@ -124,33 +136,66 @@ sentBreak ::= BREAK:a FINCADENA {: RESULT = new Break(aleft, aright); :}
 sentContinue ::= CONTINUE:a FINCADENA {: RESULT = new Continue(aleft, aright); :}
 ;
                                                                 //Declaracion(String Identificador, Instrucciones valor, Tipo type, int line, int column)
-declaracion ::= LET ID:a COLOM tipos:b IGUAL expresion:c  {: RESULT = new Declaracion(a, c, b, true, aleft, aright); :}
-              | LET ID:a COLOM tipos:b {: RESULT = new Declaracion(a, null, b, true, aleft, aright); :}
+declaracion ::= LET ID:a COLOM tipos:b IGUAL expresion:c    {: RESULT = new Declaracion(a, c, b, true, aleft, aright); :}
+              | LET ID:a COLOM tipos:b                      {: RESULT = new Declaracion(a, null, b, true, aleft, aright); :}
               | CONST ID:a COLOM tipos:b IGUAL expresion:c  {: RESULT = new Declaracion(a, c, b, false, aleft, aright); :}
-              | CONST ID:a COLOM tipos:b {: RESULT = new Declaracion(a, null, b, false, aleft, aright); :}
+              | CONST ID:a COLOM tipos:b                    {: RESULT = new Declaracion(a, null, b, false, aleft, aright); :}
 ;
 
 asignacion ::= ID:a IGUAL expresion:c  {: RESULT = new AsignacionVar(a, c, aleft, aright); :}
 ;
+                                                                //Metodo(String id, LinkedList<HashMap> parametros, LinkedList<Instrucciones> instrucciones, Tipo type, int line, int column)
+SentMetodo ::= tipos:a ID:b PAR1 PAR2 LKEY instrucciones:c RKEY {: RESULT = new Metodo(b, new LinkedList<HashMap>(), c, a, aleft, aright); :}
+             | tipos:a ID:b PAR1 params:c PAR2 LKEY instrucciones:d RKEY {: RESULT = new Metodo(b, c, d, a, aleft, aright); :}
+;
 
-sentIf ::= IF PAR1 expresion:a PAR2 LKEY instrucciones:b RKEY {: RESULT = new If(a, b, aleft, aright); :}
+params ::= params:a COMA parametro:b {: RESULT = a; 
+                                   RESULT.add(b); :}
+         | parametro:a          {: RESULT = new LinkedList<HashMap>(); 
+                                   RESULT.add(a); :}
+;
+
+parametro ::= tipos:a ID:b IGUAL expresion:c {: var hm = new HashMap<String, Object>();
+                                                    hm.put("tipo", a);
+                                                    hm.put("id", b);
+                                                    hm.put("expresion", c);
+                                                    RESULT = hm; :}
+            | tipos:a ID:b                   {: var hm2 = new HashMap<String, Object>();
+                                                    hm2.put("tipo", a);
+                                                    hm2.put("id", b);
+                                                    RESULT = hm2; :}
+;
+
+paramLlamada ::= paramLlamada:a COMA ID:b IGUAL expresion:c   {:  var hm = new HashMap<String, Object>();
+                                                            hm.put("id", b);
+                                                            hm.put("expresion", c);
+                                                            RESULT = a; 
+                                                            RESULT.add(hm); :}
+               | ID:a IGUAL expresion:b                 {:  var hm2 = new HashMap<String, Object>();
+                                                            hm2.put("id", a);
+                                                            hm2.put("expresion", b);
+                                                            RESULT = new LinkedList<HashMap>();
+                                                            RESULT.add(hm2); :} 
+;
+
+sentIf ::= IF PAR1 expresion:a PAR2 LKEY instrucciones:b RKEY                                {: RESULT = new If(a, b, aleft, aright); :}
          | IF PAR1 expresion:a PAR2 LKEY instrucciones:b RKEY ELSE LKEY instrucciones:c RKEY {: RESULT = new IfElse(a, b, c, aleft, aright); :}
-         | IF PAR1 expresion:a PAR2 LKEY instrucciones:b RKEY ELSE sentIf:c {: RESULT = new IfElseIf(a, b, c, aleft, aright); :}
+         | IF PAR1 expresion:a PAR2 LKEY instrucciones:b RKEY ELSE sentIf:c                  {: RESULT = new IfElseIf(a, b, c, aleft, aright); :}
 ;
                                                                                                         //For(Instrucciones asignacion, Instrucciones condicion, Instrucciones actualización, LinkedList<Instrucciones> instrucciones, Tipo type, int line, int column)
 sentFor ::= FOR PAR1 asignacion:a FINCADENA expresion:b FINCADENA actFor:c PAR2 LKEY instrucciones:d RKEY {: RESULT = new For(a, b, c, d, aleft, aright); :}
 ;
 
-actFor ::= asignacion:a {: RESULT = a; :}
+actFor ::= asignacion:a   {: RESULT = a; :}
         | insIncremento:a {: RESULT = a; :}
         | insDecremento:a {: RESULT = a; :}
 ;
 
-sentWhile ::= WHILE PAR1 expresion:a PAR2 LKEY instrucciones:b RKEY {: RESULT = new While(a, b, aleft, aright); :}
+sentWhile ::= WHILE PAR1 expresion:a PAR2 LKEY instrucciones:b RKEY              {: RESULT = new While(a, b, aleft, aright); :}
             | DO LKEY instrucciones:a RKEY WHILE PAR1 expresion:b PAR2 FINCADENA {: RESULT = new DoWhile(b, a, aleft, aright); :}
 ;
 
-sentMatch ::= MATCH expresion:a LKEY listaCasos:b DEFAULT TO LKEY instrucciones:c RKEY RKEY{: RESULT = new Match(a, b, c, aleft, aright); :}
+sentMatch ::= MATCH expresion:a LKEY listaCasos:b DEFAULT TO LKEY instrucciones:c RKEY RKEY {: RESULT = new Match(a, b, c, aleft, aright); :}
 ;
 
 listaCasos ::= caso:a               {: RESULT = new LinkedList<Caso>(); RESULT.add((Caso)a); :}
@@ -160,12 +205,12 @@ listaCasos ::= caso:a               {: RESULT = new LinkedList<Caso>(); RESULT.a
 caso ::= expresion:a TO LKEY instrucciones:b RKEY {: RESULT = new Caso(a, b, aleft, aright); :}
 ;
 
-insIncremento ::=ID:a INCREMENTO FINCADENA{: RESULT = new Incremento(a, aleft, aright); :}
-                |ID:a INCREMENTO {: RESULT = new Incremento(a, aleft, aright); :}
+insIncremento ::=ID:a INCREMENTO FINCADENA {: RESULT = new Incremento(a, aleft, aright); :}
+                |ID:a INCREMENTO           {: RESULT = new Incremento(a, aleft, aright); :}
 ;
 
-insDecremento ::=ID:a DECREMENTO FINCADENA{: RESULT = new Decremento(a, aleft, aright); :}
-                |ID:a DECREMENTO {: RESULT = new Decremento(a, aleft, aright); :}
+insDecremento ::=ID:a DECREMENTO FINCADENA {: RESULT = new Decremento(a, aleft, aright); :}
+                |ID:a DECREMENTO           {: RESULT = new Decremento(a, aleft, aright); :}
 ;
 
 expresion ::= MENOS expresion:a               {:   RESULT = new Aritmeticas(a, OperadoresAritmeticos.NEGATIVO, aleft, aright);:} %prec UMENOS 
@@ -208,4 +253,5 @@ tipos ::= INT      {: RESULT = new Tipo(TipoDato.ENTERO); :}
         | CHAR     {: RESULT = new Tipo(TipoDato.CARACTER); :}
         | STRING   {: RESULT = new Tipo(TipoDato.CADENA); :}
         | BOOL     {: RESULT = new Tipo(TipoDato.BOOLEANO); :}
+        | VOID     {: RESULT = new Tipo(TipoDato.VOID); :}
 ;
