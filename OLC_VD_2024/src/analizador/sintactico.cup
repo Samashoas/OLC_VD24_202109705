@@ -256,9 +256,10 @@ expresion ::= MENOS expresion:a               {:   RESULT = new Aritmeticas(a, O
             | BOOLEANO:a {: RESULT = new Nativo(Boolean.parseBoolean(a), new Tipo(TipoDato.BOOLEANO), aleft, aright); :}
             
             | PAR1 expresion:a PAR2 {: RESULT = a; :}
-            | Llamada:a {: RESULT = a; :}
 
             | ID:a {: RESULT = new AccesoVar(a, aleft, aright); :}
+
+            | Llamada:a {: RESULT = a; :}
 ;
 
 tipos ::= INT      {: RESULT = new Tipo(TipoDato.ENTERO); :}

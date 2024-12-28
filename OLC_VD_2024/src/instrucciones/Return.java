@@ -27,13 +27,13 @@ public class Return extends Instrucciones{
     @Override
     public Object interpretar(Arbol tree, TablaSimbolos table) {
         if(this.expresion == null){
-            return new ValorReturn(TipoDato.VOID, null);
+            return new ValorReturn(null, null);
         }else{
             var resultado = this.expresion.interpretar(tree, table);
             if(resultado instanceof ValorReturn){
                 return resultado;
             }
-            return new ValorReturn(this.type.getTipo(), resultado);
+            return new ValorReturn(this.expresion.type.getTipo(), resultado);
         }
     }
     

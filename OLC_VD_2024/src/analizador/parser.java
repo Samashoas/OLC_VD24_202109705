@@ -202,19 +202,19 @@ public class parser extends java_cup.runtime.lr_parser {
     "\026\uffb2\031\uffb2\032\uffb2\033\uffb2\034\uffb2\036\uffb2\037" +
     "\uffb2\040\uffb2\041\uffb2\042\uffb2\044\uffb2\045\uffb2\046\uffb2" +
     "\047\uffb2\050\uffb2\051\uffb2\052\uffb2\053\uffb2\054\uffb2\001" +
-    "\002\000\054\017\uffac\022\uffac\026\uffac\031\uffac\032\uffac" +
-    "\033\uffac\034\uffac\036\uffac\037\uffac\040\uffac\041\uffac\042" +
-    "\uffac\044\uffac\045\uffac\046\uffac\047\uffac\050\uffac\051\uffac" +
-    "\052\uffac\053\uffac\054\uffac\001\002\000\030\004\075\005" +
+    "\002\000\054\017\uffab\022\uffab\026\uffab\031\uffab\032\uffab" +
+    "\033\uffab\034\uffab\036\uffab\037\uffab\040\uffab\041\uffab\042" +
+    "\uffab\044\uffab\045\uffab\046\uffab\047\uffab\050\uffab\051\uffab" +
+    "\052\uffab\053\uffab\054\uffab\001\002\000\030\004\075\005" +
     "\061\006\066\007\062\010\065\011\073\021\063\025\072" +
     "\030\070\034\064\055\074\001\002\000\042\031\153\033" +
     "\107\034\101\036\104\037\113\040\102\041\105\042\112" +
     "\045\114\046\106\047\111\050\110\051\103\052\100\053" +
     "\077\054\115\001\002\000\004\030\150\001\002\000\056" +
-    "\017\uffab\022\uffab\026\uffab\030\135\031\uffab\032\uffab\033" +
-    "\uffab\034\uffab\036\uffab\037\uffab\040\uffab\041\uffab\042\uffab" +
-    "\044\uffab\045\uffab\046\uffab\047\uffab\050\uffab\051\uffab\052" +
-    "\uffab\053\uffab\054\uffab\001\002\000\030\004\075\005\061" +
+    "\017\uffac\022\uffac\026\uffac\030\135\031\uffac\032\uffac\033" +
+    "\uffac\034\uffac\036\uffac\037\uffac\040\uffac\041\uffac\042\uffac" +
+    "\044\uffac\045\uffac\046\uffac\047\uffac\050\uffac\051\uffac\052" +
+    "\uffac\053\uffac\054\uffac\001\002\000\030\004\075\005\061" +
     "\006\066\007\062\010\065\011\073\021\063\025\072\030" +
     "\070\034\064\055\074\001\002\000\054\017\uffb0\022\uffb0" +
     "\026\uffb0\031\uffb0\032\uffb0\033\uffb0\034\uffb0\036\uffb0\037" +
@@ -2001,25 +2001,25 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 85: // expresion ::= Llamada 
-            {
-              Instrucciones RESULT =null;
-		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		Instrucciones a = (Instrucciones)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		 RESULT = a; 
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("expresion",21, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
-            }
-          return CUP$parser$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 86: // expresion ::= ID 
+          case 85: // expresion ::= ID 
             {
               Instrucciones RESULT =null;
 		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		String a = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		 RESULT = new AccesoVar(a, aleft, aright); 
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("expresion",21, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
+            }
+          return CUP$parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 86: // expresion ::= Llamada 
+            {
+              Instrucciones RESULT =null;
+		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		Instrucciones a = (Instrucciones)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		 RESULT = a; 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("expresion",21, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
