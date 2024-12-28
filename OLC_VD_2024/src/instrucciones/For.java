@@ -65,6 +65,9 @@ public class For extends Instrucciones{
                     System.out.println("clase resultado");
                     break;
                 }
+                if(resIns instanceof ValorReturn){
+                    return resIns;
+                }
                 if(resIns instanceof Errores){
                     tree.AddErrores((Errores) resIns);
                 }

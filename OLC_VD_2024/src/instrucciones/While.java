@@ -52,6 +52,9 @@ public class While extends Instrucciones{
                     System.out.println("Continue resultado e instrucciones");
                     break;
                 }
+                if(resIns instanceof ValorReturn){
+                    return resIns;
+                }
                 if (resIns instanceof Errores) {
                     return new Errores("SEMANTICO", "Error encontrado dentro de sentencia While", this.line, this.column);
                 }

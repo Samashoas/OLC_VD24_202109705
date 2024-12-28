@@ -45,6 +45,9 @@ public class DoWhile extends Instrucciones{
                 if(resIns instanceof Continue){
                     break;
                 }
+                if(resIns instanceof ValorReturn){
+                    return resIns;
+                }
                 if (resIns instanceof Errores) {
                     tree.AddErrores((Errores) resIns);
                 }
