@@ -58,6 +58,9 @@ public class If extends Instrucciones{
                 if(resultado instanceof Continue){
                     return resultado;
                 }
+                if(resultado instanceof ValorReturn){
+                    return resultado;
+                }
                 if(resultado instanceof Errores){
                     tree.AddErrores((Errores) resultado);
                 }

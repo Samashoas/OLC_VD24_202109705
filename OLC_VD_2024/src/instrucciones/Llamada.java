@@ -99,6 +99,11 @@ public class Llamada extends Instrucciones{
             if(resultadoMetodo instanceof Errores){
                 return resultadoMetodo;
             }
+            if(resultadoMetodo instanceof ValorReturn){
+                this.type = metodo.type;
+                ValorReturn ValorRes = (ValorReturn) resultadoMetodo;
+                return ValorRes.getValor();
+            }
         }
         return null;
     }

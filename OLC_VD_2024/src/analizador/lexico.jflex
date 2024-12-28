@@ -52,6 +52,7 @@ WHILE = "while"
 DO = "do"
 MATCH = "match"
 DEFAULT = "default"
+RETURN = "return"
 BREAK = "break"
 CONTINUE = "continue"
 //Imprensión en consola
@@ -155,6 +156,9 @@ WHITESPACE = [ \t\r\f\n]+
                              }
 <YYINITIAL> {DEFAULT}        {MisTokens.add(new Tokens("DEFAULT",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.DEFAULT, yyline, yycolumn, yytext());
+                             }
+<YYINITIAL> {RETURN}         {MisTokens.add(new Tokens("RETURN",yytext(), yyline, yycolumn));
+                                return new Symbol(sym.RETURN, yyline, yycolumn, yytext());
                              }
 <YYINITIAL> {BREAK}          {MisTokens.add(new Tokens("BREAK",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.BREAK, yyline, yycolumn, yytext());

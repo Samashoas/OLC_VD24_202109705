@@ -25,6 +25,7 @@ import instrucciones.Match;
 import instrucciones.For;
 import instrucciones.While;
 import instrucciones.DoWhile;
+import instrucciones.Return;
 import instrucciones.Break;
 import instrucciones.Continue;
 
@@ -68,7 +69,7 @@ action code
 {:
 :}
 
-terminal String CARACTER, CADENA, ENTERO, DECIMAL, BOOLEANO, ID, BREAK, CONTINUE;
+terminal String CARACTER, CADENA, ENTERO, DECIMAL, BOOLEANO, ID, BREAK, CONTINUE, RETURN;
 terminal RUN, COLOM, FINCADENA, IMPRIMIR, CAST, AS, LET, CONST, ROUND;
 terminal LKEY, RKEY, PAR1, PAR2, COMA, MAS, MENOS, UMENOS, POR, DIVISION, POTENCIA, RAIZ, MODULO, IGUAL;
 terminal TO, IGUALACION, DIFERENCIA, MAYOR, MAYORIGUAL, MENOR, MENORIGUAL;
@@ -82,7 +83,7 @@ nonterminal LinkedList<HashMap> params, paramLlamada;
 nonterminal HashMap<String, Object> parametro;
 nonterminal LinkedList<Caso> listaCasos;
 nonterminal Instrucciones instruccion, impresion, declaracion, asignacion, sentIf, sentFor, actFor, sentWhile, insIncremento, insDecremento, sentMatch, caso, sentBreak;
-nonterminal Instrucciones sentContinue;
+nonterminal Instrucciones sentContinue, sentReturn;
 nonterminal Instrucciones expresion;
 nonterminal Instrucciones SentMetodo, Correr, Llamada;
 nonterminal Tipo tipos;
@@ -118,6 +119,7 @@ instruccion ::= impresion:a FINCADENA   {: RESULT = a; :}
                |sentFor:a               {: RESULT = a; :}
                |sentWhile:a             {: RESULT = a; :}
                |sentMatch:a             {: RESULT = a; :}
+               |sentReturn:a            {: RESULT = a; :}
                |sentBreak:a             {: RESULT = a; :}
                |sentContinue:a          {: RESULT = a; :}
                |Llamada:a FINCADENA     {: RESULT = a; :}
@@ -134,6 +136,10 @@ Correr ::= RUN ID:a PAR1 paramLlamada:b PAR2 FINCADENA {: RESULT = new Run(a, b,
 
 Llamada ::= ID:a PAR1 paramLlamada:b PAR2  {: RESULT = new Llamada(a, b, aleft, aright); :}
           | ID:a PAR1 PAR2                 {: RESULT = new Llamada(a, new LinkedList<HashMap>(), aleft, aright); :}
+;
+
+sentReturn ::= RETURN:a FINCADENA {: RESULT = new Return(null, aleft, aright); :}
+            | RETURN expresion:a FINCADENA {: RESULT = new Return(a, aleft, aright); :}
 ;
 
 sentBreak ::= BREAK:a FINCADENA {: RESULT = new Break(aleft, aright); :}

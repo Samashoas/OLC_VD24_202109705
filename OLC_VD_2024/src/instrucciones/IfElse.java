@@ -60,6 +60,9 @@ public class IfElse extends Instrucciones{
                 if(resultado instanceof Continue){
                     return resultado;
                 }
+                if(resultado instanceof ValorReturn){
+                    return resultado;
+                }
                 if(resultado instanceof Errores){
                     tree.AddErrores((Errores) resultado);
                 }
@@ -80,6 +83,9 @@ public class IfElse extends Instrucciones{
                     return resultado;
                 }
                 if(resultado instanceof Continue){
+                    return resultado;
+                }
+                if(resultado instanceof ValorReturn){
                     return resultado;
                 }
                 if(resultado instanceof Errores){
