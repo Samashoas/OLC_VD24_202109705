@@ -40,7 +40,7 @@ public class Metodo extends Instrucciones{
             if(resultado instanceof ValorReturn){
                 ValorReturn ValorRes = (ValorReturn) resultado;
                 
-                if(!(this.type.getTipo()== TipoDato.VOID)){
+                if(this.type.getTipo()== TipoDato.VOID){
                     if(ValorRes.getTipo() != this.type.getTipo()){
                         return new Errores("SEMANTICO", "Tipos no coinciden", this.line, this.column);
                     }
@@ -52,6 +52,9 @@ public class Metodo extends Instrucciones{
                 return resultado;
             }
             //Agrega la recuperación de Errores
+            if(resultado instanceof Errores){
+                tree.AddErrores((Errores)resultado);
+            }
         }
         
         if(this.type.getTipo() != TipoDato.VOID){

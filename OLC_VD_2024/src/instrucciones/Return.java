@@ -27,7 +27,7 @@ public class Return extends Instrucciones{
     @Override
     public Object interpretar(Arbol tree, TablaSimbolos table) {
         if(this.expresion == null){
-            return new ValorReturn(null, null);
+            return new ValorReturn(TipoDato.VOID, null);
         }else{
             var resultado = this.expresion.interpretar(tree, table);
             if(resultado instanceof ValorReturn){
