@@ -8,11 +8,16 @@ import abstracto.Instrucciones;
 import analizador.parser;
 import analizador.scanner;
 import excepciones.Errores;
+import instrucciones.Append;
+import instrucciones.AsignacionVBD;
+import instrucciones.AsignacionVUD;
+import instrucciones.AsignacionVar;
 import instrucciones.Declaracion;
 import instrucciones.DeclaracionListas;
 import instrucciones.DeclaracionVBD;
 import instrucciones.DeclaracionVUD;
 import instrucciones.Metodo;
+import instrucciones.Reverse;
 import instrucciones.Run;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -235,25 +240,25 @@ public class IDE extends javax.swing.JFrame {
             }
             //segundo recorrido
             for(var a:ast.getInstructions()){
-                if(a instanceof Declaracion){
+                if(a instanceof Declaracion || a instanceof AsignacionVar){
                     var res = a.interpretar(ast, tabla);
                     if(res instanceof Errores){
                        ast.AddErrores((Errores)res);
                     }
                 }
-                if(a instanceof DeclaracionVUD){
+                if(a instanceof DeclaracionVUD || a instanceof AsignacionVUD){
                     var res = a.interpretar(ast, tabla);
                     if(res instanceof Errores){
                        ast.AddErrores((Errores)res);
                     }
                 }
-                if(a instanceof DeclaracionVBD){
+                if(a instanceof DeclaracionVBD || a instanceof AsignacionVBD){
                     var res = a.interpretar(ast, tabla);
                     if(res instanceof Errores){
                        ast.AddErrores((Errores)res);
                     }
                 }
-                if(a instanceof DeclaracionListas){
+                if(a instanceof DeclaracionListas || a instanceof Append || a instanceof Reverse){
                     var res = a.interpretar(ast, tabla);
                     if(res instanceof Errores){
                        ast.AddErrores((Errores)res);
