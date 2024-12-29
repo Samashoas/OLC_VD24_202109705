@@ -47,6 +47,7 @@ LIST = "list"
 APPEND = "append"
 SET = "set"
 GET = "get"
+REMOVE = "remove"
 ROUND = "round"
 LENGTH = "length"
 TOSTRING = "toString"
@@ -149,6 +150,9 @@ WHITESPACE = [ \t\r\f\n]+
                              }
 <YYINITIAL> {GET}            {MisTokens.add(new Tokens("GET",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.GET, yyline, yycolumn, yytext());
+                             }
+<YYINITIAL> {REMOVE}         {MisTokens.add(new Tokens("REMOVE",yytext(), yyline, yycolumn));
+                                return new Symbol(sym.REMOVE, yyline, yycolumn, yytext());
                              }
 <YYINITIAL> {SET}            {MisTokens.add(new Tokens("SET",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.SET, yyline, yycolumn, yytext());
