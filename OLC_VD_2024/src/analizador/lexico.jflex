@@ -98,6 +98,8 @@ IGUAL = "="
 PAR1 = "("
 PAR2 = ")"
 COMA = ","
+LBRACKET = "["
+RBRACKET = "]"
 COLOM = ":"
 FINCADENA = ";"
 
@@ -225,6 +227,12 @@ WHITESPACE = [ \t\r\f\n]+
                              }
 <YYINITIAL> {PAR2}           {MisTokens.add(new Tokens("PAR2",yytext(), yyline, yycolumn));
                               return new Symbol(sym.PAR2, yyline, yycolumn, yytext());
+                             }
+<YYINITIAL> {LBRACKET}       {MisTokens.add(new Tokens("LBRACKET",yytext(), yyline, yycolumn));
+                              return new Symbol(sym.LBRACKET, yyline, yycolumn, yytext());
+                             }
+<YYINITIAL> {RBRACKET}       {MisTokens.add(new Tokens("RBRACKET",yytext(), yyline, yycolumn));
+                              return new Symbol(sym.RBRACKET, yyline, yycolumn, yytext());
                              }
 <YYINITIAL> {COMA}           {MisTokens.add(new Tokens("COMA",yytext(), yyline, yycolumn));
                               return new Symbol(sym.COMA, yyline, yycolumn, yytext());

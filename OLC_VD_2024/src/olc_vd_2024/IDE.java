@@ -9,6 +9,7 @@ import analizador.parser;
 import analizador.scanner;
 import excepciones.Errores;
 import instrucciones.Declaracion;
+import instrucciones.DeclaracionVUD;
 import instrucciones.Metodo;
 import instrucciones.Run;
 import java.io.BufferedReader;
@@ -233,6 +234,12 @@ public class IDE extends javax.swing.JFrame {
             //segundo recorrido
             for(var a:ast.getInstructions()){
                 if(a instanceof Declaracion){
+                    var res = a.interpretar(ast, tabla);
+                    if(res instanceof Errores){
+                       ast.AddErrores((Errores)res);
+                    }
+                }
+                if(a instanceof DeclaracionVUD){
                     var res = a.interpretar(ast, tabla);
                     if(res instanceof Errores){
                        ast.AddErrores((Errores)res);

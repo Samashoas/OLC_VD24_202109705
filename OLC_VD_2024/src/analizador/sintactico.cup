@@ -13,7 +13,9 @@ import instrucciones.Run;
 import instrucciones.Llamada;
 import instrucciones.Print;
 import instrucciones.Declaracion;
+import instrucciones.DeclaracionVUD;
 import instrucciones.AsignacionVar;
+import instrucciones.AsignacionVUD;
 import instrucciones.Metodo;
 import instrucciones.Incremento;
 import instrucciones.Decremento;
@@ -37,6 +39,7 @@ import expresiones.Logicos;
 import expresiones.Casteos;
 import expresiones.Round;
 import expresiones.AccesoVar;
+import expresiones.AccesoVUD;
 import expresiones.OperadoresAritmeticos;
 import expresiones.OperadoresRelacionales;
 import expresiones.OperadoresLogicos;
@@ -71,14 +74,14 @@ action code
 
 terminal String CARACTER, CADENA, ENTERO, DECIMAL, BOOLEANO, ID, BREAK, CONTINUE, RETURN;
 terminal RUN, COLOM, FINCADENA, IMPRIMIR, CAST, AS, LET, CONST, ROUND;
-terminal LKEY, RKEY, PAR1, PAR2, COMA, MAS, MENOS, UMENOS, POR, DIVISION, POTENCIA, RAIZ, MODULO, IGUAL;
+terminal LKEY, RKEY, PAR1, PAR2, LBRACKET, RBRACKET, COMA, MAS, MENOS, UMENOS, POR, DIVISION, POTENCIA, RAIZ, MODULO, IGUAL;
 terminal TO, IGUALACION, DIFERENCIA, MAYOR, MAYORIGUAL, MENOR, MENORIGUAL;
 terminal AND, OR, NOT;
 terminal INCREMENTO, DECREMENTO;
 terminal INT, DOUBLE, CHAR, STRING, BOOL, VOID;
 terminal IF, ELSE, FOR, WHILE, DO, MATCH, DEFAULT;
 
-nonterminal LinkedList<Instrucciones> inicio, instrucciones;
+nonterminal LinkedList<Instrucciones> inicio, instrucciones, lista_valoresVUD;
 nonterminal LinkedList<HashMap> params, paramLlamada;
 nonterminal HashMap<String, Object> parametro;
 nonterminal LinkedList<Caso> listaCasos;
@@ -147,16 +150,26 @@ sentBreak ::= BREAK:a FINCADENA {: RESULT = new Break(aleft, aright); :}
 
 sentContinue ::= CONTINUE:a FINCADENA {: RESULT = new Continue(aleft, aright); :}
 ;
-                                                                //Declaracion(String Identificador, Instrucciones valor, Tipo type, int line, int column)
+
+//Declaracion(String Identificador, Instrucciones valor, Tipo type, int line, int column)
+//DECLARCIONVUD(ID, LISTA VALORES, MUTABILIDAD, TIPO, LINE, COLUMNA)
 declaracion ::= LET ID:a COLOM tipos:b IGUAL expresion:c    {: RESULT = new Declaracion(a, c, b, true, aleft, aright); :}
               | LET ID:a COLOM tipos:b                      {: RESULT = new Declaracion(a, null, b, true, aleft, aright); :}
+              | LET ID:a COLOM tipos:b LBRACKET RBRACKET IGUAL LBRACKET lista_valoresVUD:c RBRACKET {: RESULT = new DeclaracionVUD(a, c, true, b, aleft, aright); :}
               | CONST ID:a COLOM tipos:b IGUAL expresion:c  {: RESULT = new Declaracion(a, c, b, false, aleft, aright); :}
               | CONST ID:a COLOM tipos:b                    {: RESULT = new Declaracion(a, null, b, false, aleft, aright); :}
 ;
 
+//VUD(ID, INDEX, EXPRESION, LINEA, COLUMNA)
 asignacion ::= ID:a IGUAL expresion:c  {: RESULT = new AsignacionVar(a, c, aleft, aright); :}
+             | ID:a LBRACKET expresion:b RBRACKET IGUAL expresion:c {: RESULT = new AsignacionVUD(a, b, c, aleft, aright); :}
 ;
-                                                                //Metodo(String id, LinkedList<HashMap> parametros, LinkedList<Instrucciones> instrucciones, Tipo type, int line, int column)
+
+lista_valoresVUD ::= lista_valoresVUD:a COMA expresion:b {: RESULT = a; RESULT.add(b); :}
+                  | expresion:a                          {: RESULT = new LinkedList<>(); RESULT.add(a); :}
+;
+
+//Metodo(String id, LinkedList<HashMap> parametros, LinkedList<Instrucciones> instrucciones, Tipo type, int line, int column)
 SentMetodo ::= tipos:a ID:b PAR1 PAR2 LKEY instrucciones:c RKEY {: RESULT = new Metodo(b, new LinkedList<HashMap>(), c, a, aleft, aright); :}
              | tipos:a ID:b PAR1 params:c PAR2 LKEY instrucciones:d RKEY {: RESULT = new Metodo(b, c, d, a, aleft, aright); :}
 ;
@@ -258,6 +271,8 @@ expresion ::= MENOS expresion:a               {:   RESULT = new Aritmeticas(a, O
             | PAR1 expresion:a PAR2 {: RESULT = a; :}
 
             | ID:a {: RESULT = new AccesoVar(a, aleft, aright); :}
+
+            | ID:a LBRACKET expresion:b RBRACKET {: RESULT = new AccesoVUD(a, b, aleft, aright); :}
 
             | Llamada:a {: RESULT = a; :}
 ;
