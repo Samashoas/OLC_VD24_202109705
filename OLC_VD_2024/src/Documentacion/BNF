@@ -1,105 +1,133 @@
 <inicio> ::= <instrucciones>
 
 <instrucciones> ::= <instrucciones> <instruccion>
-                | <instruccion>
+                  | <instruccion>
 
-<instruccion> ::= <impresion>
-              | <declaracion>
-              | <asignacion>
-              | <insIncremento>
-              | <insDecremento>
-              | <sentIf>
-              | <sentFor>
-              | <sentWhile>
-              | <sentMatch>
-              | <sentBreak>
-              | <sentContinue>
-              | <error>
+<instruccion> ::= <impresion> FINCADENA
+                | <Correr>
+                | <declaracion> FINCADENA
+                | <asignacion> FINCADENA
+                | <insIncremento>
+                | <insDecremento>
+                | <SentMetodo>
+                | <sentIf>
+                | <sentFor>
+                | <sentWhile>
+                | <sentMatch>
+                | <sentReturn>
+                | <sentBreak>
+                | <sentContinue>
+                | <Llamada> FINCADENA
+                | error FINCADENA
+                | error RKEY
 
-<impresion> ::= IMPRIMIR "(" <expresion> ")"
+<impresion> ::= IMPRIMIR PAR1 <expresion> PAR2
 
-<sentBreak> ::= BREAK
+<Correr> ::= RUN ID PAR1 <paramLlamada> PAR2 FINCADENA
+           | RUN ID PAR1 PAR2 FINCADENA
 
-<sentContinue> ::= CONTINUE
+<Llamada> ::= ID PAR1 <paramLlamada> PAR2
+            | ID PAR1 PAR2
 
-<declaracion> ::= LET <ID> ":" <tipos> "=" <expresion>
-              | LET <ID> ":" <tipos>
-              | CONST <ID> ":" <tipos> "=" <expresion>
-              | CONST <ID> ":" <tipos>
+<sentReturn> ::= RETURN FINCADENA
+               | RETURN <expresion> FINCADENA
 
-<asignacion> ::= <ID> "=" <expresion>
+<sentBreak> ::= BREAK FINCADENA
 
-<sentIf> ::= IF "(" <expresion> ")" <instrucciones>
-         | IF "(" <expresion> ")" <instrucciones> ELSE <sentIf>
+<sentContinue> ::= CONTINUE FINCADENA
 
-<sentFor> ::= FOR "(" <asignacion> <expresion> <actFor> ")" <instrucciones>
+<declaracion> ::= LET ID COLOM <tipos> IGUAL <expresion>
+                | LET ID COLOM <tipos>
+                | LET ID COLOM <tipos> LBRACKET RBRACKET IGUAL LBRACKET <lista_valoresVUD> RBRACKET
+                | LET ID COLOM <tipos> LBRACKET RBRACKET LBRACKET RBRACKET IGUAL LBRACKET <lista_valoresVBD> RBRACKET
+                | CONST ID COLOM <tipos> IGUAL <expresion>
+                | CONST ID COLOM <tipos>
+                | CONST ID COLOM <tipos> LBRACKET RBRACKET IGUAL LBRACKET <lista_valoresVUD> RBRACKET
+                | CONST ID COLOM <tipos> LBRACKET RBRACKET LBRACKET RBRACKET IGUAL LBRACKET <lista_valoresVBD> RBRACKET
+
+<asignacion> ::= ID IGUAL <expresion>
+               | ID LBRACKET <expresion> RBRACKET IGUAL <expresion>
+               | ID LBRACKET <expresion> RBRACKET LBRACKET <expresion> RBRACKET IGUAL <expresion>
+
+<lista_valoresVUD> ::= <lista_valoresVUD> COMA <expresion>
+                     | <expresion>
+
+<lista_valoresVBD> ::= <lista_valoresVBD> COMA LBRACKET <lista_valoresVUD> RBRACKET
+                     | LBRACKET <lista_valoresVUD> RBRACKET
+
+<SentMetodo> ::= <tipos> ID PAR1 PAR2 LKEY <instrucciones> RKEY
+               | <tipos> ID PAR1 <params> PAR2 LKEY <instrucciones> RKEY
+
+<params> ::= <params> COMA <parametro>
+           | <parametro>
+
+<parametro> ::= ID COLOM <tipos> IGUAL <expresion>
+              | ID COLOM <tipos>
+
+<paramLlamada> ::= <paramLlamada> COMA ID IGUAL <expresion>
+                 | ID IGUAL <expresion>
+
+<sentIf> ::= IF PAR1 <expresion> PAR2 LKEY <instrucciones> RKEY
+           | IF PAR1 <expresion> PAR2 LKEY <instrucciones> RKEY ELSE LKEY <instrucciones> RKEY
+           | IF PAR1 <expresion> PAR2 LKEY <instrucciones> RKEY ELSE <sentIf>
+
+<sentFor> ::= FOR PAR1 <asignacion> FINCADENA <expresion> FINCADENA <actFor> PAR2 LKEY <instrucciones> RKEY
 
 <actFor> ::= <asignacion>
-          | <insIncremento>
-          | <insDecremento>
+           | <insIncremento>
+           | <insDecremento>
 
-<sentWhile> ::= WHILE "(" <expresion> ")" <instrucciones>
-            | DO <instrucciones> WHILE "(" <expresion> ")"
+<sentWhile> ::= WHILE PAR1 <expresion> PAR2 LKEY <instrucciones> RKEY
+              | DO LKEY <instrucciones> RKEY WHILE PAR1 <expresion> PAR2 FINCADENA
 
-<sentMatch> ::= MATCH <expresion> "{" <listaCasos> "}" DEFAULT TO "{" <instrucciones> "}"
+<sentMatch> ::= MATCH <expresion> LKEY <listaCasos> DEFAULT TO LKEY <instrucciones> RKEY RKEY
 
 <listaCasos> ::= <caso>
-             | <listaCasos> <caso>
+               | <listaCasos> <caso>
 
-<caso> ::= <expresion> TO "{" <instrucciones> "}"
+<caso> ::= <expresion> TO LKEY <instrucciones> RKEY
 
-<insIncremento> ::= <ID> INCREMENTO
-                | <ID> INCREMENTO ";"
+<insIncremento> ::= ID INCREMENTO FINCADENA
+                  | ID INCREMENTO
 
-<insDecremento> ::= <ID> DECREMENTO
-                | <ID> DECREMENTO ";"
+<insDecremento> ::= ID DECREMENTO FINCADENA
+                  | ID DECREMENTO
 
 <expresion> ::= MENOS <expresion>
-            | <expresion> MAS <expresion>
-            | <expresion> MENOS <expresion>
-            | <expresion> POR <expresion>
-            | <expresion> DIVISION <expresion>
-            | <expresion> POTENCIA <expresion>
-            | <expresion> RAIZ <expresion>
-            | <expresion> MODULO <expresion>
-
-            | <expresion> IGUALACION <expresion>
-            | <expresion> DIFERENCIA <expresion>
-            | <expresion> MAYOR <expresion>
-            | <expresion> MAYORIGUAL <expresion>
-            | <expresion> MENOR <expresion>
-            | <expresion> MENORIGUAL <expresion>
-
-            | <expresion> AND <expresion>
-            | <expresion> OR <expresion>
-            | NOT <expresion>
-
-            | CAST "(" <expresion> AS <tipos> ")"
-
-            | ENTERO
-            | DECIMAL
-            | CARACTER
-            | CADENA
-            | BOOLEANO
-            | "(" <expresion> ")"
-            | <ID>
+              | <expresion> MAS <expresion>
+              | <expresion> MENOS <expresion>
+              | <expresion> POR <expresion>
+              | <expresion> DIVISION <expresion>
+              | <expresion> POTENCIA <expresion>
+              | <expresion> RAIZ <expresion>
+              | <expresion> MODULO <expresion>
+              | <expresion> IGUALACION <expresion>
+              | <expresion> DIFERENCIA <expresion>
+              | <expresion> MAYOR <expresion>
+              | <expresion> MAYORIGUAL <expresion>
+              | <expresion> MENOR <expresion>
+              | <expresion> MENORIGUAL <expresion>
+              | <expresion> AND <expresion>
+              | <expresion> OR <expresion>
+              | NOT <expresion>
+              | CAST PAR1 <expresion> AS <tipos> PAR2
+              | ROUND PAR1 <expresion> PAR2
+              | LENGTH PAR1 <expresion> PAR2
+              | TOSTRING PAR1 <expresion> PAR2
+              | ENTERO
+              | DECIMAL
+              | CARACTER
+              | CADENA
+              | BOOLEANO
+              | PAR1 <expresion> PAR2
+              | ID
+              | ID LBRACKET <expresion> RBRACKET
+              | ID LBRACKET <expresion> RBRACKET LBRACKET <expresion> RBRACKET
+              | <Llamada>
 
 <tipos> ::= INT
-        | DOUBLE
-        | CHAR
-        | STRING
-        | BOOL
-
-<ID> ::= <letra> <IDresto>
-      | <letra>
-
-<IDresto> ::= <letra> <IDresto>
-          | <digito> <IDresto>
-          | ε
-
-<letra> ::= a | b | c | d | e | f | g | h | i | j | k | l | m | n | o | p | q | r | s | t | u | v | w | x | y | z
-         | A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z
-         
-<digito> ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
-
-<error> ::= ε
+          | DOUBLE
+          | CHAR
+          | STRING
+          | BOOL
+          | VOID
