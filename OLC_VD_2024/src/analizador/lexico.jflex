@@ -43,6 +43,8 @@ CAST = "cast"
 AS = "as"
 LET = "let"
 CONST = "const"
+LIST = "list"
+APPEND = "append"
 ROUND = "round"
 LENGTH = "length"
 TOSTRING = "toString"
@@ -104,6 +106,7 @@ LBRACKET = "["
 RBRACKET = "]"
 COLOM = ":"
 FINCADENA = ";"
+DOT = "."
 
 // ------>Expresiones regulares<------
 BOOLEANO = "true"|"false"
@@ -135,6 +138,12 @@ WHITESPACE = [ \t\r\f\n]+
                              }
 <YYINITIAL> {CONST}          {MisTokens.add(new Tokens("CONST",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.CONST, yyline, yycolumn, yytext());
+                             }
+<YYINITIAL> {LIST}           {MisTokens.add(new Tokens("LIST",yytext(), yyline, yycolumn));
+                                return new Symbol(sym.LIST, yyline, yycolumn, yytext());
+                             }
+<YYINITIAL> {APPEND}         {MisTokens.add(new Tokens("APPEND",yytext(), yyline, yycolumn));
+                                return new Symbol(sym.APPEND, yyline, yycolumn, yytext());
                              }
 <YYINITIAL> {ROUND}          {MisTokens.add(new Tokens("ROUND",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.ROUND, yyline, yycolumn, yytext());
@@ -250,6 +259,9 @@ WHITESPACE = [ \t\r\f\n]+
                              }
 <YYINITIAL> {FINCADENA}      {MisTokens.add(new Tokens("FINCADENA",yytext(), yyline, yycolumn));
                               return new Symbol(sym.FINCADENA, yyline, yycolumn, yytext());
+                             }
+<YYINITIAL> {DOT}            {MisTokens.add(new Tokens("DOT",yytext(), yyline, yycolumn));
+                              return new Symbol(sym.DOT, yyline, yycolumn, yytext());
                              }
 
 <YYINITIAL> {MAS}            {MisTokens.add(new Tokens("MAS",yytext(), yyline, yycolumn));

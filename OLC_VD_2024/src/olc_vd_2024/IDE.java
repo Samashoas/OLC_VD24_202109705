@@ -9,6 +9,7 @@ import analizador.parser;
 import analizador.scanner;
 import excepciones.Errores;
 import instrucciones.Declaracion;
+import instrucciones.DeclaracionListas;
 import instrucciones.DeclaracionVBD;
 import instrucciones.DeclaracionVUD;
 import instrucciones.Metodo;
@@ -247,6 +248,12 @@ public class IDE extends javax.swing.JFrame {
                     }
                 }
                 if(a instanceof DeclaracionVBD){
+                    var res = a.interpretar(ast, tabla);
+                    if(res instanceof Errores){
+                       ast.AddErrores((Errores)res);
+                    }
+                }
+                if(a instanceof DeclaracionListas){
                     var res = a.interpretar(ast, tabla);
                     if(res instanceof Errores){
                        ast.AddErrores((Errores)res);

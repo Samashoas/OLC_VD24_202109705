@@ -15,9 +15,11 @@ import instrucciones.Print;
 import instrucciones.Declaracion;
 import instrucciones.DeclaracionVUD;
 import instrucciones.DeclaracionVBD;
+import instrucciones.DeclaracionListas;
 import instrucciones.AsignacionVar;
 import instrucciones.AsignacionVUD;
 import instrucciones.AsignacionVBD;
+import instrucciones.Append;
 import instrucciones.Metodo;
 import instrucciones.Incremento;
 import instrucciones.Decremento;
@@ -78,8 +80,8 @@ action code
 :}
 
 terminal String CARACTER, CADENA, ENTERO, DECIMAL, BOOLEANO, ID, BREAK, CONTINUE, RETURN;
-terminal RUN, COLOM, FINCADENA, IMPRIMIR, CAST, AS, LET, CONST, ROUND, LENGTH, TOSTRING;
-terminal LKEY, RKEY, PAR1, PAR2, LBRACKET, RBRACKET, COMA, MAS, MENOS, UMENOS, POR, DIVISION, POTENCIA, RAIZ, MODULO, IGUAL;
+terminal RUN, COLOM, FINCADENA, IMPRIMIR, CAST, AS, LET, CONST, ROUND, LENGTH, TOSTRING, LIST, APPEND;
+terminal LKEY, RKEY, PAR1, PAR2, LBRACKET, RBRACKET, COMA, MAS, MENOS, UMENOS, POR, DIVISION, POTENCIA, RAIZ, MODULO, IGUAL, DOT;
 terminal TO, IGUALACION, DIFERENCIA, MAYOR, MAYORIGUAL, MENOR, MENORIGUAL;
 terminal AND, OR, NOT;
 terminal INCREMENTO, DECREMENTO;
@@ -160,8 +162,10 @@ sentContinue ::= CONTINUE:a FINCADENA {: RESULT = new Continue(aleft, aright); :
 //Declaracion(String Identificador, Instrucciones valor, Tipo type, int line, int column)
 //DECLARCIONVUD(ID, LISTA VALORES, MUTABILIDAD, TIPO, LINE, COLUMNA)
 //DECLARCIONVBD(ID, LISTA DE LISTAS, MUTABILIDAD, TIPO, LINEA, COLUMNA)
+//LISTAS(ID, MUTABLE, TIPO, LINE, COLUMNA)
 declaracion ::= LET ID:a COLOM tipos:b IGUAL expresion:c    {: RESULT = new Declaracion(a, c, b, true, aleft, aright); :}
               | LET ID:a COLOM tipos:b                      {: RESULT = new Declaracion(a, null, b, true, aleft, aright); :}
+              | LET ID:a COLOM LIST MENOR tipos:b MAYOR     {: RESULT = new DeclaracionListas(a, true, b, aleft, aright); :}
               | LET ID:a COLOM tipos:b LBRACKET RBRACKET IGUAL LBRACKET lista_valoresVUD:c RBRACKET {: RESULT = new DeclaracionVUD(a, c, true, b, aleft, aright); :}
               | LET ID:a COLOM tipos:b LBRACKET RBRACKET LBRACKET RBRACKET IGUAL LBRACKET lista_valoresVBD:c RBRACKET {: RESULT = new DeclaracionVBD(a, c, true, b, aleft, aright); :}
               | CONST ID:a COLOM tipos:b IGUAL expresion:c  {: RESULT = new Declaracion(a, c, b, false, aleft, aright); :}
@@ -172,7 +176,9 @@ declaracion ::= LET ID:a COLOM tipos:b IGUAL expresion:c    {: RESULT = new Decl
 
 //VUD(ID, INDEX, EXPRESION, LINEA, COLUMNA)
 //VBD(ID, INDEX1, INDEX2, EXPRESION, LINEA, COLUMNA)
+//APPEND(ID, VALOR, LINEA, COLUMNA)
 asignacion ::= ID:a IGUAL expresion:c  {: RESULT = new AsignacionVar(a, c, aleft, aright); :}
+             | ID:a DOT APPEND PAR1 expresion:b PAR2 {: RESULT = new Append(a, b, aleft, aright); :}
              | ID:a LBRACKET expresion:b RBRACKET IGUAL expresion:c {: RESULT = new AsignacionVUD(a, b, c, aleft, aright); :}
              | ID:a LBRACKET expresion:b RBRACKET LBRACKET expresion:c RBRACKET IGUAL expresion:d {: RESULT = new AsignacionVBD(a, b, c, d, aleft, aright); :}
 ;
