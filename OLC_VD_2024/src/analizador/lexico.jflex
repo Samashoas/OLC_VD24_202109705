@@ -44,6 +44,7 @@ AS = "as"
 LET = "let"
 CONST = "const"
 ROUND = "round"
+LENGTH = "length"
 //Sentencias
 IF = "if"
 ELSE = "else"
@@ -136,6 +137,9 @@ WHITESPACE = [ \t\r\f\n]+
                              }
 <YYINITIAL> {ROUND}          {MisTokens.add(new Tokens("ROUND",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.ROUND, yyline, yycolumn, yytext());
+                             }
+<YYINITIAL> {LENGTH}         {MisTokens.add(new Tokens("LENGTH",yytext(), yyline, yycolumn));
+                                return new Symbol(sym.LENGTH, yyline, yycolumn, yytext());
                              }
                              
 <YYINITIAL> {IF}             {MisTokens.add(new Tokens("IF",yytext(), yyline, yycolumn));

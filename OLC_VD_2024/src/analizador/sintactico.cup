@@ -40,6 +40,7 @@ import expresiones.Relacionales;
 import expresiones.Logicos;
 import expresiones.Casteos;
 import expresiones.Round;
+import expresiones.Length;
 import expresiones.AccesoVar;
 import expresiones.AccesoVUD;
 import expresiones.AccesoVBD;
@@ -76,7 +77,7 @@ action code
 :}
 
 terminal String CARACTER, CADENA, ENTERO, DECIMAL, BOOLEANO, ID, BREAK, CONTINUE, RETURN;
-terminal RUN, COLOM, FINCADENA, IMPRIMIR, CAST, AS, LET, CONST, ROUND;
+terminal RUN, COLOM, FINCADENA, IMPRIMIR, CAST, AS, LET, CONST, ROUND, LENGTH;
 terminal LKEY, RKEY, PAR1, PAR2, LBRACKET, RBRACKET, COMA, MAS, MENOS, UMENOS, POR, DIVISION, POTENCIA, RAIZ, MODULO, IGUAL;
 terminal TO, IGUALACION, DIFERENCIA, MAYOR, MAYORIGUAL, MENOR, MENORIGUAL;
 terminal AND, OR, NOT;
@@ -275,6 +276,7 @@ expresion ::= MENOS expresion:a               {:   RESULT = new Aritmeticas(a, O
             |CAST PAR1 expresion:a AS tipos:b PAR2 {:   RESULT = new Casteos(a, b, aleft, aright);   :}
 
             |ROUND PAR1 expresion:a PAR2 {:   RESULT = new Round(a, aleft, aright);   :}
+            |LENGTH PAR1 expresion:a PAR2 {:   RESULT = new Length(a, aleft, aright);   :}
 
             | ENTERO:a   {: RESULT = new Nativo(Integer.parseInt(a), new Tipo(TipoDato.ENTERO), aleft, aright); :}
             | DECIMAL:a  {: RESULT = new Nativo(new Double(a), new Tipo(TipoDato.DECIMAL), aleft, aright); :}
