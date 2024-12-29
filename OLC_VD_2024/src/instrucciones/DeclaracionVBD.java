@@ -31,38 +31,38 @@ public class DeclaracionVBD extends Instrucciones{
 
     @Override
     public Object interpretar(Arbol tree, TablaSimbolos table) {
-        if(this.Listas_DlistValores == null){
+        if (Listas_DlistValores == null) {
             return new Errores("SEMANTICO", "No se puede declarar el vector sin valores", this.line, this.column);
         }
-        
-        LinkedList<LinkedList<Object>> Listas_DlistInterpretado = new LinkedList<>();
-        
-        for(LinkedList<Instrucciones> lista_valores : this.Listas_DlistValores){
-            if(lista_valores == null){
+
+        LinkedList<LinkedList<Object>> listasDlistInterpretado = new LinkedList<>();
+
+        for (LinkedList<Instrucciones> listaValores : Listas_DlistValores) {
+            if (listaValores == null) {
                 return new Errores("SEMANTICO", "No se puede declarar el vector sin valores", this.line, this.column);
             }
-            
+
             LinkedList<Object> valores = new LinkedList<>();
-            
-            for(Instrucciones valor : lista_valores){
-                var ValorInterpretado = valor.interpretar(tree, table);
-                
-                if(ValorInterpretado instanceof Errores){
-                    return ValorInterpretado;
+
+            for (Instrucciones valor : listaValores) {
+                Object valorInterpretado = valor.interpretar(tree, table);
+
+                if (valorInterpretado instanceof Errores) {
+                    return valorInterpretado;
                 }
-                
-                if(valor.type.getTipo() != this.type.getTipo()){
+
+                if (valor.type.getTipo() != this.type.getTipo()) {
                     return new Errores("SEMANTICO", "Los tipos no coinciden", this.line, this.column);
                 }
-                valores.add(ValorInterpretado);
+                valores.add(valorInterpretado);
             }
-            
-            Listas_DlistInterpretado.add(valores);
+
+            listasDlistInterpretado.add(valores);
         }
-        
-        Simbolo nuevoSimbolo = new Simbolo(this.type, this.Identificador, Listas_DlistInterpretado, this.IsMutable);
+
+        Simbolo nuevoSimbolo = new Simbolo(this.type, this.Identificador, listasDlistInterpretado, this.IsMutable);
         table.setVariable(nuevoSimbolo);
-        
+
         return null;
     }
 }

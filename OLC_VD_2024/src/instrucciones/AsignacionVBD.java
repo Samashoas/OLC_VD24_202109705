@@ -31,70 +31,66 @@ public class AsignacionVBD extends Instrucciones{
     @Override
     public Object interpretar(Arbol tree, TablaSimbolos table) {
         
-        var vector = table.getVariable(id);
-        if(vector == null){
+       Simbolo vector = table.getVariable(id);
+        if (vector == null) {
             return new Errores("SEMANTICO", "El vector no existe", this.line, this.column);
         }
-        
-        if(!vector.isMutable()){
+
+        if (!vector.isMutable()) {
             return new Errores("SEMANTICO", "La variable no es mutable", this.line, this.column);
         }
-        
-        if(this.index == null){
+
+        if (index == null || index2 == null) {
             return new Errores("SEMANTICO", "Index no puede tener un valor nulo", this.line, this.column);
         }
-        if(this.index2 == null){
-            return new Errores("SEMANTIC", "Index no puede tener un valor nulo", this.line, this.column);
-        }
-        
-        var newValor = this.expresion.interpretar(tree, table);
-        if(newValor instanceof Errores){
+
+        Object newValor = interpretarExpresion(tree, table);
+        if (newValor instanceof Errores) {
             return newValor;
         }
-        
-        var index = this.index.interpretar(tree, table);
-        if(index instanceof Errores){
-            return index;
+
+        Object indexValue = interpretarIndex(tree, table, index);
+        if (indexValue instanceof Errores) {
+            return indexValue;
         }
-        if(!(index instanceof Integer)){
-            return new Errores("SEMANTICO", "El indice debe ser un valor de tipo entero", this.line, this.column);
+
+        Object indexValue2 = interpretarIndex(tree, table, index2);
+        if (indexValue2 instanceof Errores) {
+            return indexValue2;
         }
-        
-        var index2 = this.index2.interpretar(tree, table);
-        if(index2 instanceof Errores){
-            return index2;
+
+        return asignarValor(vector, (int) indexValue, (int) indexValue2, newValor);
+    }
+    
+    private Object interpretarExpresion(Arbol tree, TablaSimbolos table) {
+        Object newValor = expresion.interpretar(tree, table);
+        if (newValor instanceof Errores) {
+            return newValor;
         }
-        if(!(index2 instanceof Integer)){
-            return new Errores("SEMANTICO", "El indice debe ser un valor entero", this.line, this.column);
-        }
-        
-        if(vector.getType().getTipo() != this.expresion.type.getTipo()){
+        if (expresion.type.getTipo() != this.type.getTipo()) {
             return new Errores("SEMANTICO", "Los tipos no coinciden", this.line, this.column);
         }
-        
-        if(!(vector.getValue() instanceof LinkedList)){
-            return new Errores("SEMANTICO", "No es un vector", this.line, this.column);
+        return newValor;
+    }
+    
+    private Object interpretarIndex(Arbol tree, TablaSimbolos table, Instrucciones index) {
+        Object indexValue = index.interpretar(tree, table);
+        if (!(indexValue instanceof Integer)) {
+            return new Errores("SEMANTICO", "El indice debe de ser un valor entero", this.line, this.column);
         }
-        
-        LinkedList<LinkedList<Object>> lista_valores = new LinkedList<>();
-        lista_valores = (LinkedList<LinkedList<Object>>) vector.getValue();
-        
-        int NumIndex = (int) index;
-        if(NumIndex < 0){
+        return indexValue;
+    }
+    
+    private Object asignarValor(Simbolo vector, int index, int index2, Object newValor) {
+        LinkedList<LinkedList<Object>> listaValores = (LinkedList<LinkedList<Object>>) vector.getValue();
+        if (index < 0 || index >= listaValores.size()) {
             return new Errores("SEMANTICO", "El indice esta fuera del rango", this.line, this.column);
         }
-        if(NumIndex >= lista_valores.size()){
+        LinkedList<Object> subLista = listaValores.get(index);
+        if (index2 < 0 || index2 >= subLista.size()) {
             return new Errores("SEMANTICO", "El indice esta fuera del rango", this.line, this.column);
         }
-        
-        int NumIndex2 = (int) index2;
-        if(NumIndex2 < 0){
-            return new Errores("SEMANTICO", "El indice esta fuera del rango", this.line, this.column);
-        }
-        if(NumIndex2 >= lista_valores.size()){
-            return new Errores("SEMANTICO", "El indice esta fuera del rango", this.line, this.column);
-        }
-        
+        subLista.set(index2, newValor);
         return null;
     }
 }

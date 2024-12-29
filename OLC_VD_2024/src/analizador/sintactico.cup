@@ -178,7 +178,7 @@ lista_valoresVUD ::= lista_valoresVUD:a COMA expresion:b {: RESULT = a; RESULT.a
                   | expresion:a                          {: RESULT = new LinkedList<>(); RESULT.add(a); :}
 ;
 
-lista_valoresVBD ::= lista_valoresVBD:a COMA LBRACKET lista_valoresVUD:b RBRACKET {: RESULT = a; RESULT.add(b); :}
+lista_valoresVBD ::= lista_valoresVBD:a COMA LBRACKET lista_valoresVUD:b RBRACKET   {: RESULT = a; RESULT.add(b); :}
                   | LBRACKET lista_valoresVUD:a RBRACKET                            {: RESULT = new LinkedList<>(); RESULT.add(a); :}
 ;
 
