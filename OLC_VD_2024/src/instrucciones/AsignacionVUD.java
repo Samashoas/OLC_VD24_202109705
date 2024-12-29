@@ -49,7 +49,7 @@ public class AsignacionVUD extends Instrucciones{
             return new Errores("SEMANTICO", "Los tipos no coinciden", this.line, this.column);
         }
         
-        var index = this.index.interpretar(tree, table);
+        Object index = this.index.interpretar(tree, table);
         if(index instanceof Errores){
             return index;
         }
@@ -58,19 +58,17 @@ public class AsignacionVUD extends Instrucciones{
         }
         
         int NumIndex = (int) index;
-        if(!(vector.getValue() instanceof LinkedList)){
+        if(vector.getValue() instanceof LinkedList){
+            LinkedList<Object> lista_valores = (LinkedList<Object>)vector.getValue();
+        
+            if(NumIndex < 0 || NumIndex >= lista_valores.size()){
+                return new Errores("SEMANTICO", "El indice esta fuera del rango", this.line, this.column);
+            }
+            lista_valores.set(NumIndex, newValor);
+            vector.setValue(lista_valores);
+        }else{
             return new Errores("SEMANTICO", "No es un vector", this.line, this.column);
         }
-        
-        LinkedList<Object> lista_valores = (LinkedList<Object>)vector.getValue();
-        
-        if(NumIndex < 0 || NumIndex >= lista_valores.size()){
-            return new Errores("SEMANTICO", "El indice esta fuera del rango", this.line, this.column);
-        }
-        
-        lista_valores.set(NumIndex, newValor);
-        vector.setValue(lista_valores);
-        
         return null;
     }
 }

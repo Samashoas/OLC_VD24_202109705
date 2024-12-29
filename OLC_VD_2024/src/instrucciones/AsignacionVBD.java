@@ -30,7 +30,7 @@ public class AsignacionVBD extends Instrucciones{
 
     @Override
     public Object interpretar(Arbol tree, TablaSimbolos table) {
-       var vector = table.getVariable(id);
+        var vector = table.getVariable(id);
         if(vector == null){
             return new Errores("SEMANTICO", "El vector no existe", this.line, this.column);
         }
@@ -51,7 +51,7 @@ public class AsignacionVBD extends Instrucciones{
             return newValor;
         }
         
-        var index = this.index.interpretar(tree, table);
+        Object index = this.index.interpretar(tree, table);
         if(index instanceof Errores){
             return index;
         }
@@ -59,34 +59,32 @@ public class AsignacionVBD extends Instrucciones{
             return new Errores("SEMANTICO", "El indice debe ser un valor de tipo entero", this.line, this.column);
         }
         
-        var index2 = this.index2.interpretar(tree, table);
+        Object index2 = this.index2.interpretar(tree, table);
         if(index2 instanceof Errores){
             return index2;
         }
         if(!(index2 instanceof Integer)){
             return new Errores("SEMANTICO", "El indice debe ser un valor entero", this.line, this.column);
         }
-        
         if(vector.getType().getTipo() != this.expresion.type.getTipo()){
             return new Errores("SEMANTICO", "Los tipos no coinciden", this.line, this.column);
         }
         
-        if(!(vector.getValue() instanceof LinkedList)){
+        if(vector.getValue() instanceof LinkedList){
+            LinkedList<LinkedList<Object>> lista_valores = new LinkedList<>();
+            lista_valores = (LinkedList<LinkedList<Object>>) vector.getValue();
+
+            int NumIndex = (int) index;
+            int NumIndex2 = (int) index2;
+            if (NumIndex < 0 || NumIndex >= lista_valores.size() || NumIndex2 < 0 || NumIndex2 >= lista_valores.get(NumIndex).size()) {
+                return new Errores("Semántico","Index fuera de los límites del vector", this.line, this.column);
+            }
+        
+            lista_valores.get(NumIndex).set(NumIndex2, newValor);
+            vector.setValue(lista_valores);
+        }else{
             return new Errores("SEMANTICO", "No es un vector", this.line, this.column);
         }
-        
-        LinkedList<LinkedList<Object>> lista_valores = new LinkedList<>();
-        lista_valores = (LinkedList<LinkedList<Object>>) vector.getValue();
-        
-        int NumIndex = (int) index;
-        int NumIndex2 = (int) index2;
-        if (NumIndex < 0 || NumIndex >= lista_valores.size() || NumIndex2 < 0 || NumIndex2 >= lista_valores.get(NumIndex).size()) {
-            return new Errores("Semántico","Index fuera de los límites del vector", this.line, this.column);
-        }
-        
-        lista_valores.get(NumIndex).set(NumIndex2, newValor);
-        vector.setValue(lista_valores);
-        
         return null;
     }
 }
