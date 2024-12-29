@@ -20,6 +20,7 @@ import instrucciones.AsignacionVar;
 import instrucciones.AsignacionVUD;
 import instrucciones.AsignacionVBD;
 import instrucciones.Append;
+import instrucciones.Reverse;
 import instrucciones.Metodo;
 import instrucciones.Incremento;
 import instrucciones.Decremento;
@@ -83,7 +84,7 @@ action code
 :}
 
 terminal String CARACTER, CADENA, ENTERO, DECIMAL, BOOLEANO, ID, BREAK, CONTINUE, RETURN;
-terminal RUN, COLOM, FINCADENA, IMPRIMIR, CAST, AS, LET, CONST, ROUND, LENGTH, TOSTRING, LIST, APPEND, GET, SET, REMOVE, POP;
+terminal RUN, COLOM, FINCADENA, IMPRIMIR, CAST, AS, LET, CONST, ROUND, LENGTH, TOSTRING, LIST, APPEND, GET, SET, REMOVE, POP, REVERSE;
 terminal LKEY, RKEY, PAR1, PAR2, LBRACKET, RBRACKET, COMA, MAS, MENOS, UMENOS, POR, DIVISION, POTENCIA, RAIZ, MODULO, IGUAL, DOT;
 terminal TO, IGUALACION, DIFERENCIA, MAYOR, MAYORIGUAL, MENOR, MENORIGUAL;
 terminal AND, OR, NOT;
@@ -182,6 +183,7 @@ declaracion ::= LET ID:a COLOM tipos:b IGUAL expresion:c    {: RESULT = new Decl
 //APPEND(ID, VALOR, LINEA, COLUMNA)
 asignacion ::= ID:a IGUAL expresion:c  {: RESULT = new AsignacionVar(a, c, aleft, aright); :}
              | ID:a DOT APPEND PAR1 expresion:b PAR2 {: RESULT = new Append(a, b, aleft, aright); :}
+             | ID:a DOT REVERSE PAR1 PAR2 {: RESULT = new Reverse(a, aleft, aright); :}
              | ID:a LBRACKET expresion:b RBRACKET IGUAL expresion:c {: RESULT = new AsignacionVUD(a, b, c, aleft, aright); :}
              | ID:a DOT SET PAR1 expresion:b COMA expresion:c PAR2 {: RESULT = new AsignacionVUD(a, b, c, aleft, aright); :}
              | ID:a LBRACKET expresion:b RBRACKET LBRACKET expresion:c RBRACKET IGUAL expresion:d {: RESULT = new AsignacionVBD(a, b, c, d, aleft, aright); :}

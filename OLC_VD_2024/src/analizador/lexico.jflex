@@ -45,6 +45,7 @@ LET = "let"
 CONST = "const"
 LIST = "list"
 APPEND = "append"
+REVERSE = "reverse"
 SET = "set"
 GET = "get"
 REMOVE = "remove"
@@ -148,6 +149,9 @@ WHITESPACE = [ \t\r\f\n]+
                              }
 <YYINITIAL> {APPEND}         {MisTokens.add(new Tokens("APPEND",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.APPEND, yyline, yycolumn, yytext());
+                             }
+<YYINITIAL> {REVERSE}        {MisTokens.add(new Tokens("REVERSE",yytext(), yyline, yycolumn));
+                                return new Symbol(sym.REVERSE, yyline, yycolumn, yytext());
                              }
 <YYINITIAL> {GET}            {MisTokens.add(new Tokens("GET",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.GET, yyline, yycolumn, yytext());
