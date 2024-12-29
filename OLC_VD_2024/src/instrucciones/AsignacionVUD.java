@@ -57,18 +57,18 @@ public class AsignacionVUD extends Instrucciones{
             return new Errores("SEMANTICO", "El indice debe de ser un valor entero", this.line, this.column);
         }
         
-        int ValIndex = (int) index;
+        int NumIndex = (int) index;
         if(!(vector.getValue() instanceof LinkedList)){
             return new Errores("SEMANTICO", "No es un vector", this.line, this.column);
         }
         
         LinkedList<Object> lista_valores = (LinkedList<Object>)vector.getValue();
         
-        if(ValIndex < 0 || ValIndex >= lista_valores.size()){
+        if(NumIndex < 0 || NumIndex >= lista_valores.size()){
             return new Errores("SEMANTICO", "El indice esta fuera del rango", this.line, this.column);
         }
         
-        lista_valores.set(ValIndex, newValor);
+        lista_valores.set(NumIndex, newValor);
         vector.setValue(lista_valores);
         
         return null;

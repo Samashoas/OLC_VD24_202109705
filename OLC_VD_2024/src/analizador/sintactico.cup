@@ -265,7 +265,7 @@ expresion ::= MENOS expresion:a               {:   RESULT = new Aritmeticas(a, O
 
             | ENTERO:a   {: RESULT = new Nativo(Integer.parseInt(a), new Tipo(TipoDato.ENTERO), aleft, aright); :}
             | DECIMAL:a  {: RESULT = new Nativo(new Double(a), new Tipo(TipoDato.DECIMAL), aleft, aright); :}
-            | CARACTER:a {: RESULT = new Nativo(a, new Tipo(TipoDato.CARACTER), aleft, aright); :}
+            | CARACTER:a {: RESULT = new Nativo(a ,new Tipo(TipoDato.CARACTER), aleft, aright); :}
             | CADENA:a   {: RESULT = new Nativo(a ,new Tipo(TipoDato.CADENA), aleft, aright); :}
             | BOOLEANO:a {: RESULT = new Nativo(Boolean.parseBoolean(a), new Tipo(TipoDato.BOOLEANO), aleft, aright); :}
             
