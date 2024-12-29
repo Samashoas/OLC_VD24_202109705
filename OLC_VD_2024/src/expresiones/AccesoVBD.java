@@ -27,7 +27,7 @@ public class AccesoVBD extends Instrucciones{
 
     @Override
     public Object interpretar(Arbol tree, TablaSimbolos table) {
-         Simbolo vector = table.getVariable(id);
+        Simbolo vector = table.getVariable(id);
         if (vector == null) {
             return new Errores("SEMANTICO", "El vector no existe", this.line, this.column);
         }
