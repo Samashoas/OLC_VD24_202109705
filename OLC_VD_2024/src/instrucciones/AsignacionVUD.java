@@ -35,7 +35,7 @@ public class AsignacionVUD extends Instrucciones{
         
         if(!vector.isMutable()){
             return new Errores("SEMANTICO", "La variable no es mutable", this.line, this.column);
-        }
+        } 
         
         if(this.index == null){
             return new Errores("SEMANTICO", "Index no puede tener un valor nulo", this.line, this.column);

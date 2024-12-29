@@ -30,29 +30,33 @@ public class DeclaracionVUD extends Instrucciones{
 
     @Override
     public Object interpretar(Arbol tree, TablaSimbolos table) {
-        if(this.ListaValores == null){
-            return new Errores("SEMANTICO","Se necesita un valor para declarar el vector", this.line, this.column);
+         if (ListaValores == null) {
+            return new Errores("SEMANTICO", "Se necesita un valor para declarar el vector", this.line, this.column);
         }
-        
-        LinkedList<Object> valores = new LinkedList<>();
-        
-        for(Instrucciones valor : this.ListaValores){
-            var ValorInterpretado = valor.interpretar(tree, table);
-            
-            if(ValorInterpretado instanceof Errores){
-                return ValorInterpretado;
-            }
-            
-            if(valor.type.getTipo() != this.type.getTipo()){
-                return new Errores("SEMANTICO", "Los tipos no coinciden", this.line, this.column);
-            }
-            
-            valores.add(ValorInterpretado);
+
+        LinkedList<Object> valores = interpretarValores(tree, table);
+        if (valores == null) {
+            return new Errores("SEMANTICO", "Error al interpretar los valores del vector", this.line, this.column);
         }
-        
+
         Simbolo nuevoSimbolo = new Simbolo(this.type, this.Identificador, valores, this.IsMutable);
         table.setVariable(nuevoSimbolo);
-        
+
         return null;
+    }
+    
+     private LinkedList<Object> interpretarValores(Arbol tree, TablaSimbolos table) {
+        LinkedList<Object> valores = new LinkedList<>();
+        for (Instrucciones valor : ListaValores) {
+            Object valorInterpretado = valor.interpretar(tree, table);
+            if (valorInterpretado instanceof Errores) {
+                return null;
+            }
+            if (valor.type.getTipo() != this.type.getTipo()) {
+                return null;
+            }
+            valores.add(valorInterpretado);
+        }
+        return valores;
     }
 }
