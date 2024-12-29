@@ -45,6 +45,7 @@ import expresiones.Round;
 import expresiones.Length;
 import expresiones.ToString;
 import expresiones.AccesoVar;
+import expresiones.Get;
 import expresiones.AccesoVUD;
 import expresiones.AccesoVBD;
 import expresiones.OperadoresAritmeticos;
@@ -80,7 +81,7 @@ action code
 :}
 
 terminal String CARACTER, CADENA, ENTERO, DECIMAL, BOOLEANO, ID, BREAK, CONTINUE, RETURN;
-terminal RUN, COLOM, FINCADENA, IMPRIMIR, CAST, AS, LET, CONST, ROUND, LENGTH, TOSTRING, LIST, APPEND;
+terminal RUN, COLOM, FINCADENA, IMPRIMIR, CAST, AS, LET, CONST, ROUND, LENGTH, TOSTRING, LIST, APPEND, GET;
 terminal LKEY, RKEY, PAR1, PAR2, LBRACKET, RBRACKET, COMA, MAS, MENOS, UMENOS, POR, DIVISION, POTENCIA, RAIZ, MODULO, IGUAL, DOT;
 terminal TO, IGUALACION, DIFERENCIA, MAYOR, MAYORIGUAL, MENOR, MENORIGUAL;
 terminal AND, OR, NOT;
@@ -295,6 +296,8 @@ expresion ::= MENOS expresion:a               {:   RESULT = new Aritmeticas(a, O
             | PAR1 expresion:a PAR2 {: RESULT = a; :}
 
             | ID:a {: RESULT = new AccesoVar(a, aleft, aright); :}
+
+            | ID:a DOT GET PAR1 expresion:b PAR2 {: RESULT = new Get(a, b, aleft, aright); :}
 
             | ID:a LBRACKET expresion:b RBRACKET {: RESULT = new AccesoVUD(a, b, aleft, aright); :}
             | ID:a LBRACKET expresion:b RBRACKET LBRACKET expresion:c RBRACKET {: RESULT = new AccesoVBD(a, b, c, aleft, aright); :}

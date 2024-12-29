@@ -9,71 +9,72 @@ package analizador;
 public class sym {
   /* terminals */
   public static final int CAST = 15;
-  public static final int PAR2 = 27;
-  public static final int PAR1 = 26;
-  public static final int DIFERENCIA = 43;
-  public static final int LKEY = 24;
-  public static final int LBRACKET = 28;
-  public static final int CHAR = 55;
+  public static final int PAR2 = 28;
+  public static final int PAR1 = 27;
+  public static final int DIFERENCIA = 44;
+  public static final int LKEY = 25;
+  public static final int LBRACKET = 29;
+  public static final int CHAR = 56;
+  public static final int POR = 35;
   public static final int CONST = 18;
-  public static final int POR = 34;
-  public static final int IGUALACION = 42;
+  public static final int IGUALACION = 43;
   public static final int IMPRIMIR = 14;
   public static final int ENTERO = 4;
-  public static final int DOUBLE = 54;
+  public static final int DOUBLE = 55;
   public static final int CONTINUE = 9;
-  public static final int INT = 53;
-  public static final int FOR = 61;
-  public static final int MATCH = 64;
-  public static final int NOT = 50;
-  public static final int AND = 48;
-  public static final int MENORIGUAL = 47;
+  public static final int INT = 54;
+  public static final int FOR = 62;
+  public static final int MATCH = 65;
+  public static final int NOT = 51;
+  public static final int AND = 49;
+  public static final int MENORIGUAL = 48;
   public static final int FINCADENA = 13;
-  public static final int IGUAL = 39;
+  public static final int IGUAL = 40;
   public static final int APPEND = 23;
   public static final int CARACTER = 2;
-  public static final int OR = 49;
-  public static final int BOOL = 57;
-  public static final int RAIZ = 37;
-  public static final int INCREMENTO = 51;
-  public static final int IF = 59;
-  public static final int UMENOS = 33;
-  public static final int DOT = 40;
+  public static final int OR = 50;
+  public static final int BOOL = 58;
+  public static final int RAIZ = 38;
+  public static final int GET = 24;
+  public static final int INCREMENTO = 52;
+  public static final int IF = 60;
+  public static final int UMENOS = 34;
+  public static final int DOT = 41;
   public static final int ID = 7;
-  public static final int MAYORIGUAL = 45;
+  public static final int MAYORIGUAL = 46;
   public static final int EOF = 0;
   public static final int DECIMAL = 5;
   public static final int RETURN = 10;
-  public static final int RBRACKET = 29;
-  public static final int RKEY = 25;
-  public static final int DECREMENTO = 52;
+  public static final int RBRACKET = 30;
+  public static final int RKEY = 26;
+  public static final int DECREMENTO = 53;
   public static final int error = 1;
-  public static final int COMA = 30;
+  public static final int COMA = 31;
   public static final int CADENA = 3;
-  public static final int MODULO = 38;
-  public static final int MENOS = 32;
-  public static final int MENOR = 46;
+  public static final int MODULO = 39;
+  public static final int MENOS = 33;
+  public static final int MENOR = 47;
   public static final int BREAK = 8;
   public static final int TOSTRING = 21;
-  public static final int VOID = 58;
-  public static final int MAYOR = 44;
-  public static final int POTENCIA = 36;
+  public static final int VOID = 59;
+  public static final int MAYOR = 45;
+  public static final int POTENCIA = 37;
   public static final int COLOM = 12;
-  public static final int ELSE = 60;
-  public static final int TO = 41;
-  public static final int WHILE = 62;
+  public static final int ELSE = 61;
+  public static final int TO = 42;
+  public static final int WHILE = 63;
   public static final int LIST = 22;
-  public static final int DEFAULT = 65;
+  public static final int DEFAULT = 66;
   public static final int LET = 17;
   public static final int BOOLEANO = 6;
-  public static final int STRING = 56;
+  public static final int STRING = 57;
   public static final int AS = 16;
-  public static final int DIVISION = 35;
+  public static final int DIVISION = 36;
   public static final int RUN = 11;
-  public static final int DO = 63;
+  public static final int DO = 64;
   public static final int LENGTH = 20;
   public static final int ROUND = 19;
-  public static final int MAS = 31;
+  public static final int MAS = 32;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -99,6 +100,7 @@ public class sym {
   "TOSTRING",
   "LIST",
   "APPEND",
+  "GET",
   "LKEY",
   "RKEY",
   "PAR1",
