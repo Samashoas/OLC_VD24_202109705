@@ -158,6 +158,7 @@ declaracion ::= LET ID:a COLOM tipos:b IGUAL expresion:c    {: RESULT = new Decl
               | LET ID:a COLOM tipos:b LBRACKET RBRACKET IGUAL LBRACKET lista_valoresVUD:c RBRACKET {: RESULT = new DeclaracionVUD(a, c, true, b, aleft, aright); :}
               | CONST ID:a COLOM tipos:b IGUAL expresion:c  {: RESULT = new Declaracion(a, c, b, false, aleft, aright); :}
               | CONST ID:a COLOM tipos:b                    {: RESULT = new Declaracion(a, null, b, false, aleft, aright); :}
+              | CONST ID:a COLOM tipos:b LBRACKET RBRACKET IGUAL LBRACKET lista_valoresVUD:c RBRACKET {: RESULT = new DeclaracionVUD(a, c, false, b, aleft, aright); :}
 ;
 
 //VUD(ID, INDEX, EXPRESION, LINEA, COLUMNA)
