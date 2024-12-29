@@ -45,6 +45,7 @@ LET = "let"
 CONST = "const"
 LIST = "list"
 APPEND = "append"
+SET = "set"
 GET = "get"
 ROUND = "round"
 LENGTH = "length"
@@ -148,6 +149,9 @@ WHITESPACE = [ \t\r\f\n]+
                              }
 <YYINITIAL> {GET}            {MisTokens.add(new Tokens("GET",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.GET, yyline, yycolumn, yytext());
+                             }
+<YYINITIAL> {SET}            {MisTokens.add(new Tokens("SET",yytext(), yyline, yycolumn));
+                                return new Symbol(sym.SET, yyline, yycolumn, yytext());
                              }
 <YYINITIAL> {ROUND}          {MisTokens.add(new Tokens("ROUND",yytext(), yyline, yycolumn));
                                 return new Symbol(sym.ROUND, yyline, yycolumn, yytext());
