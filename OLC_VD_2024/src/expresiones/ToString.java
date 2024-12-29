@@ -28,7 +28,6 @@ public class ToString extends Instrucciones{
             return valor;
         }
 
-        // Convertir el valor a cadena
         return valor.toString();
     }
 }
