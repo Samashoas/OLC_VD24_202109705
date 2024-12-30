@@ -184,6 +184,7 @@ declaracion ::= LET ID:a COLOM tipos:b IGUAL expresion:c    {: RESULT = new Decl
 asignacion ::= ID:a IGUAL expresion:c  {: RESULT = new AsignacionVar(a, c, aleft, aright); :}
              | ID:a DOT APPEND PAR1 expresion:b PAR2 {: RESULT = new Append(a, b, aleft, aright); :}
              | ID:a DOT REVERSE PAR1 PAR2 {: RESULT = new Reverse(a, aleft, aright); :}
+             | ID:a DOT REMOVE PAR1 expresion:b PAR2 {: RESULT = new Remove(a, b, aleft, aright); :}
              | ID:a LBRACKET expresion:b RBRACKET IGUAL expresion:c {: RESULT = new AsignacionVUD(a, b, c, aleft, aright); :}
              | ID:a DOT SET PAR1 expresion:b COMA expresion:c PAR2 {: RESULT = new AsignacionVUD(a, b, c, aleft, aright); :}
              | ID:a LBRACKET expresion:b RBRACKET LBRACKET expresion:c RBRACKET IGUAL expresion:d {: RESULT = new AsignacionVBD(a, b, c, d, aleft, aright); :}

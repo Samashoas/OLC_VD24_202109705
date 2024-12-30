@@ -229,14 +229,6 @@ public class IDE extends javax.swing.JFrame {
                     ast.addFunciones(a);
                     continue;
                 }
-                //var res = a.interpretar(ast, tabla);
-                
-                /*
-                var res = a.interpretar(ast, tabla);
-                if(res instanceof Errores){
-                    this.listaErrores.add((Errores)res);
-                }
-                */
             }
             //segundo recorrido
             for(var a:ast.getInstructions()){
