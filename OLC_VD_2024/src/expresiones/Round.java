@@ -16,7 +16,7 @@ public class Round extends Instrucciones{
     private Instrucciones expresion;
 
     public Round(Instrucciones expresion, int line, int column) {
-        super(new Tipo(TipoDato.DECIMAL), line, column);
+        super(new Tipo(TipoDato.ENTERO), line, column);
         this.expresion = expresion;
     }
 
